@@ -9,47 +9,57 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:id="rootBorder">
-    <center>
-        <AnchorPane prefHeight="165.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-            <children>
-                <TextArea fx:id="informationArea" layoutX="191.0" layoutY="64.0" prefHeight="276.0" prefWidth="395.0" style="-fx-border-width: 1; -fx-border-color: black;" />
-                <AnchorPane layoutX="26.0" layoutY="64.0" prefHeight="275.0" prefWidth="155.0" style="-fx-border-color: black; -fx-border-width: 1;">
-                    <children>
-                        <ImageView fx:id="logoImage" fitHeight="41.0" fitWidth="55.0" layoutX="20.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@/logo.png" />
-                            </image></ImageView>
-                        <ImageView fx:id="championshipImage" fitHeight="86.0" fitWidth="119.0" layoutX="20.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@/logo.png" />
-                            </image></ImageView>
-                        <ImageView fx:id="presidentImage" fitHeight="79.0" fitWidth="127.0" layoutX="20.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@/Simon_Bartley.jpg" />
-                            </image></ImageView>
-                        <ImageView fx:id="AbidalImage" fitHeight="79.0" fitWidth="79.0" layoutX="79.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@/Albert_Vidal.jpg" />
-                            </image>
-                        </ImageView>
-                    </children>
-                </AnchorPane>
-                <Label alignment="CENTER" layoutX="186.0" layoutY="14.0" prefHeight="33.0" prefWidth="227.0" text="История WorldSkills">
-                    <font>
-                        <Font name="Leelawadee UI Semilight" size="24.0" />
-                    </font></Label>
-            </children>
-        </AnchorPane>
-    </center>
-    <top>
-        <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-            <buttons>
-                <Button mnemonicParsing="false" text="Button" />
-            </buttons>
-        </ButtonBar>
-    </top>
-</BorderPane>
+<VBox fx:controller="main.Controller"
+      xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml">
+    <VBox styleClass="viewHeader" alignment="TOP_CENTER" prefHeight="100">
+        <Label style="-fx-font-size: 30; -fx-font-family: 'Open Sans';
+                         -fx-font-weight: bold; -fx-text-fill: white" >
+            WorldSkills Russia 2017
+        </Label>
+    </VBox>
+    <BorderPane styleClass="contentPane"
+                prefHeight="920" prefWidth="Infinity">
+        <center>
+            <AnchorPane prefHeight="165.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                <children>
+                    <TextArea fx:id="informationArea" layoutX="191.0" layoutY="64.0" prefHeight="276.0" prefWidth="395.0" style="-fx-border-width: 1; -fx-border-color: black;" />
+                    <AnchorPane layoutX="26.0" layoutY="64.0" prefHeight="275.0" prefWidth="155.0" style="-fx-border-color: black; -fx-border-width: 1;">
+                        <children>
+                            <ImageView fx:id="logoImage" fitHeight="41.0" fitWidth="55.0" layoutX="20.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@/logo.png" />
+                                </image></ImageView>
+                            <ImageView fx:id="championshipImage" fitHeight="86.0" fitWidth="119.0" layoutX="20.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@/logo.png" />
+                                </image></ImageView>
+                            <ImageView fx:id="presidentImage" fitHeight="79.0" fitWidth="127.0" layoutX="20.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@/Simon_Bartley.jpg" />
+                                </image></ImageView>
+                            <ImageView fx:id="AbidalImage" fitHeight="79.0" fitWidth="79.0" layoutX="79.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@/Albert_Vidal.jpg" />
+                                </image>
+                            </ImageView>
+                        </children>
+                    </AnchorPane>
+                    <Label alignment="CENTER" layoutX="186.0" layoutY="14.0" prefHeight="33.0" prefWidth="227.0" text="История WorldSkills">
+                        <font>
+                            <Font name="Leelawadee UI Semilight" size="24.0" />
+                        </font></Label>
+                </children>
+            </AnchorPane>
+        </center>
+        <top>
+            <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                <buttons>
+                    <Button mnemonicParsing="false" text="Button" />
+                </buttons>
+            </ButtonBar>
+        </top>
+    </BorderPane>
+</VBox>

@@ -1,6 +1,5 @@
-.mainGroup {
-    -fx-font-size: 15;
-    -fx-font-family: sans-serif;
+.contentPane {
+    -fx-background-color: #ffffff;
 }
 
 .mainViewHeader {
@@ -20,6 +19,6 @@
     -fx-font-size: 31;
 }
 
-.contentPane {
-    -fx-background-color: #ffffff;
+.viewHeader {
+    -fx-background-color: #525252;
 }
