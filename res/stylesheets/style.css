@@ -4,6 +4,7 @@
 
 .mainViewHeader {
     -fx-background-color: #525252;
+    -fx-padding: 10;
 }
 
 .jump-button {

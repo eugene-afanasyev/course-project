@@ -9,23 +9,40 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.image.ImageView?>
 
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.Pane?>
 <VBox fx:controller="main.Controller" styleClass="mainGroup"
       xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml">
-        <VBox styleClass="mainViewHeader" alignment="TOP_CENTER">
-                <Label style="-fx-font-size: 30; -fx-font-family: 'Open Sans';
-                         -fx-font-weight: bold; -fx-text-fill: white" >
-                        WorldSkills Russia 2017
-                </Label>
-                <Label style="-fx-font-size: 20; -fx-font-family: 'Open Sans';
-                         -fx-font-style: italic; -fx-text-fill: #cccccc">
-                        Краснодар, Россия
-                </Label>
-                <Label style="-fx-font-size: 20; -fx-font-family: 'Open Sans';
-                         -fx-font-style: italic; -fx-text-fill: #cccccc">
-                        Вторник 16 мая 2017
-                </Label>
-        </VBox>
+        <BorderPane styleClass="mainViewHeader" prefHeight="150">
+                <left>
+                        <ImageView fitHeight="150.0" fitWidth="150.0">
+                                <image>
+                                        <Image url="@/logo.png" />
+                                </image>
+                        </ImageView>
+                </left>
+                <center>
+                        <VBox alignment="TOP_CENTER">
+                                <Label style="-fx-font-size: 30; -fx-font-family: 'Open Sans';
+         -fx-font-weight: bold; -fx-text-fill: white" >
+                                        WorldSkills Russia 2017
+                                </Label>
+                                <Label style="-fx-font-size: 20; -fx-font-family: 'Open Sans';
+         -fx-font-style: italic; -fx-text-fill: #cccccc">
+                                        Краснодар, Россия
+                                </Label>
+                                <Label style="-fx-font-size: 20; -fx-font-family: 'Open Sans';
+         -fx-font-style: italic; -fx-text-fill: #cccccc">
+                                        Вторник 16 мая 2017
+                                </Label>
+                        </VBox>
+                </center>
+                <right>
+                        <Pane prefWidth="150"/> <!--empty pane-->
+                </right>
+        </BorderPane>
         <BorderPane fx:id="contentBorder" styleClass="contentPane"
                     prefHeight="920" prefWidth="Infinity">
                 <center>
