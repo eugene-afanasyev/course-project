@@ -1,6 +1,7 @@
 package main.models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -43,6 +44,7 @@ public class Championship {
         this.city        = city;
         this.country     = country;
         this.fullAddress = fullAddress;
+        this.disciplines = new ArrayList<>();
     }
 
     public String getName ( ) {
@@ -83,5 +85,12 @@ public class Championship {
 
     public void setFullAddress ( String fullAddress ) {
         this.fullAddress = fullAddress;
+    }
+    public List<Discipline> getDisciplines ( ) {
+        return disciplines;
+    }
+
+    public void setDisciplines ( List<Discipline> disciplines ) {
+        this.disciplines = disciplines;
     }
 }
