@@ -1,0 +1,87 @@
+package main.models;
+
+import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
+
+@Entity
+@Table (name = "championships")
+public class Championship {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public int id;
+
+    @Column(name = "name")
+    public String name;
+
+    @Column(name = "event_date")
+    public Date date;
+
+    @Column ( name = "city" )
+    private String city;
+
+    @Column(name = "country")
+    private String country;
+
+    @Column(name = "full_address")
+    private String fullAddress;
+
+    @ManyToMany
+    @JoinTable( name = "champ_disciplines",
+                joinColumns = @JoinColumn(name = "championship_id"),
+                inverseJoinColumns = @JoinColumn(name = "discipline_id"))
+    private List<Discipline> disciplines;
+
+    public Championship(){
+
+    }
+
+    public Championship ( String name , Date date , String city , String country , String fullAddress ) {
+        this.name        = name;
+        this.date        = date;
+        this.city        = city;
+        this.country     = country;
+        this.fullAddress = fullAddress;
+    }
+
+    public String getName ( ) {
+        return name;
+    }
+
+    public void setName ( String name ) {
+        this.name = name;
+    }
+
+    public Date getDate ( ) {
+        return date;
+    }
+
+    public void setDate ( Date date ) {
+        this.date = date;
+    }
+
+    public String getCity ( ) {
+        return city;
+    }
+
+    public void setCity ( String city ) {
+        this.city = city;
+    }
+
+    public String getCountry ( ) {
+        return country;
+    }
+
+    public void setCountry ( String country ) {
+        this.country = country;
+    }
+
+    public String getFullAddress ( ) {
+        return fullAddress;
+    }
+
+    public void setFullAddress ( String fullAddress ) {
+        this.fullAddress = fullAddress;
+    }
+}
