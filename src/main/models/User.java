@@ -130,4 +130,7 @@ public class User {
     public void setRegion ( Region region ) {
         this.region = region;
     }
+
+    public void addResult(Result result){
+    }
 }

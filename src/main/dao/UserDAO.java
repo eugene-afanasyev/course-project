@@ -10,4 +10,8 @@ public interface UserDAO {
     void remove(User user);
     void update(User user);
     Enumeration<User> findAll();
+    // результаты на каком-то сорвеновании
+    // результаты на всех соревнованиях
+    // все соревнования
+    //
 }
