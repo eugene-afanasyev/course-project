@@ -1,6 +1,7 @@
 package main.models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -35,10 +36,19 @@ public class Discipline {
         return name;
     }
 
+    public List<Championship> getChampionships ( ) {
+        return championships;
+    }
+
+    public void setChampionships ( List<Championship> championships ) {
+        this.championships = championships;
+    }
+
     public Discipline(){
 
     }
     public Discipline ( String name ) {
         this.name = name;
+        this.championships = new ArrayList<>();
     }
 }
