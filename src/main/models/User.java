@@ -18,6 +18,10 @@ public class User {
         this.region       = region;
     }
 
+    public User(){
+
+    }
+
     @Id
     @GeneratedValue ( strategy = GenerationType.IDENTITY )
     private int id;
@@ -132,5 +136,6 @@ public class User {
     }
 
     public void addResult(Result result){
+
     }
 }

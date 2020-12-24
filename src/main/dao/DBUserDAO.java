@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.Enumeration;
+import java.util.List;
 
 public class DBUserDAO implements UserDAO{
 
@@ -46,7 +47,9 @@ public class DBUserDAO implements UserDAO{
     }
 
     @Override
-    public Enumeration<User> findAll ( ) {
-        return null;
+    public List<User> findAll ( )
+    {
+        List<User> users = (List<User>)  HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("From User").list();
+        return users;
     }
 }

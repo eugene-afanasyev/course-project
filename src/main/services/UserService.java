@@ -1,9 +1,11 @@
 package main.services;
 
+import main.dao.DBUserDAO;
 import main.dao.UserDAO;
 import main.models.User;
 
 import java.util.Enumeration;
+import java.util.List;
 import java.util.function.Supplier;
 
 public class UserService<T extends UserDAO> {
@@ -18,6 +20,8 @@ public class UserService<T extends UserDAO> {
     }
 
     public void saveUser(User user) {
+        var dao = supplier.get();
+
         supplier.get().save(user);
     }
 
@@ -29,7 +33,7 @@ public class UserService<T extends UserDAO> {
         supplier.get().update(user);
     }
 
-    public Enumeration<User> findAllUsers() {
+    public List<User> findAllUsers() {
         return supplier.get().findAll();
     }
 }
