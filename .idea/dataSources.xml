@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="wsdb@localhost" uuid="e6fa4d67-7898-443b-a82c-40393877209b">
+    <data-source source="LOCAL" name="wsdb" uuid="e6fa4d67-7898-443b-a82c-40393877209b">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://ec2-52-214-38-135.eu-west-1.compute.amazonaws.com:5432/d3i5qv7h43d4lc</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="local" uuid="83850ce5-12e7-4733-8f9f-6194757bbeb3">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
