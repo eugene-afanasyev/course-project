@@ -2,6 +2,7 @@ package main.models;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table ( name = "users" )
@@ -54,6 +55,16 @@ public class User {
     @OneToOne ( cascade = CascadeType.ALL )
     @JoinColumn ( name = "region_id" )
     private Region region;
+
+    @ManyToMany
+    @JoinTable(name = "user_championships",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "champ_id"))
+    private List<Championship> championships;
+
+    @OneToMany (cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "user_id")
+    private List<Result> results;
 
     public int getId ( ) {
         return id;
@@ -135,7 +146,19 @@ public class User {
         this.region = region;
     }
 
-    public void addResult(Result result){
+    public List<Championship> getChampionships ( ) {
+        return championships;
+    }
 
+    public void setChampionships ( List<Championship> championships ) {
+        this.championships = championships;
+    }
+
+    public List<Result> getResults ( ) {
+        return results;
+    }
+
+    public void setResults ( List<Result> results ) {
+        this.results = results;
     }
 }

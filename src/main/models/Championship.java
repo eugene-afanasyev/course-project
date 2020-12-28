@@ -34,6 +34,12 @@ public class Championship {
                 inverseJoinColumns = @JoinColumn(name = "discipline_id"))
     private List<Discipline> disciplines;
 
+    @ManyToMany
+    @JoinTable(name = "user_championships",
+            joinColumns = @JoinColumn(name = "champ_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<User> users;
+
     public Championship(){
 
     }
@@ -92,5 +98,13 @@ public class Championship {
 
     public void setDisciplines ( List<Discipline> disciplines ) {
         this.disciplines = disciplines;
+    }
+
+    public List<User> getUsers ( ) {
+        return users;
+    }
+
+    public void setUsers ( List<User> users ) {
+        this.users = users;
     }
 }

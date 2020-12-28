@@ -20,19 +20,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
 
         UserService<DBUserDAO> userService = new UserService<>(DBUserDAO::new);
-
-       /* User user = new User("gleb",
-                "grenkin",
-                new Date(2000, Calendar.MAY, 2),
-                "949392929",
-                "jokersobak",
-                "mathgodjsbk",
-                "blabla@gmail.com",
-                new Role("admin"),
-                new Region("Primorsky kray", "dvfu")
-                );
-     //   userService.saveUser(user);
-        userService.saveUser(user);*/
+        User user = new User();
 
         Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
         Scene primaryScene = new Scene(root, 920, 640);

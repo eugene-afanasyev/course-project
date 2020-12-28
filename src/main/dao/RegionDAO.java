@@ -1,4 +1,6 @@
 package main.dao;
 
-public interface RegionDAO {
+import main.models.Region;
+
+public interface RegionDAO extends DataAccessObject<Region> {
 }
