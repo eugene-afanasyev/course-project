@@ -1,20 +1,21 @@
 package main.parsers;
 
-import com.opencsv.CSVReader;
+import com.opencsv.bean.CsvToBeanBuilder;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.List;
 
 public class CSVParser {
-    static List<String[]> Parse(String path) throws IOException {
+    static public<T> List<T> Parse(String path, Class<T> clazz) {
         try {
-            CSVReader reader = new CSVReader(new FileReader(path), ',', '"', 1);
-            List<String[]> allRows = reader.readAll();
-            return allRows;
-        } catch (FileNotFoundException e) {
-            e.getStackTrace();
+            String fileName = path;
+            List<T> beans = new CsvToBeanBuilder(new FileReader(fileName))
+                    .withType(clazz)
+                    .build()
+                    .parse();
+            return beans;
+        } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }
