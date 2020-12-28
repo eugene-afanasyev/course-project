@@ -1,4 +1,7 @@
 package main.dao;
 
-public interface ChampionshipDAO {
+import main.models.Championship;
+
+public interface ChampionshipDAO extends DataAccessObject<Championship>{
+
 }
