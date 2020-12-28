@@ -8,32 +8,36 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class UserService<T extends UserDAO> {
+public class UserService<T extends UserDAO> implements EntityService<User> {
     private final Supplier<T> supplier;
 
     public UserService(Supplier<T> supplier) {
         this.supplier = supplier;
     }
 
-    public User findUser( int id) {
+    @Override
+    public User find( int id) {
         return supplier.get().findById(id);
     }
-
-    public void saveUser(User user) {
+    @Override
+    public void save(User user) {
         var dao = supplier.get();
 
         supplier.get().save(user);
     }
 
-    public void deleteUser(User user) {
+    @Override
+    public void delete(User user) {
         supplier.get().remove(user);
     }
 
-    public void updateUser(User user) {
+    @Override
+    public void update(User user) {
         supplier.get().update(user);
     }
 
-    public List<User> findAllUsers() {
+    @Override
+    public List<User> findAll() {
         return supplier.get().findAll();
     }
 }
