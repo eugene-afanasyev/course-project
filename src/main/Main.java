@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import main.initializers.FromXLSXInitializer;
+import main.initializers.Initializer;
 import main.models.*;
 import main.dao.*;
 import main.services.*;
@@ -20,7 +22,14 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
 
         UserService<DBUserDAO> userService = new UserService<>(DBUserDAO::new);
-        User user = new User();
+        RoleService<DBRoleDAO> rolesService = new RoleService<>(DBRoleDAO::new);
+
+        var roles = rolesService.findAll();
+
+        Initializer initializer = new FromXLSXInitializer();
+
+        initializer.initializeRoles("roles.xls");
+        initializer.initializeRegions("regions.xls");
 
         Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
         Scene primaryScene = new Scene(root, 920, 640);
