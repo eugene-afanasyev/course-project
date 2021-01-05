@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.HBox?>
+<VBox fx:controller="main.controllers.WorldSkillsHistoryController"
+      xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml">
+    <fx:include source="header.fxml"/>
+    <BorderPane styleClass="contentPane"
+                prefHeight="920" prefWidth="Infinity">
+        <top>
+            <VBox alignment="CENTER">
+                <Label alignment="TOP_CENTER" text="История WorldSkills" style="-fx-font-size: 32; -fx-text-alignment: center"/>
+                <Region minHeight="40" maxHeight="40"/>
+            </VBox>
+        </top>
+        <center>
+            <HBox>
+                <VBox alignment="CENTER" maxWidth="250" prefWidth="200"
+                      style="-fx-border-width: 3; -fx-border-color: black;">
+                    <HBox>
+                        <ImageView fx:id="logoImage" fitHeight="80" fitWidth="80" pickOnBounds="true"
+                                   preserveRatio="true">
+                            <Image url="@/logo.png"/>
+                        </ImageView>
+                        <ImageView fx:id="AbidalImage" fitHeight="150" fitWidth="150" pickOnBounds="true"
+                                   preserveRatio="true">
+                            <Image url="@/Albert_Vidal.jpg"/>
+                        </ImageView>
+                    </HBox>
+                    <ImageView fx:id="championshipImage" fitHeight="100.0" fitWidth="150.0"
+                               pickOnBounds="true" preserveRatio="true">
+                        <Image url="@/logo.png"/>
+                    </ImageView>
+                    <ImageView fx:id="presidentImage" fitHeight="100.0" fitWidth="150.0"
+                               pickOnBounds="true" preserveRatio="true">
+                        <Image url="@/Simon_Bartley.jpg"/>
+                    </ImageView>
+                </VBox>
+                <Region maxWidth="25" minWidth="25"/>
+                <TextArea fx:id="informationArea" HBox.hgrow="ALWAYS"
+                          prefHeight="276.0" prefWidth="395.0" maxWidth="600"
+                          style="-fx-border-width: 3; -fx-border-color: black; -fx-font-size: 20" />
+            </HBox>
+<!--            <AnchorPane prefHeight="165.0" prefWidth="600.0" BorderPane.alignment="CENTER">-->
+<!--                <children>-->
+<!--                    <TextArea fx:id="informationArea" layoutX="191.0" layoutY="64.0" prefHeight="276.0" prefWidth="395.0" style="-fx-border-width: 1; -fx-border-color: black;" />-->
+<!--                    <AnchorPane layoutX="26.0" layoutY="64.0" prefHeight="275.0" prefWidth="155.0" style="-fx-border-color: black; -fx-border-width: 1;">-->
+<!--                    </AnchorPane>-->
+
+<!--                </children>-->
+<!--            </AnchorPane>-->
+        </center>
+    </BorderPane>
+</VBox>

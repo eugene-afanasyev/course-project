@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="main.controllers.AboutWSController">
+    <fx:include source="header.fxml"/>
+
+    <BorderPane fx:id="contentBorder" styleClass="contentPane"
+                prefHeight="920" prefWidth="Infinity">
+        <top>
+            <VBox alignment="TOP_CENTER">
+                <Label style="-fx-font-size: 40 ">
+                    O WorldSkills
+                </Label>
+            </VBox>
+        </top>
+        <center>
+            <VBox alignment="CENTER" spacing="10" style="-fx-font-size: 15">
+                <Button styleClass="jump-button" prefWidth="420" prefHeight="100" text="История WorldSkills"
+                        onMouseClicked="#toWorldSkillsHistory"/>
+                <Button styleClass="jump-button" prefWidth="420" prefHeight="100" text="Компетенции чемпионата"/>
+                <Button styleClass="jump-button" prefWidth="420" prefHeight="100" text="Чемпионаты стран WSI"/>
+            </VBox>
+        </center>
+    </BorderPane>
+</VBox>
