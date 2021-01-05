@@ -30,25 +30,11 @@ public class Controller  {
     }
 
     private void moveToScene(String viewPath) {
-//        Parent root = null;
-//        try {
-//            root = FXMLLoader.load(getClass().getResource(viewPath));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        assert root != null;
-//        Scene scene = new Scene(root);
-//        Stage stage = (Stage) contentBorder.getScene().getWindow();
-//        scene.getStylesheets().add(getClass().getResource("/stylesheets/style.css").toExternalForm());
-//        stage.setScene(scene);
-
-
         Parent root;
         try {
             FXMLLoader loader = new FXMLLoader();
             root = loader.load(getClass().getResource(viewPath));
             Stage stage = new Stage();
-            stage.setTitle("aboutWorldSkills");
             stage.setScene(new Scene(root, 920, 640));
             stage.setResizable(false);
             stage.show();
