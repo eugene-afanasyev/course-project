@@ -9,10 +9,10 @@ public class Region {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "name")
+    @Column(name = "name", length = 100)
     private String name;
 
-    @Column(name = "capital")
+    @Column(name = "capital", length = 100)
     private String capital;
 
     public Region(){
