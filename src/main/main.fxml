@@ -41,7 +41,7 @@
                         <VBox alignment="CENTER" spacing="10">
                                 <Button styleClass="jump-button" prefWidth="420" prefHeight="100" text="О WorldSkills" onMouseClicked="#aboutWorldSkills"/>
                                 <Button styleClass="jump-button" prefWidth="420" prefHeight="100" text="О WorldSkills Russia" onMouseClicked="#aboutWorldSkills"/>
-                                <Button styleClass="jump-button" prefWidth="420" prefHeight="100" text="О Краснодарском Крае" onMouseClicked="#aboutWorldSkills"/>
+                                <Button styleClass="jump-button" prefWidth="420" prefHeight="100" text="О Краснодарском Крае" onMouseClicked="#aboutKrasnodarRegion"/>
                         </VBox>
                 </center>
         </BorderPane>

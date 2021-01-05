@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="640.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.AboutKrasnodarRegionController">
+    <fx:include source="header.fxml" />
+   <AnchorPane prefHeight="584.0" prefWidth="920.0">
+      <children>
+         <Label layoutX="291.0" layoutY="30.0" prefHeight="57.0" prefWidth="338.0" text="О Краснодарском крае">
+            <font>
+               <Font name="SansSerif Regular" size="30.0" />
+            </font>
+         </Label>
+         <TabPane fx:id="iformationPane" layoutX="83.0" layoutY="87.0" prefHeight="479.0" prefWidth="750.0" style="-fx-background-color: #D3D3D3#D3D3D3; -fx-padding: 5;" tabClosingPolicy="UNAVAILABLE" />
+      </children>
+   </AnchorPane>
+</VBox>

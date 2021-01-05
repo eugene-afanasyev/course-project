@@ -29,6 +29,11 @@ public class Controller  {
         moveToScene("/Views/AboutWorldSkills.fxml");
     }
 
+    @FXML
+    public void aboutKrasnodarRegion() {
+        moveToScene("/Views/AboutKrasnodarRegion.fxml");
+    }
+
     private void moveToScene(String viewPath) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(viewPath));
