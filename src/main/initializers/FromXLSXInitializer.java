@@ -1,15 +1,27 @@
 package main.initializers;
 
+import main.dao.DBRegionDAO;
 import main.dao.DBRoleDAO;
 import main.dao.RoleDAO;
 import main.models.*;
 import main.parsers.*;
+import main.services.EntityService;
+import main.services.RegionService;
 import main.services.RoleService;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.List;
 
 public class FromXLSXInitializer implements Initializer {
+
+    private static class RegionTableValue{
+        public String value;
+    }
 
     @Override
     public void initializeUsers ( Object arg ) {
@@ -17,10 +29,31 @@ public class FromXLSXInitializer implements Initializer {
 
     }
 
+
     @Override
     public void initializeRegions ( Object arg ) {
         String path = (String)arg;
 
+        List<Region> regions = RolesParser.<Region>Parse((String)arg, (row) -> {
+           Iterator<Cell> cells = row.cellIterator();
+            cells.next();
+            Cell cell = cells.next();
+            var builder = new RegionBuilder();
+
+            return builder.WithName(cell.getStringCellValue()).WithCapital(cells.next().getStringCellValue()).Build();
+        });
+
+        RegionService<DBRegionDAO> regionService = new RegionService<>(DBRegionDAO::new);
+
+        regions.remove(0);
+
+        try
+        {
+            SaveByUsingService(regionService, regions);
+        }
+        catch (ExceptionInInitializerError ex){
+
+        }
     }
 
     @Override
@@ -42,16 +75,43 @@ public class FromXLSXInitializer implements Initializer {
     }
 
     @Override
-    public void initializeRoles ( Object arg ) {
-        List<Role> roles = (List<Role>) RolesParser.Parse((String) arg);
+    public void initializeRoles ( Object arg ){
+        List<Role> roles = RolesParser.<Role>Parse((String)arg, (row) -> {
+            Iterator<Cell> cells = row.cellIterator();
+            Cell cell = cells.next();
+
+            return new Role(cells.next().getStringCellValue());
+        });
+
         if(roles == null){
             throw new NullPointerException("No writable roles available");
         }
 
         RoleService<DBRoleDAO> roleService = new RoleService<DBRoleDAO>(DBRoleDAO::new);
 
-        for (Role role: roles) {
-            roleService.save(role);
+        roles.remove(0);
+
+        try {
+            SaveByUsingService(roleService, roles);
+        }
+        catch (ExceptionInInitializerError ex){
+
+        }
+    }
+
+
+    private <T> void SaveByUsingService( EntityService<T> service, List<T> items) throws ExceptionInInitializerError{
+        if(!service.findAll().isEmpty()){
+            throw new ExceptionInInitializerError("Already initialized");
+        }
+
+        for (var item : items){
+            try{
+                service.save(item);
+            }
+            catch (Exception ex){
+                var text = ex.getMessage();
+            }
         }
     }
 }
