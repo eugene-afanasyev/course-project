@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:controller="main.Controller"
+<VBox fx:controller="main.AboutWorldskillsController"
       xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml">
     <VBox styleClass="viewHeader" alignment="TOP_CENTER" prefHeight="100">

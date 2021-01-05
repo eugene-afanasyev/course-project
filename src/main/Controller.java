@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -31,17 +30,34 @@ public class Controller  {
     }
 
     private void moveToScene(String viewPath) {
-        Parent root = null;
+//        Parent root = null;
+//        try {
+//            root = FXMLLoader.load(getClass().getResource(viewPath));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        assert root != null;
+//        Scene scene = new Scene(root);
+//        Stage stage = (Stage) contentBorder.getScene().getWindow();
+//        scene.getStylesheets().add(getClass().getResource("/stylesheets/style.css").toExternalForm());
+//        stage.setScene(scene);
+
+
+        Parent root;
         try {
-            root = FXMLLoader.load(getClass().getResource(viewPath));
-        } catch (IOException e) {
+            FXMLLoader loader = new FXMLLoader();
+            root = loader.load(getClass().getResource(viewPath));
+            Stage stage = new Stage();
+            stage.setTitle("aboutWorldSkills");
+            stage.setScene(new Scene(root, 920, 640));
+            stage.setResizable(false);
+            stage.show();
+            contentBorder.getScene().getWindow().hide();
+
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
-        assert root != null;
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) contentBorder.getScene().getWindow();
-        scene.getStylesheets().add(getClass().getResource("/stylesheets/style.css").toExternalForm());
-        stage.setScene(scene);
     }
 
     public Controller() {
