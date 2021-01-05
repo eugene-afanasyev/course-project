@@ -7,14 +7,16 @@
 <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
       fx:controller="main.controllers.AboutWSController">
     <fx:include source="header.fxml"/>
-    <VBox alignment="TOP_CENTER">
-        <Region minHeight="30" prefWidth="30" maxHeight="30"/>
-        <Label style="-fx-font-size: 40 ">
-            O WorldSkills
-        </Label>
-    </VBox>
+
     <BorderPane fx:id="contentBorder" styleClass="contentPane"
                 prefHeight="920" prefWidth="Infinity">
+        <top>
+            <VBox alignment="TOP_CENTER">
+                <Label style="-fx-font-size: 40 ">
+                    O WorldSkills
+                </Label>
+            </VBox>
+        </top>
         <center>
             <VBox alignment="CENTER" spacing="10" style="-fx-font-size: 15">
                 <Button styleClass="jump-button" prefWidth="420" prefHeight="100" text="История WorldSkills"
