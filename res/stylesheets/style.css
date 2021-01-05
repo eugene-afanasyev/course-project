@@ -14,10 +14,8 @@
     -fx-border-radius: 10;
     -fx-border-color: black;
     -fx-border-width: 2;
-}
-
-.jump-button:hover {
-    -fx-font-size: 31;
+    -fx-text-alignment: center;
+    -fx-wrap-text: true;
 }
 
 .viewHeader {
