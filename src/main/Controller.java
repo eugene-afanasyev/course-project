@@ -26,7 +26,7 @@ public class Controller  {
 
     @FXML
     public void aboutWorldSkills() {
-        moveToScene("/Views/aboutWorldskills.fxml");
+        moveToScene("/Views/AboutWorldSkills.fxml");
     }
 
     private void moveToScene(String viewPath) {

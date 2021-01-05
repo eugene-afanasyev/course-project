@@ -23,3 +23,8 @@
 .viewHeader {
     -fx-background-color: #525252;
 }
+
+.header {
+    -fx-padding: 15px;
+    -fx-background-color: #525252;
+}

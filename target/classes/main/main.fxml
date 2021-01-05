@@ -1,32 +1,24 @@
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.GridPane?>
-
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.Group?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.image.ImageView?>
 
-<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.Pane?>
-<VBox fx:controller="main.Controller" styleClass="mainGroup"
+<VBox fx:controller="main.Controller"
       xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml">
         <BorderPane styleClass="mainViewHeader" prefHeight="150">
                 <left>
                         <ImageView fitHeight="150.0" fitWidth="150.0">
-                                <image>
-                                        <Image url="@/logo.png" />
-                                </image>
+                                <Image url="@/logo.png"/>
                         </ImageView>
                 </left>
                 <center>
                         <VBox alignment="TOP_CENTER">
                                 <Label style="-fx-font-size: 30; -fx-font-family: 'Open Sans';
-         -fx-font-weight: bold; -fx-text-fill: white" >
+         -fx-font-weight: bold; -fx-text-fill: white">
                                         WorldSkills Russia 2017
                                 </Label>
                                 <Label style="-fx-font-size: 20; -fx-font-family: 'Open Sans';

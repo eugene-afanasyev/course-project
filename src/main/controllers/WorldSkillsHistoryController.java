@@ -8,7 +8,7 @@ import javafx.scene.image.ImageView;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class AboutWorldskillsController {
+public class WorldSkillsHistoryController {
     @FXML
     private TextArea informationArea;
 
@@ -64,17 +64,11 @@ public class AboutWorldskillsController {
         informationArea.setWrapText(true);
         informationArea.setEffect(null);
 
-        AbidalImage.setOnMouseClicked(mouseEvent -> {
-            informationArea.setText(AbidalText);
-        });
+        AbidalImage.setOnMouseClicked(mouseEvent -> informationArea.setText(AbidalText));
 
-        presidentImage.setOnMouseClicked(mouseEvent -> {
-            informationArea.setText(presidentText);
-        });
+        presidentImage.setOnMouseClicked(mouseEvent -> informationArea.setText(presidentText));
 
-        championshipImage.setOnMouseClicked(mouseEvent -> {
-            informationArea.setText(championshipText);
-        });
+        championshipImage.setOnMouseClicked(mouseEvent -> informationArea.setText(championshipText));
     }
 
 }
