@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "disciplines")
+@Table(name = "disсiplines")
 public class Discipline {
 
     @Id
@@ -15,6 +15,8 @@ public class Discipline {
     @Column ( name = "name" )
     private String name;
 
+    @Column (name = "description")
+    private String description;
     @ManyToMany
     @JoinTable( name = "champ_disciplines",
             joinColumns = @JoinColumn(name = "discipline_id"),
@@ -42,6 +44,14 @@ public class Discipline {
 
     public void setChampionships ( List<Championship> championships ) {
         this.championships = championships;
+    }
+
+    public String getDescription ( ) {
+        return description;
+    }
+
+    public void setDescription ( String description ) {
+        this.description = description;
     }
 
     public Discipline(){

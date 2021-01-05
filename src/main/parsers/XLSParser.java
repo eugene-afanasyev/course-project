@@ -16,7 +16,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.function.Function;
 
-public class RolesParser{
+public class XLSParser {
 
     public static <T> List<T> Parse( String path, Function<Row, T> creator ){
         List<T> entities = new ArrayList<T>();
