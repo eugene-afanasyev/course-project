@@ -1,5 +1,6 @@
 .contentPane {
     -fx-background-color: #ffffff;
+    -fx-padding: 30;
 }
 
 .mainViewHeader {
