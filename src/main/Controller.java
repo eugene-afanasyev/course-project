@@ -30,18 +30,14 @@ public class Controller  {
     }
 
     private void moveToScene(String viewPath) {
-        Parent root;
         try {
-            FXMLLoader loader = new FXMLLoader();
-            root = loader.load(getClass().getResource(viewPath));
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root, 920, 640));
+            Parent root = FXMLLoader.load(getClass().getResource(viewPath));
+            Scene scene = new Scene(root, 920, 640);
+            Stage stage = (Stage) contentBorder.getScene().getWindow();
+            scene.getStylesheets().add(getClass().getResource("/stylesheets/style.css").toExternalForm());
+            stage.setScene(scene);
             stage.setResizable(false);
-            stage.show();
-            contentBorder.getScene().getWindow().hide();
-
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
