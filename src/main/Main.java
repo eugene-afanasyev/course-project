@@ -6,15 +6,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import main.initializers.FromXLSXInitializer;
+import main.initializers.FromXLSInitializer;
 import main.initializers.Initializer;
-import main.models.*;
 import main.dao.*;
 import main.services.*;
-
-import java.util.Calendar;
-import java.util.Date;
-import java.util.function.Supplier;
 
 public class Main extends Application {
 
@@ -24,9 +19,7 @@ public class Main extends Application {
         UserService<DBUserDAO> userService = new UserService<>(DBUserDAO::new);
         RoleService<DBRoleDAO> rolesService = new RoleService<>(DBRoleDAO::new);
 
-        var roles = rolesService.findAll();
-
-        Initializer initializer = new FromXLSXInitializer();
+        Initializer initializer = new FromXLSInitializer();
 
         initializer.initializeRoles("roles.xls");
         initializer.initializeRegions("regions.xls");
