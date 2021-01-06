@@ -28,11 +28,9 @@ public class XLSParser {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //разбираем первый лист входного файла на объектную модель
         Sheet sheet = workBook.getSheetAt(0);
         Iterator<Row> it = sheet.iterator();
 
-        //проходим по всему листу
         while (it.hasNext()) {
             Row row = it.next();
             entities.add(creator.apply(row));

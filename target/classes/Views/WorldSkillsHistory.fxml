@@ -49,14 +49,6 @@
                           prefHeight="276.0" prefWidth="395.0" maxWidth="600"
                           style="-fx-border-width: 3; -fx-border-color: black; -fx-font-size: 20" />
             </HBox>
-<!--            <AnchorPane prefHeight="165.0" prefWidth="600.0" BorderPane.alignment="CENTER">-->
-<!--                <children>-->
-<!--                    <TextArea fx:id="informationArea" layoutX="191.0" layoutY="64.0" prefHeight="276.0" prefWidth="395.0" style="-fx-border-width: 1; -fx-border-color: black;" />-->
-<!--                    <AnchorPane layoutX="26.0" layoutY="64.0" prefHeight="275.0" prefWidth="155.0" style="-fx-border-color: black; -fx-border-width: 1;">-->
-<!--                    </AnchorPane>-->
-
-<!--                </children>-->
-<!--            </AnchorPane>-->
         </center>
     </BorderPane>
 </VBox>

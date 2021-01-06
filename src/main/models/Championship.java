@@ -16,8 +16,11 @@ public class Championship {
     @Column(name = "name")
     public String name;
 
-    @Column(name = "event_date")
-    public Date date;
+    @Column(name = "date_from")
+    public Date dateFrom;
+
+    @Column(name = "date_to")
+    public Date dateTo;
 
     @Column ( name = "city" )
     private String city;
@@ -44,9 +47,10 @@ public class Championship {
 
     }
 
-    public Championship ( String name , Date date , String city , String country , String fullAddress ) {
+    public Championship ( String name , Date dateFrom, Date dateTo , String city , String country , String fullAddress ) {
         this.name        = name;
-        this.date        = date;
+        this.dateFrom        = dateFrom;
+        this.dateTo = dateTo;
         this.city        = city;
         this.country     = country;
         this.fullAddress = fullAddress;
@@ -59,14 +63,6 @@ public class Championship {
 
     public void setName ( String name ) {
         this.name = name;
-    }
-
-    public Date getDate ( ) {
-        return date;
-    }
-
-    public void setDate ( Date date ) {
-        this.date = date;
     }
 
     public String getCity ( ) {
@@ -102,6 +98,22 @@ public class Championship {
 
     public List<User> getUsers ( ) {
         return users;
+    }
+
+    public Date getDateFrom ( ) {
+        return dateFrom;
+    }
+
+    public void setDateFrom ( Date dateFrom ) {
+        this.dateFrom = dateFrom;
+    }
+
+    public Date getDateTo ( ) {
+        return dateTo;
+    }
+
+    public void setDateTo ( Date dateTo ) {
+        this.dateTo = dateTo;
     }
 
     public void setUsers ( List<User> users ) {

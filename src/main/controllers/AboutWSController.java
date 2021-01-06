@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -12,11 +13,15 @@ import java.io.IOException;
 
 public class AboutWSController {
     @FXML
-    public BorderPane contentBorder;
+    private BorderPane contentBorder;
 
-    public void toWorldSkillsHistory(MouseEvent event) {
+    public void initialize() {
+        HeaderController.viewPath = "/Views/main.fxml";
+    }
+
+    public void moveToScene(String path) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/WorldSkillsHistory.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource(path));
             Scene scene = new Scene(root, 920, 640);
             Stage stage = (Stage) contentBorder.getScene().getWindow();
             scene.getStylesheets().add(getClass().getResource("/stylesheets/style.css").toExternalForm());
@@ -25,5 +30,9 @@ public class AboutWSController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void toWorldSkillsHistory() {
+        moveToScene("/Views/WorldSkillsHistory.fxml");
     }
 }

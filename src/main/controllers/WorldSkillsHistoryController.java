@@ -69,6 +69,8 @@ public class WorldSkillsHistoryController {
         presidentImage.setOnMouseClicked(mouseEvent -> informationArea.setText(presidentText));
 
         championshipImage.setOnMouseClicked(mouseEvent -> informationArea.setText(championshipText));
+
+        HeaderController.viewPath = "/Views/AboutWorldSkills.fxml";
     }
 
 }

@@ -5,13 +5,14 @@
 
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
-<BorderPane styleClass="header" minWidth="120">
+<BorderPane styleClass="header" minWidth="120" xmlns:fx="http://javafx.com/fxml"
+    fx:controller="main.controllers.HeaderController">
     <left>
         <HBox spacing="15">
             <ImageView fitWidth="150.0" fitHeight="50.0">
                 <Image url="@/logo_small.jpg"/>
             </ImageView>
-            <Button text="Back">
+            <Button fx:id="backButton" text="Back">
             </Button>
         </HBox>
     </left>

@@ -27,3 +27,10 @@
     -fx-padding: 15px;
     -fx-background-color: #525252;
 }
+
+.about-wsr-button {
+    -fx-wrap-text: true;
+    -fx-background-color: #fbf9a4;
+    -fx-border-width: 1;
+    -fx-border-color: black;
+}
