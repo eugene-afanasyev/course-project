@@ -19,6 +19,10 @@ public class RoleService<T extends RoleDAO> implements EntityService<Role>{
         return supplier.get().findById(id);
     }
 
+    public Role findByName(String name){
+        return supplier.get().findByName(name);
+    };
+
     @Override
     public void save(Role role) {
         supplier.get().save(role);

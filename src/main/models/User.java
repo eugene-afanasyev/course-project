@@ -7,8 +7,9 @@ import java.util.List;
 @Entity
 @Table ( name = "users" )
 public class User {
-    public User ( String firstName , String lastName , Date birthdayDate , String phoneNumber , String password , String login , String email , Role role , Region region ) {
+    public User ( String firstName , boolean isMale, String lastName , Date birthdayDate , String phoneNumber , String password , String login , String email , Role role , Region region ) {
         this.firstName    = firstName;
+        this.isMale = isMale;
         this.lastName     = lastName;
         this.birthdayDate = birthdayDate;
         this.phoneNumber  = phoneNumber;
@@ -55,6 +56,9 @@ public class User {
     @OneToOne ( cascade = CascadeType.ALL )
     @JoinColumn ( name = "region_id" )
     private Region region;
+
+    @Column(name = "is_male")
+    private boolean isMale;
 
     @ManyToMany
     @JoinTable(name = "user_championships",
@@ -160,5 +164,13 @@ public class User {
 
     public void setResults ( List<Result> results ) {
         this.results = results;
+    }
+
+    public boolean isMale ( ) {
+        return isMale;
+    }
+
+    public void setMale ( boolean male ) {
+        isMale = male;
     }
 }

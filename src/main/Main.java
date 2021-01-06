@@ -21,10 +21,14 @@ public class Main extends Application {
 
         Initializer initializer = new FromXLSInitializer();
 
-        initializer.initializeRoles("roles.xls");
-        initializer.initializeRegions("regions.xls");
-        initializer.initializeDisciplines("skills.xls");
-        initializer.initializeChampionships("wsi.xls");
+        //initializer.initializeRoles("roles.xls");
+        //initializer.initializeRegions("regions.xls");
+        //initializer.initializeDisciplines("skills.xls");
+        //initializer.initializeChampionships("wsi.xls");
+        //initializer.initializeUsers("users.xls");
+
+        var trueResult = new Hasher().checkPassword("ppU$ktDw".toCharArray(), "$31$16$iL4HszwYH6hijv7w4j5FvDyCe0BMHQyPL5S1eIlxByQ");
+        var falseResult = new Hasher().checkPassword("ppU$ktDW".toCharArray(), "$31$16$iL4HszwYH6hijv7w4j5FvDyCe0BMHQyPL5S1eIlxByQ");
 
         Parent root = FXMLLoader.load(getClass().getResource("/Views/main.fxml"));
         Scene primaryScene = new Scene(root, 920, 640);

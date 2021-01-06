@@ -47,4 +47,10 @@ public class DBRoleDAO implements RoleDAO{
         List<Role> roles = (List<Role>)  HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("From Role").list();
         return roles;
     }
+
+    public Role findByName(String name){
+        var query = HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("FROM Role as r WHERE r.name=:param");
+        query.setParameter("param", name);
+        return (Role) query.list().get(0);
+    }
 }
