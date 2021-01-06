@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -15,7 +18,19 @@
                <Font name="SansSerif Regular" size="30.0" />
             </font>
          </Label>
-         <TabPane fx:id="iformationPane" layoutX="83.0" layoutY="87.0" prefHeight="479.0" prefWidth="750.0" style="-fx-background-color: #D3D3D3#D3D3D3; -fx-padding: 5;" tabClosingPolicy="UNAVAILABLE" />
+         <TabPane fx:id="iformationPane" layoutX="83.0" layoutY="87.0" prefHeight="424.0" prefWidth="750.0" style="-fx-background-color: #D3D3D3#D3D3D3; -fx-padding: 5;" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+               <Tab text="История">
+                 <content>
+                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="733.0">
+                         <children>
+                             <TextArea fx:id="historyInformation" layoutX="-2.0" layoutY="-1.0" prefHeight="615.0" prefWidth="725.0" style="-fx-font-size: 18;" />
+                         </children>
+                     </AnchorPane>
+                 </content>
+               </Tab>
+            </tabs>
+         </TabPane>
       </children>
    </AnchorPane>
 </VBox>
