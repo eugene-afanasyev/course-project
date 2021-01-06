@@ -47,4 +47,23 @@ public class DBDisciplineDAO implements DisciplineDAO{
         List<Discipline> disciplines = (List<Discipline>)  HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("From Discipline").list();
         return disciplines;
     }
+
+    public Discipline findByCode(String code){
+        var query = HibernateSessionFactoryUtil.getSessionFactory()
+                .openSession().createQuery("FROM Discipline as d WHERE d.disciplineCode=:param");
+        query.setParameter("param", code);
+        if (query.list().isEmpty()) {
+            return null;
+        }
+        return (Discipline) query.list().get(0);
+    }
+
+    public Discipline findByName(String name){
+        var query = HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("From Discipline WHERE name=:param");
+        query.setParameter("param", name);
+        if (query.list().isEmpty()) {
+            return null;
+        }
+        return (Discipline) query.list().get(0);
+    }
 }

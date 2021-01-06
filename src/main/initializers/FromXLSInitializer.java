@@ -112,6 +112,60 @@ public class FromXLSInitializer implements Initializer {
     public void initializeResults ( Object arg ) {
         String path = (String)arg;
 
+        List<Result> results = XLSParser.Parse((String)arg, (row) -> {
+            Iterator<Cell> cells = row.cellIterator();
+
+            var disciplineService = new DisciplineService<DBDisciplineDAO>(DBDisciplineDAO::new);
+            var championshipService = new ChampionshipService<DBChampionshipDAO>(DBChampionshipDAO::new);
+            var userService = new UserService<DBUserDAO>(DBUserDAO::new);
+
+            var cell = cells.next();
+            if(cell.getCellType() == Cell.CELL_TYPE_STRING){
+                return null;
+            }
+
+            var userId = (int)cell.getNumericCellValue();
+
+            // так как пользователи в таблице идут не с 1 id, то необходимо вычислить смещение для того, чтобы правильно найти пользователя
+
+            var userOffset = 266;
+            //var userOffset = userService.findAll().get(0).getId();
+            var user = userService.find(userId + userOffset - 1);
+
+            var compCode = cells.next().getStringCellValue();
+            var compName = cells.next().getStringCellValue();
+
+            // так как у нас нет достаточных данных для связи чемпионата, пользователя и результата, то просто рандомно выбираем id чемпионата
+            var champCode = (int)cells.next().getNumericCellValue();
+            var champCount = championshipService.findAll().size();
+            var minChampId = championshipService.findAll().get(0).id;
+
+            var champ_id = (int)(Math.random() * champCount) + minChampId;
+            var champ = championshipService.find(champ_id);
+
+            var userMark = cells.next().getNumericCellValue();
+            var userModules = cells.next().getStringCellValue();
+
+            var discipline = disciplineService.findByName(compName);
+
+            var clientGroupCode = user.getRole().getName().substring(0,1);
+            if(user.getRole().getName().equals("Coordinator")){
+                clientGroupCode = "O";
+            }
+
+            if(discipline == null){
+                discipline = new Discipline(compName, null, compCode);
+              //  disciplineService.save(discipline);
+            }
+
+            // в остальные иницилизаторах нет достаточных данных для установка логина пользователя, поэтому делаем это тут
+            var login = String.format("%4d%3s%8d%1s", user.getBirthdayDate().getYear(),compCode, user.getId(), clientGroupCode);
+
+
+
+
+           return new Result();
+        });
     }
 
     @Override
