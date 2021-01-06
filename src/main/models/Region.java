@@ -24,6 +24,12 @@ public class Region {
         this.capital = capital;
     }
 
+    public Region ( int id , String name , String capital ) {
+        this.id      = id;
+        this.name    = name;
+        this.capital = capital;
+    }
+
     public int getId() {
         return id;
     }

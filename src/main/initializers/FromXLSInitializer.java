@@ -1,5 +1,6 @@
 package main.initializers;
 
+import main.AuthHelper;
 import main.dao.DBChampionshipDAO;
 import main.dao.DBDisciplineDAO;
 import main.dao.DBRegionDAO;
@@ -22,15 +23,57 @@ public class FromXLSInitializer implements Initializer {
 
     @Override
     public void initializeUsers ( Object arg ) {
-        String path = (String)arg;
 
+        List<User> users = XLSParser.Parse((String)arg, (row) -> {
+            Iterator<Cell> cells = row.cellIterator();
+            cells.next();
+            Cell cell = cells.next();
+
+                var email = cell.getStringCellValue();
+                var password = cells.next().getStringCellValue();
+                var firstName = cells.next().getStringCellValue();
+                var lastName = cells.next().getStringCellValue();
+                var roleStr = cells.next().getStringCellValue();
+                String role;
+                var isMale = cells.next().getStringCellValue().equals("Male");
+                Date birthday = new Date(1, Calendar.JANUARY, 1);
+                int region_id = 0;
+
+                try{
+                    birthday = cells.next().getDateCellValue();
+                    region_id = (int)cells.next().getNumericCellValue();
+                }
+                catch (Exception ex){
+
+                }
+
+            role = switch (roleStr) {
+                case "E" -> "Expert";
+                case "P" -> "Press";
+                case "V" -> "Volunteer";
+                case "A" -> "Administrator";
+                case "O" -> "Coordinator";
+                default -> "Competitor";
+            };
+
+            var roleService = new RoleService<DBRoleDAO>(DBRoleDAO::new);
+            var currentRole = roleService.findByName(role);
+
+            var regionService = new RegionService<DBRegionDAO>(DBRegionDAO::new);
+
+            var offset = regionService.findAll().get(0).getId();
+            var currentRegion = regionService.find(region_id + offset - 1);
+
+
+            password = AuthHelper.HashPassword(password);
+
+            return new User(firstName, lastName, birthday, null, password, email, email, currentRole, currentRegion);
+        });
     }
 
 
     @Override
     public void initializeRegions ( Object arg ) {
-        String path = (String)arg;
-
         List<Region> regions = XLSParser.<Region>Parse((String)arg, ( row) -> {
            Iterator<Cell> cells = row.cellIterator();
             cells.next();
@@ -53,6 +96,10 @@ public class FromXLSInitializer implements Initializer {
         }
     }
 
+    /**
+     * Инициализирует таблицу результатов пользователей
+     * @param arg путь до xls-файла
+     */
     @Override
     public void initializeResults ( Object arg ) {
         String path = (String)arg;
@@ -123,13 +170,7 @@ public class FromXLSInitializer implements Initializer {
             String link = "";
             var city = cells.next().getStringCellValue();
             var country = cells.next().getStringCellValue();
-           /* if(nextCell != null){
-                link = nextCell.getStringCellValue();
-            }
-            nextCell = cells.next();
-            if(nextCell != null && nextCell.getCellType() != Cell.CELL_TYPE_BLANK){
-                address = nextCell.getStringCellValue();
-            }*/
+
             try{
                 link = cells.next().getStringCellValue();
                 address = cells.next().getStringCellValue();
@@ -142,7 +183,6 @@ public class FromXLSInitializer implements Initializer {
         });
 
         championships.remove(0);
-
         ChampionshipService<DBChampionshipDAO> championshipService = new ChampionshipService<>(DBChampionshipDAO::new);
 
         try {

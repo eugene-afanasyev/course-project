@@ -56,6 +56,9 @@ public class User {
     @JoinColumn ( name = "region_id" )
     private Region region;
 
+    @Column(name = "is_male")
+    private boolean isMale;
+
     @ManyToMany
     @JoinTable(name = "user_championships",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -160,5 +163,13 @@ public class User {
 
     public void setResults ( List<Result> results ) {
         this.results = results;
+    }
+
+    public boolean isMale ( ) {
+        return isMale;
+    }
+
+    public void setMale ( boolean male ) {
+        isMale = male;
     }
 }

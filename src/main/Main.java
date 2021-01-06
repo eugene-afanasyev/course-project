@@ -25,6 +25,7 @@ public class Main extends Application {
         initializer.initializeRegions("regions.xls");
         initializer.initializeDisciplines("skills.xls");
         initializer.initializeChampionships("wsi.xls");
+        initializer.initializeUsers("users.xls");
 
         Parent root = FXMLLoader.load(getClass().getResource("/Views/main.fxml"));
         Scene primaryScene = new Scene(root, 920, 640);
