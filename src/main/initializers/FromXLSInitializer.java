@@ -1,10 +1,7 @@
 package main.initializers;
 
 import main.AuthHelper;
-import main.dao.DBChampionshipDAO;
-import main.dao.DBDisciplineDAO;
-import main.dao.DBRegionDAO;
-import main.dao.DBRoleDAO;
+import main.dao.*;
 import main.models.*;
 import main.parsers.*;
 import main.services.*;
@@ -35,7 +32,7 @@ public class FromXLSInitializer implements Initializer {
                 var lastName = cells.next().getStringCellValue();
                 var roleStr = cells.next().getStringCellValue();
                 String role;
-                var isMale = cells.next().getStringCellValue().equals("Male");
+                var isMale = cells.next().getStringCellValue().contains("Male");
                 Date birthday = new Date(1, Calendar.JANUARY, 1);
                 int region_id = 0;
 
@@ -67,8 +64,16 @@ public class FromXLSInitializer implements Initializer {
 
             password = AuthHelper.HashPassword(password);
 
-            return new User(firstName, lastName, birthday, null, password, email, email, currentRole, currentRegion);
+            return new User(firstName, isMale, lastName, birthday, null, password, email, email, currentRole, currentRegion);
         });
+
+        var userService = new UserService<DBUserDAO>(DBUserDAO::new);
+
+        try{
+            SaveByUsingService(userService, users);
+        }catch (ExceptionInInitializerError ex){
+
+        }
     }
 
 

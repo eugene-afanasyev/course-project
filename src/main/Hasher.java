@@ -56,6 +56,8 @@ public class Hasher {
         return ID + cost + '$' + enc.encodeToString(hash);
     }
 
+    // token - пароль в бд
+
     public boolean checkPassword(char[] password, String token)
     {
         Matcher m = layout.matcher(token);
