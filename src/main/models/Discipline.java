@@ -72,4 +72,5 @@ public class Discipline {
     public void setDisciplineCode ( String disciplineCode ) {
         this.disciplineCode = disciplineCode;
     }
+
 }
