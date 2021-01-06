@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Table(name = "results")
 public class Result {
 
-    public Result ( User user , Championship championship , Discipline discipline, int score, String modules ) {
+    public Result ( User user , Championship championship , Discipline discipline, double score, String modules ) {
         this.user         = user;
         this.championship = championship;
         this.discipline   = discipline;
@@ -37,7 +37,7 @@ public class Result {
     private Discipline discipline;
 
     @Column(name = "score")
-    private int score;
+    private double score;
 
     @Column(name = "modules")
     private String modules;
@@ -74,11 +74,11 @@ public class Result {
         this.discipline = discipline;
     }
 
-    public int getScore ( ) {
+    public double getScore ( ) {
         return score;
     }
 
-    public void setScore ( int score ) {
+    public void setScore ( double score ) {
         this.score = score;
     }
 

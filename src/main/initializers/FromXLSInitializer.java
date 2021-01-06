@@ -155,16 +155,20 @@ public class FromXLSInitializer implements Initializer {
 
             if(discipline == null){
                 discipline = new Discipline(compName, null, compCode);
-              //  disciplineService.save(discipline);
+                disciplineService.save(discipline);
             }
 
             // в остальные иницилизаторах нет достаточных данных для установка логина пользователя, поэтому делаем это тут
-            var login = String.format("%4d%3s%8d%1s", user.getBirthdayDate().getYear(),compCode, user.getId(), clientGroupCode);
+            var login = String.format("%tY%3s%08d%1s", user.getBirthdayDate(),compCode, user.getId(), clientGroupCode).replace(" ", "0");
+            user.setLogin(login);
+            userService.update(user);
+            user.getChampionships().add(champ);
+            champ.getDisciplines().add(discipline);
+
+            System.out.printf("\n code = %s || login = %s || modules %s || \r\n", compCode, login, userModules);
 
 
-
-
-           return new Result();
+           return new Result(user, champ, discipline, userMark, userModules);
         });
     }
 
