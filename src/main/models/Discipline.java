@@ -17,6 +17,9 @@ public class Discipline {
 
     @Column (name = "description")
     private String description;
+
+    @Column (name = "discipline_code")
+    private String disciplineCode;
     @ManyToMany
     @JoinTable( name = "champ_disciplines",
             joinColumns = @JoinColumn(name = "discipline_id"),
@@ -60,5 +63,13 @@ public class Discipline {
     public Discipline ( String name ) {
         this.name = name;
         this.championships = new ArrayList<>();
+    }
+
+    public String getDisciplineCode ( ) {
+        return disciplineCode;
+    }
+
+    public void setDisciplineCode ( String disciplineCode ) {
+        this.disciplineCode = disciplineCode;
     }
 }
