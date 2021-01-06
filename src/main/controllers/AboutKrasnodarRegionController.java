@@ -33,7 +33,7 @@ public class AboutKrasnodarRegionController {
 //        Tab tourismInformation = new Tab("Туризм");
         //TODO
 
-        // iformationPane.getTabs().add(historyInformation);
+       // iformationPane.getTabs().add(historyInformation);
 
     }
 }
