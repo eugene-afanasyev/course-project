@@ -69,6 +69,8 @@ public class FromXLSInitializer implements Initializer {
 
         var userService = new UserService<DBUserDAO>(DBUserDAO::new);
 
+        users.remove(0);
+
         try{
             SaveByUsingService(userService, users);
         }catch (ExceptionInInitializerError ex){
