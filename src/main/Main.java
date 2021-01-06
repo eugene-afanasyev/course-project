@@ -25,7 +25,7 @@ public class Main extends Application {
         initializer.initializeRegions("regions.xls");
         initializer.initializeDisciplines("skills.xls");
 
-        Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/Views/main.fxml"));
         Scene primaryScene = new Scene(root, 920, 640);
         primaryScene.getStylesheets().add(getClass().getResource("/stylesheets/style.css").toExternalForm());
         primaryStage.setTitle("WSR 2017");
