@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import main.parsers.XLSXParser;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,6 +24,9 @@ public class AboutKrasnodarRegionController {
 
         Tab eventInformation = new Tab("События");
         //TODO
+
+        XLSXParser parser = new XLSXParser();
+        var events = parser.Parse();
 
 
         Tab tourismInformation = new Tab("Туризм");
