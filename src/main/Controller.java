@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -32,6 +33,11 @@ public class Controller  {
     @FXML
     public void aboutKrasnodarRegion() {
         moveToScene("/Views/AboutKrasnodarRegion.fxml");
+    }
+
+    @FXML
+    public void aboutWorldSkillsRussia(MouseEvent event) {
+        moveToScene("/Views/AboutWSRussia.fxml");
     }
 
     private void moveToScene(String viewPath) {

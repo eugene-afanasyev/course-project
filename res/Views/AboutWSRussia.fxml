@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.Label?>
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="main.controllers.AboutWSRController">
+    <fx:include source="header.fxml"/>
+    <BorderPane fx:id="contentBorder" styleClass="contentPane"
+                prefHeight="920" prefWidth="Infinity">
+        <top>
+            <VBox alignment="TOP_CENTER">
+                <Label style="-fx-font-size: 32; -fx-font-weight: bold">
+                    O WorldSkills Russia
+                </Label>
+                <Label style="-fx-font-size: 20; -fx-wrap-text: true" maxWidth="400" prefWidth="400">
+                    В 2012 году Россия присоединилась к движению WorldSkills International
+                </Label>
+            </VBox>
+        </top>
+        <center>
+            <VBox alignment="CENTER" spacing="10" style="-fx-font-size: 15">
+            </VBox>
+        </center>
+    </BorderPane>
+</VBox>
