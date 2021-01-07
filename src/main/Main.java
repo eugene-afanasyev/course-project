@@ -9,6 +9,8 @@ import javafx.stage.Stage;
 import main.initializers.FromXLSInitializer;
 import main.initializers.Initializer;
 import main.dao.*;
+import main.models.Championship;
+import main.models.User;
 import main.services.*;
 
 public class Main extends Application {
@@ -19,6 +21,7 @@ public class Main extends Application {
         UserService<DBUserDAO> userService = new UserService<>(DBUserDAO::new);
         RoleService<DBRoleDAO> rolesService = new RoleService<>(DBRoleDAO::new);
 
+        ChampionshipService<DBChampionshipDAO> championshipService = new ChampionshipService<>(DBChampionshipDAO::new);
         Initializer initializer = new FromXLSInitializer();
 
         //initializer.initializeRoles("roles.xls");
@@ -27,6 +30,19 @@ public class Main extends Application {
         //initializer.initializeChampionships("wsi.xls");
         //initializer.initializeUsers("users.xls");
 
+/*
+        var copy = new User(user.getFirstName(), user.isMale(), user.getLastName(), user.getBirthdayDate(), user.getPhoneNumber(), user.getPassword(), user.getLogin(), user.getEmail(), user.getRole(), user.getRegion());
+        copy.setId(user.getId());
+        copy.setChampionships(user.getChampionships());
+        try{
+            userService.update(copy);
+        }
+        catch (Exception ex){
+            var msg = ex.getMessage();
+        }*/
+
+
+        //userService.update(user);
         initializer.initializeResults("results.xls");
 
         var trueResult = new Hasher().checkPassword("ppU$ktDw".toCharArray(), "$31$16$iL4HszwYH6hijv7w4j5FvDyCe0BMHQyPL5S1eIlxByQ");

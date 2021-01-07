@@ -74,5 +74,7 @@ public class Discipline {
     public void setDisciplineCode ( String disciplineCode ) {
         this.disciplineCode = disciplineCode;
     }
-
+    public void addChampionships(Championship championship){
+        championships.add(championship);
+    }
 }

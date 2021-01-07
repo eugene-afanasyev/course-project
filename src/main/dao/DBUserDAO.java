@@ -1,7 +1,9 @@
 package main.dao;
 
+import main.models.Championship;
 import main.models.User;
 import main.utils.HibernateSessionFactoryUtil;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -16,6 +18,10 @@ public class DBUserDAO implements UserDAO{
 
     @Override
     public User findById ( int id ) {
+        /*var session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        var user = session.get(User.class, id);
+        session.close();
+        return user;*/
         return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(User.class, id);
     }
 
@@ -51,5 +57,24 @@ public class DBUserDAO implements UserDAO{
     {
         List<User> users = (List<User>)  HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("From User").list();
         return users;
+    }
+
+    public void updateLogin(int id, String login){
+        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Transaction tx = null;
+        try{
+            tx = session.beginTransaction();
+            User user = (User) session.get(User.class, id);
+            user.setLogin( login );
+            session.update(user);
+            tx.commit();
+        }catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            };
+            e.printStackTrace();
+        }finally {
+            session.close();
+        }
     }
 }

@@ -130,8 +130,13 @@ public class FromXLSInitializer implements Initializer {
 
             var userOffset = 266;
             //var userOffset = userService.findAll().get(0).getId();
-            var user = userService.find(userId + userOffset - 1);
-
+            User user = null;
+            try {
+                user = userService.find(userId + userOffset - 1);
+            }
+            catch (Exception e){
+                var msg = e.getMessage();
+            }
             var compCode = cells.next().getStringCellValue();
             var compName = cells.next().getStringCellValue();
 
@@ -158,18 +163,29 @@ public class FromXLSInitializer implements Initializer {
                 disciplineService.save(discipline);
             }
 
+            championshipService.addUser(champ, user);
+
             // в остальные иницилизаторах нет достаточных данных для установка логина пользователя, поэтому делаем это тут
             var login = String.format("%tY%3s%08d%1s", user.getBirthdayDate(),compCode, user.getId(), clientGroupCode).replace(" ", "0");
-            user.setLogin(login);
-            userService.update(user);
-            user.getChampionships().add(champ);
-            champ.getDisciplines().add(discipline);
+
+            userService.updateLogin(user.getId(), login);
+            championshipService.addDiscipline(champ, discipline);
 
             System.out.printf("\n code = %s || login = %s || modules %s || \r\n", compCode, login, userModules);
 
 
            return new Result(user, champ, discipline, userMark, userModules);
         });
+
+        results.remove(0);
+
+        var resultService = new ResultService<>(DBResultDAO::new);
+        try {
+            SaveByUsingService(resultService, results);
+        }
+        catch (ExceptionInInitializerError ex){
+
+        }
     }
 
     @Override

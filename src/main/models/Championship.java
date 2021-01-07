@@ -1,8 +1,11 @@
 package main.models;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 @Entity
@@ -37,11 +40,11 @@ public class Championship {
                 inverseJoinColumns = @JoinColumn(name = "discipline_id"))
     private List<Discipline> disciplines;
 
-    @ManyToMany
-    @JoinTable(name = "user_championships",
+    @ManyToMany ( cascade = {CascadeType.ALL})
+    @JoinTable(name = "users_championships",
             joinColumns = @JoinColumn(name = "champ_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private List<User> users;
+    private List<User> users = new LinkedList<>();
 
     public Championship(){
 
@@ -118,5 +121,12 @@ public class Championship {
 
     public void setUsers ( List<User> users ) {
         this.users = users;
+    }
+
+    public void addUser(User user){
+        users.add(user);
+    }
+    public void addDiscipline(Discipline discipline){
+        disciplines.add(discipline);
     }
 }
