@@ -45,16 +45,26 @@ public class NationalChampionshipsController {
         return null;
     }
 
+    Champ SearchByCountryOrCity(ObservableList<Champ> list, String field) {
+        for(var el : list) {
+            System.out.println(el.country);
+            if(el.city.substring(2, el.city.length()).equals(field) || el.country.equals(field))
+                return el;
+        }
+        return null;
+    }
+
     @FXML
     void initialize() {
-
         var champService = new ChampionshipService<>(DBChampionshipDAO::new);
         var championships = champService.findAll();
 
         ObservableList<Champ> champs = FXCollections.observableArrayList();
         for(var championship : championships) {
-            champs.add(new Champ(championship.getOrderNumber(), championship.getName(), championship.getFullAddress() , championship.getDateTo().toString().substring(0,4) , championship.getCountry() + ", " + championship.getCity()
-                    , championship.getUsers().size()));
+            champs.add(new Champ(championship.getOrderNumber(), championship.getName(),
+                    championship.getFullAddress() , championship.getDateTo().toString().substring(0,4) ,
+                    championship.getCountry(), championship.getCity(),
+                    championship.getUsers().size()));
         }
 
         searchByNumberField.setOnKeyPressed(new EventHandler<KeyEvent>()
@@ -76,12 +86,29 @@ public class NationalChampionshipsController {
             }
         });
 
+        searchByCountryOrSityField.setOnKeyPressed(new EventHandler<KeyEvent>()
+        {
+            @Override
+            public void handle(KeyEvent t)  {
+                if (t.getCode() == KeyCode.ENTER) {
+                    var champ = SearchByCountryOrCity(champs, searchByCountryOrSityField.getText());
+                    Alert info = new Alert(Alert.AlertType.INFORMATION);
+                    if(champ == null) {
+                        info.setHeaderText("Такого чемпионата нет");
+                    } else {
+                        info = new Alert(Alert.AlertType.INFORMATION);
+                        info.setHeaderText(champ.getName());
+                        info.setContentText(champ.getDescription());
+                    }
+                    info.show();
+                }
+            }
+        });
+
         numberColumn.setCellValueFactory(new PropertyValueFactory<Champ, Integer>("number"));
         yearColumn.setCellValueFactory(new PropertyValueFactory<Champ, String>("year"));
         fieldColumn.setCellValueFactory(new PropertyValueFactory<Champ, String>("field"));
         countParticipantColumn.setCellValueFactory(new PropertyValueFactory<Champ, Integer>("countParticipant"));
-
-       System.out.println(championshipsTable.getColumns());
 
         championshipsTable.getItems().addAll(champs);
 

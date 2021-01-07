@@ -4,18 +4,23 @@ public class Champ {
     public Integer number;
     public String name;
     public String year;
+    public String country;
+    public String city;
     public String field;
     public Integer countParticipant;
     public String description;
 
     public Champ() {}
 
-    public Champ(Integer number, String name, String description, String year, String field, Integer countParticipant) {
+    public Champ(Integer number, String name, String description, String year,
+                 String country, String city, Integer countParticipant) {
         this.number = number;
         this.name = name;
+        this.country = country;
+        this.city = city;
         this.description = description;
         this.year = year;
-        this.field = field;
+        this.field = country + ", " + city;
         this.countParticipant = countParticipant;
     }
 
@@ -49,6 +54,22 @@ public class Champ {
 
     public String getYear() {
         return year;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCity() {
+        return city;
     }
 
     public void setField(String field) {
