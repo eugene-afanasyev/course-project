@@ -38,7 +38,7 @@ public class NationalChampionshipsController {
 
         ObservableList<Champ> champs = FXCollections.observableArrayList();
         for(var championship : championships) {
-            champs.add(new Champ(1, championship.getDateTo().toString() , championship.getCountry() + "," + championship.getCity()
+            champs.add(new Champ(championship.getOrderNumber()  , championship.getDateTo().toString().substring(0,4) , championship.getCountry() + ", " + championship.getCity()
                     , 1));
         }
 
