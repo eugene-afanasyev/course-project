@@ -4,8 +4,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -34,5 +32,9 @@ public class AboutWSController {
 
     public void toWorldSkillsHistory() {
         moveToScene("/Views/WorldSkillsHistory.fxml");
+    }
+
+    public void toNatioanalChampionships() {
+        moveToScene("/Views/NationalChampionship.fxml");
     }
 }
