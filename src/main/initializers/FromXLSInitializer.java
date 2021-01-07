@@ -187,14 +187,18 @@ public class FromXLSInitializer implements Initializer {
             System.out.printf("\n code = %s || login = %s || modules %s || \r\n", compCode, login, userModules);
 
 
-           return new Result(user, champ, discipline, userMark, userModules);
+            var resultService = new ResultService<>(DBResultDAO::new);
+            var result = new Result(user, champ, discipline, userMark, userModules);
+            resultService.save(result);
+
+            return result;
         });
 
         results.remove(0);
 
         var resultService = new ResultService<>(DBResultDAO::new);
         try {
-            SaveByUsingService(resultService, results);
+         //   SaveByUsingService(resultService, results);
         }
         catch (ExceptionInInitializerError ex){
 
