@@ -37,4 +37,8 @@ public class AboutWSController {
     public void toNatioanalChampionships() {
         moveToScene("/Views/NationalChampionship.fxml");
     }
+
+    public void toChampionshipCompetencies() {
+        moveToScene("/Views/championshipCompetencies.fxml");
+    }
 }

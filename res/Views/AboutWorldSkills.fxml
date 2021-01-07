@@ -21,7 +21,8 @@
             <VBox alignment="CENTER" spacing="10" style="-fx-font-size: 15">
                 <Button styleClass="jump-button" prefWidth="420" prefHeight="100" text="История WorldSkills"
                         onMouseClicked="#toWorldSkillsHistory"/>
-                <Button styleClass="jump-button" prefWidth="420" prefHeight="100" text="Компетенции чемпионата"/>
+                <Button styleClass="jump-button" prefWidth="420" prefHeight="100" text="Компетенции чемпионата"
+                        onMouseClicked="#toChampionshipCompetencies"/>
                 <Button styleClass="jump-button" prefWidth="420" prefHeight="100" text="Чемпионаты стран WSI"
                         onMouseClicked="#toNatioanalChampionships"/>
             </VBox>
