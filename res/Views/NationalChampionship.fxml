@@ -22,13 +22,13 @@
                <Font size="18.0" />
             </font>
          </Label>
-         <TextField layoutX="260.0" layoutY="122.0" />
+         <TextField fx:id="searchByNumberField" layoutX="260.0" layoutY="122.0" />
          <Label layoutX="478.0" layoutY="124.0" prefHeight="23.0" prefWidth="151.0" text="Город или страна">
             <font>
                <Font size="18.0" />
             </font>
          </Label>
-         <TextField layoutX="629.0" layoutY="122.0" />
+         <TextField fx:id="searchByCountryOrSityField" layoutX="629.0" layoutY="122.0" />
          <TableView fx:id="championshipsTable" layoutX="50.0" layoutY="182.0" prefHeight="335.0" prefWidth="806.0">
            <columns>
              <TableColumn fx:id="numberColumn" prefWidth="93.0" text="N" />

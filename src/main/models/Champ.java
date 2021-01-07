@@ -2,14 +2,18 @@ package main.models;
 
 public class Champ {
     public Integer number;
+    public String name;
     public String year;
     public String field;
     public Integer countParticipant;
+    public String description;
 
     public Champ() {}
 
-    public Champ(Integer number, String year, String field, Integer countParticipant) {
+    public Champ(Integer number, String name, String description, String year, String field, Integer countParticipant) {
         this.number = number;
+        this.name = name;
+        this.description = description;
         this.year = year;
         this.field = field;
         this.countParticipant = countParticipant;
@@ -21,6 +25,22 @@ public class Champ {
 
     public Integer getNumber() {
         return number;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public void setYear(String year) {
