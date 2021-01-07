@@ -46,9 +46,7 @@ public class DBChampionshipDAO implements ChampionshipDAO{
 
     @Override
     public List<Championship> findAll ( ) {
-        var session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
-        var championships = (List<Championship>)session.createQuery("From  Championship").list();
-        session.close();
+        var championships =(List<Championship>)HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("From  Championship").list();
         return championships;
     }
 
