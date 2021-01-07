@@ -19,10 +19,9 @@ public class UserService<T extends UserDAO> implements EntityService<User> {
     public User find( int id) {
         return supplier.get().findById(id);
     }
+
     @Override
     public void save(User user) {
-        var dao = supplier.get();
-
         supplier.get().save(user);
     }
 
@@ -39,5 +38,9 @@ public class UserService<T extends UserDAO> implements EntityService<User> {
     @Override
     public List<User> findAll() {
         return supplier.get().findAll();
+    }
+
+    public void updateLogin(int id, String login){
+        supplier.get().updateLogin(id, login);
     }
 }

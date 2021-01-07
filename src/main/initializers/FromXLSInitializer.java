@@ -104,13 +104,101 @@ public class FromXLSInitializer implements Initializer {
     }
 
     /**
-     * Инициализирует таблицу результатов пользователей
+     * Инициализирует таблицу результатов пользователей,
+     * таблицу дисциплин и таблицу со связями чемпионатов и дисциплин, чемпионатов и пользователей
      * @param arg путь до xls-файла
      */
     @Override
     public void initializeResults ( Object arg ) {
         String path = (String)arg;
 
+        List<Result> results = XLSParser.Parse((String)arg, (row) -> {
+            Iterator<Cell> cells = row.cellIterator();
+
+            var disciplineService = new DisciplineService<DBDisciplineDAO>(DBDisciplineDAO::new);
+            var championshipService = new ChampionshipService<DBChampionshipDAO>(DBChampionshipDAO::new);
+            var userService = new UserService<DBUserDAO>(DBUserDAO::new);
+
+            var cell = cells.next();
+            if(cell.getCellType() == Cell.CELL_TYPE_STRING){
+                return null;
+            }
+
+            var userId = (int)cell.getNumericCellValue();
+
+            // так как пользователи в таблице идут не с 1 id, то необходимо вычислить смещение для того, чтобы правильно найти пользователя
+
+            var userOffset = 266;
+            //var userOffset = userService.findAll().get(0).getId();
+            User user = null;
+            try {
+                user = userService.find(userId + userOffset - 1);
+            }
+            catch (Exception e){
+                var msg = e.getMessage();
+            }
+            var nextCell = cells.next();
+            String compCode;
+            try{
+                compCode = nextCell.getStringCellValue();
+            }
+            catch (Exception ex){
+                compCode = String.format("%d", (int)nextCell.getNumericCellValue());
+            }
+            var compName = cells.next().getStringCellValue();
+
+            // так как у нас нет достаточных данных для связи чемпионата, пользователя и результата, то просто рандомно выбираем id чемпионата
+            var champCode = (int)cells.next().getNumericCellValue();
+            var champCount = championshipService.findAll().size();
+            var minChampId = championshipService.findAll().get(0).id;
+
+            var champ_id = (int)(Math.random() * champCount) + minChampId;
+            var champ = championshipService.find(champ_id);
+
+            var userMark = cells.next().getNumericCellValue();
+            nextCell = cells.next();
+            String userModules;
+            try {
+                userModules = nextCell.getStringCellValue();
+            } catch(Exception ex){
+                userModules = String.format("%f", nextCell.getNumericCellValue());
+            }
+
+            var discipline = disciplineService.findByName(compName);
+
+            var clientGroupCode = user.getRole().getName().substring(0,1);
+            if(user.getRole().getName().equals("Coordinator")){
+                clientGroupCode = "O";
+            }
+
+            if(discipline == null){
+                discipline = new Discipline(compName, null, compCode);
+                disciplineService.save(discipline);
+            }
+
+            championshipService.addUser(champ, user);
+
+            // в остальные иницилизаторах нет достаточных данных для установка логина пользователя, поэтому делаем это тут
+            var login = String.format("%tY%3s%08d%1s", user.getBirthdayDate(),compCode, user.getId(), clientGroupCode).replace(" ", "0");
+
+            userService.updateLogin(user.getId(), login);
+            championshipService.addDiscipline(champ, discipline);
+
+            System.out.printf("\n code = %s || login = %s || modules %s || \r\n", compCode, login, userModules);
+
+
+           return new Result(user, champ, discipline, userMark, userModules);
+        });
+
+        results.remove(0);
+
+        var resultService = new ResultService<>(DBResultDAO::new);
+        try {
+            SaveByUsingService(resultService, results);
+        }
+        catch (ExceptionInInitializerError ex){
+
+        }
     }
 
     @Override
@@ -138,7 +226,13 @@ public class FromXLSInitializer implements Initializer {
     public void initializeChampionships ( Object arg ) {
         List<Championship> championships = XLSParser.Parse((String)arg, (row) -> {
             Iterator<Cell> cells = row.cellIterator();
-            cells.next();
+            int orderNumber = -1;
+            try {
+                orderNumber = Integer.parseInt(cells.next().getStringCellValue().replace(".", ""));
+            }
+            catch (Exception e){
+                return null;
+            }
             SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
 
             var name = cells.next().getStringCellValue();
@@ -186,7 +280,7 @@ public class FromXLSInitializer implements Initializer {
 
             }
 
-            return new Championship(name, dateFrom, dateTo, city, country, address);
+            return new Championship(name, dateFrom, dateTo, city, country, address, orderNumber);
         });
 
         championships.remove(0);

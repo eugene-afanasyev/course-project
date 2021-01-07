@@ -1,8 +1,11 @@
 package main.models;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 @Entity
@@ -31,30 +34,41 @@ public class Championship {
     @Column(name = "full_address")
     private String fullAddress;
 
+    @Column(name = "order_number")
+    private int orderNumber;
+
     @ManyToMany
     @JoinTable( name = "champ_disciplines",
                 joinColumns = @JoinColumn(name = "championship_id"),
                 inverseJoinColumns = @JoinColumn(name = "discipline_id"))
     private List<Discipline> disciplines;
 
-    @ManyToMany
-    @JoinTable(name = "user_championships",
+    @ManyToMany ( cascade = {CascadeType.ALL})
+    @JoinTable(name = "users_championships",
             joinColumns = @JoinColumn(name = "champ_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private List<User> users;
+    private List<User> users = new LinkedList<>();
 
     public Championship(){
 
     }
 
-    public Championship ( String name , Date dateFrom, Date dateTo , String city , String country , String fullAddress ) {
+    public Championship ( String name , Date dateFrom , Date dateTo , String city , String country , String fullAddress , int orderNumber) {
         this.name        = name;
-        this.dateFrom        = dateFrom;
-        this.dateTo = dateTo;
+        this.dateFrom    = dateFrom;
+        this.dateTo      = dateTo;
         this.city        = city;
         this.country     = country;
         this.fullAddress = fullAddress;
-        this.disciplines = new ArrayList<>();
+        this.orderNumber = orderNumber;
+    }
+
+    public int getOrderNumber ( ) {
+        return orderNumber;
+    }
+
+    public void setOrderNumber ( int orderNumber ) {
+        this.orderNumber = orderNumber;
     }
 
     public String getName ( ) {
@@ -118,5 +132,12 @@ public class Championship {
 
     public void setUsers ( List<User> users ) {
         this.users = users;
+    }
+
+    public void addUser(User user){
+        users.add(user);
+    }
+    public void addDiscipline(Discipline discipline){
+        disciplines.add(discipline);
     }
 }

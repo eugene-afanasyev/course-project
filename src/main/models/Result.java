@@ -8,12 +8,12 @@ import javax.persistence.*;
 @Table(name = "results")
 public class Result {
 
-    public Result ( User user , Championship championship , Discipline discipline , int place , int score ) {
+    public Result ( User user , Championship championship , Discipline discipline, double score, String modules ) {
         this.user         = user;
         this.championship = championship;
         this.discipline   = discipline;
-        this.place        = place;
         this.score        = score;
+        this.modules = modules;
     }
 
     public Result(){
@@ -36,11 +36,11 @@ public class Result {
     @JoinColumn ( name = "discipline_id" )
     private Discipline discipline;
 
-    @Column(name = "place")
-    private int place;
-
     @Column(name = "score")
-    private int score;
+    private double score;
+
+    @Column(name = "modules")
+    private String modules;
 
     public int getId ( ) {
         return id;
@@ -74,19 +74,19 @@ public class Result {
         this.discipline = discipline;
     }
 
-    public int getPlace ( ) {
-        return place;
-    }
-
-    public void setPlace ( int place ) {
-        this.place = place;
-    }
-
-    public int getScore ( ) {
+    public double getScore ( ) {
         return score;
     }
 
-    public void setScore ( int score ) {
+    public void setScore ( double score ) {
         this.score = score;
+    }
+
+    public String getModules ( ) {
+        return modules;
+    }
+
+    public void setModules ( String modules ) {
+        this.modules = modules;
     }
 }

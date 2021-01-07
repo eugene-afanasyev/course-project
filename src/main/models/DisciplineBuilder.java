@@ -17,6 +17,11 @@ public class DisciplineBuilder {
         return this;
     }
 
+    public DisciplineBuilder withCode(String code){
+        discipline.setDisciplineCode(code);
+        return this;
+    }
+
     public Discipline Build(){
         return discipline;
     }
