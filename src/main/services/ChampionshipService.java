@@ -2,7 +2,9 @@ package main.services;
 
 import main.dao.ChampionshipDAO;
 import main.models.Championship;
+import main.models.Discipline;
 import main.models.Region;
+import main.models.User;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -37,5 +39,13 @@ public class ChampionshipService<T extends ChampionshipDAO> implements EntitySer
     @Override
     public List<Championship> findAll() {
         return supplier.get().findAll();
+    }
+
+    public void addUser( Championship champ, User user ){
+        supplier.get().addUser(champ, user);
+    }
+
+    public void addDiscipline( Championship champ, Discipline disc ){
+        supplier.get().addDiscipline(champ, disc);
     }
 }

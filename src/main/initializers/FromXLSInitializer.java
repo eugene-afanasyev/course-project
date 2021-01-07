@@ -130,9 +130,21 @@ public class FromXLSInitializer implements Initializer {
 
             var userOffset = 266;
             //var userOffset = userService.findAll().get(0).getId();
-            var user = userService.find(userId + userOffset - 1);
-
-            var compCode = cells.next().getStringCellValue();
+            User user = null;
+            try {
+                user = userService.find(userId + userOffset - 1);
+            }
+            catch (Exception e){
+                var msg = e.getMessage();
+            }
+            var nextCell = cells.next();
+            String compCode;
+            try{
+                compCode = nextCell.getStringCellValue();
+            }
+            catch (Exception ex){
+                compCode = String.format("%d", (int)nextCell.getNumericCellValue());
+            }
             var compName = cells.next().getStringCellValue();
 
             // так как у нас нет достаточных данных для связи чемпионата, пользователя и результата, то просто рандомно выбираем id чемпионата
@@ -144,7 +156,13 @@ public class FromXLSInitializer implements Initializer {
             var champ = championshipService.find(champ_id);
 
             var userMark = cells.next().getNumericCellValue();
-            var userModules = cells.next().getStringCellValue();
+            nextCell = cells.next();
+            String userModules;
+            try {
+                userModules = nextCell.getStringCellValue();
+            } catch(Exception ex){
+                userModules = String.format("%f", nextCell.getNumericCellValue());
+            }
 
             var discipline = disciplineService.findByName(compName);
 
@@ -158,18 +176,29 @@ public class FromXLSInitializer implements Initializer {
                 disciplineService.save(discipline);
             }
 
+            championshipService.addUser(champ, user);
+
             // в остальные иницилизаторах нет достаточных данных для установка логина пользователя, поэтому делаем это тут
             var login = String.format("%tY%3s%08d%1s", user.getBirthdayDate(),compCode, user.getId(), clientGroupCode).replace(" ", "0");
-            user.setLogin(login);
-            userService.update(user);
-            user.getChampionships().add(champ);
-            champ.getDisciplines().add(discipline);
+
+            userService.updateLogin(user.getId(), login);
+            championshipService.addDiscipline(champ, discipline);
 
             System.out.printf("\n code = %s || login = %s || modules %s || \r\n", compCode, login, userModules);
 
 
            return new Result(user, champ, discipline, userMark, userModules);
         });
+
+        results.remove(0);
+
+        var resultService = new ResultService<>(DBResultDAO::new);
+        try {
+            SaveByUsingService(resultService, results);
+        }
+        catch (ExceptionInInitializerError ex){
+
+        }
     }
 
     @Override
@@ -197,7 +226,13 @@ public class FromXLSInitializer implements Initializer {
     public void initializeChampionships ( Object arg ) {
         List<Championship> championships = XLSParser.Parse((String)arg, (row) -> {
             Iterator<Cell> cells = row.cellIterator();
-            cells.next();
+            int orderNumber = -1;
+            try {
+                orderNumber = Integer.parseInt(cells.next().getStringCellValue().replace(".", ""));
+            }
+            catch (Exception e){
+                return null;
+            }
             SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
 
             var name = cells.next().getStringCellValue();
@@ -245,7 +280,7 @@ public class FromXLSInitializer implements Initializer {
 
             }
 
-            return new Championship(name, dateFrom, dateTo, city, country, address);
+            return new Championship(name, dateFrom, dateTo, city, country, address, orderNumber);
         });
 
         championships.remove(0);

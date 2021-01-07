@@ -1,8 +1,9 @@
 package main.models;
 
+import org.hibernate.annotations.Fetch;
+
 import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table ( name = "users" )
@@ -60,11 +61,12 @@ public class User {
     @Column(name = "is_male")
     private boolean isMale;
 
-    @ManyToMany
-    @JoinTable(name = "user_championships",
+    // @ManyToMany(mappedBy = "users", cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "users_championships",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "champ_id"))
-    private List<Championship> championships;
+    private List<Championship> championships = new LinkedList<>();
 
     @OneToMany (cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "user_id")
@@ -172,5 +174,10 @@ public class User {
 
     public void setMale ( boolean male ) {
         isMale = male;
+    }
+
+    public void addChampionship(Championship championship){
+        championships.add(championship);
+        championship.getUsers().add(this);
     }
 }
