@@ -6,5 +6,4 @@ import main.models.Result;
 import main.models.User;
 
 public interface ResultDAO extends DataAccessObject<Result> {
-    void saveWithReferences( Result result, User user, Championship championship, Discipline discipline);
 }

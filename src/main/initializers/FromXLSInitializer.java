@@ -137,7 +137,14 @@ public class FromXLSInitializer implements Initializer {
             catch (Exception e){
                 var msg = e.getMessage();
             }
-            var compCode = cells.next().getStringCellValue();
+            var nextCell = cells.next();
+            String compCode;
+            try{
+                compCode = nextCell.getStringCellValue();
+            }
+            catch (Exception ex){
+                compCode = String.format("%d", (int)nextCell.getNumericCellValue());
+            }
             var compName = cells.next().getStringCellValue();
 
             // так как у нас нет достаточных данных для связи чемпионата, пользователя и результата, то просто рандомно выбираем id чемпионата
@@ -149,7 +156,13 @@ public class FromXLSInitializer implements Initializer {
             var champ = championshipService.find(champ_id);
 
             var userMark = cells.next().getNumericCellValue();
-            var userModules = cells.next().getStringCellValue();
+            nextCell = cells.next();
+            String userModules;
+            try {
+                userModules = nextCell.getStringCellValue();
+            } catch(Exception ex){
+                userModules = String.format("%f", nextCell.getNumericCellValue());
+            }
 
             var discipline = disciplineService.findByName(compName);
 
@@ -213,7 +226,13 @@ public class FromXLSInitializer implements Initializer {
     public void initializeChampionships ( Object arg ) {
         List<Championship> championships = XLSParser.Parse((String)arg, (row) -> {
             Iterator<Cell> cells = row.cellIterator();
-            cells.next();
+            int orderNumber = -1;
+            try {
+                orderNumber = Integer.parseInt(cells.next().getStringCellValue().replace(".", ""));
+            }
+            catch (Exception e){
+                return null;
+            }
             SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
 
             var name = cells.next().getStringCellValue();
@@ -261,7 +280,7 @@ public class FromXLSInitializer implements Initializer {
 
             }
 
-            return new Championship(name, dateFrom, dateTo, city, country, address);
+            return new Championship(name, dateFrom, dateTo, city, country, address, orderNumber);
         });
 
         championships.remove(0);

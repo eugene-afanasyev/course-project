@@ -37,7 +37,4 @@ public class ResultService<T extends ResultDAO> implements EntityService<Result>
     public List<Result> findAll() {
         return supplier.get().findAll();
     }
-    public void saveWithReferences( Result result, User user, Championship championship, Discipline discipline){
-
-    }
 }

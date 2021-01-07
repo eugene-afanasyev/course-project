@@ -71,23 +71,4 @@ public class DBResultDAO implements ResultDAO {
                 (List<Result>)  HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("From Result").list();
         return results;
     }
-
-    @Override
-    public void saveWithReferences( Result result, User user, Championship championship, Discipline discipline){
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
-        Transaction tx = null;
-        try{
-            tx = session.beginTransaction();
-            var res = (Result)session.save(result);
-
-            tx.commit();
-        }catch (HibernateException e) {
-            if (tx != null) {
-                tx.rollback();
-            };
-            e.printStackTrace();
-        }finally {
-            session.close();
-        }
-    }
 }

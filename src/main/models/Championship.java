@@ -34,6 +34,9 @@ public class Championship {
     @Column(name = "full_address")
     private String fullAddress;
 
+    @Column(name = "order_number")
+    private int orderNumber;
+
     @ManyToMany
     @JoinTable( name = "champ_disciplines",
                 joinColumns = @JoinColumn(name = "championship_id"),
@@ -50,14 +53,22 @@ public class Championship {
 
     }
 
-    public Championship ( String name , Date dateFrom, Date dateTo , String city , String country , String fullAddress ) {
+    public Championship ( String name , Date dateFrom , Date dateTo , String city , String country , String fullAddress , int orderNumber) {
         this.name        = name;
-        this.dateFrom        = dateFrom;
-        this.dateTo = dateTo;
+        this.dateFrom    = dateFrom;
+        this.dateTo      = dateTo;
         this.city        = city;
         this.country     = country;
         this.fullAddress = fullAddress;
-        this.disciplines = new ArrayList<>();
+        this.orderNumber = orderNumber;
+    }
+
+    public int getOrderNumber ( ) {
+        return orderNumber;
+    }
+
+    public void setOrderNumber ( int orderNumber ) {
+        this.orderNumber = orderNumber;
     }
 
     public String getName ( ) {
