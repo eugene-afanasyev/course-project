@@ -54,7 +54,7 @@ public class NationalChampionshipsController {
         ObservableList<Champ> champs = FXCollections.observableArrayList();
         for(var championship : championships) {
             champs.add(new Champ(championship.getOrderNumber(), championship.getName(), championship.getFullAddress() , championship.getDateTo().toString().substring(0,4) , championship.getCountry() + ", " + championship.getCity()
-                    , 1));
+                    , championship.getUsers().size()));
         }
 
         searchByNumberField.setOnKeyPressed(new EventHandler<KeyEvent>()

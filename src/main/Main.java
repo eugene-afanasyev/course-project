@@ -27,10 +27,10 @@ public class Main extends Application {
         //initializer.initializeRoles("roles.xls");
         //initializer.initializeRegions("regions.xls");
         //initializer.initializeDisciplines("skills.xls");
-        initializer.initializeChampionships("wsi.xls");
+        //initializer.initializeChampionships("wsi.xls");
         //initializer.initializeUsers("users.xls");
 
-//        initializer.initializeResults("results.xls");
+        //initializer.initializeResults("results.xls");
 
         var trueResult = new Hasher().checkPassword("ppU$ktDw".toCharArray(), "$31$16$iL4HszwYH6hijv7w4j5FvDyCe0BMHQyPL5S1eIlxByQ");
         var falseResult = new Hasher().checkPassword("ppU$ktDW".toCharArray(), "$31$16$iL4HszwYH6hijv7w4j5FvDyCe0BMHQyPL5S1eIlxByQ");
