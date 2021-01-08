@@ -37,6 +37,7 @@
 
                 </PasswordField>
             </HBox>
+<!--            TODO: captcha field-->
             <HBox alignment="TOP_CENTER" spacing="5" style="-fx-font-size: 16">
                 <Button fx:id="loginButton" text="Login"/>
                 <Button fx:id="cancelButton" text="Cancel"/>

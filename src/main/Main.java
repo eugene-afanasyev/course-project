@@ -43,7 +43,12 @@ public class Main extends Application {
 
         // получение текущего пользователя (если авторизован)
         var user = AuthManager.Current.getUser();
-//
+
+        for (var r : user.getResults()){
+            var userDiscipline = r.getDiscipline();
+        }
+
+        //
 //        var userLogin = AuthManager.Current.getUser().getLogin();
 //        assert (userLogin.equals("2012R2100000266C"));
 
