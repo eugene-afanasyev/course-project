@@ -57,7 +57,6 @@ public class AuthorizationMenuController {
                 if(!AuthHelper.isPasswordValid(passwordField.getText())){
                     errors.add("Пароль не должен быть пустым");
                 }
-                var caphat = captchaInputField.getText();
                 if(!captchaInputField.getText().equals(captchaText)){
                     errors.add("Неверный код");
                     // судя по всему, тут стоит новую капчу поставить

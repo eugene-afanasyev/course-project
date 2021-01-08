@@ -2,7 +2,9 @@ package main.dao;
 
 import main.models.Discipline;
 import main.models.Role;
+import main.models.User;
 import main.utils.HibernateSessionFactoryUtil;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -68,5 +70,42 @@ public class DBDisciplineDAO implements DisciplineDAO{
         var discipline =(Discipline) query.list().get(0);
         session.close();
         return discipline;
+    }
+
+    public void changeRuName(int id, String ruName){
+        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Transaction tx = null;
+        try{
+            tx = session.beginTransaction();
+            Discipline discipline = (Discipline) session.get(Discipline.class, id);
+            discipline.setRuName( ruName);
+            session.update(discipline);
+            tx.commit();
+        }catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            };
+            e.printStackTrace();
+        }finally {
+            session.close();
+        }
+    }
+    public void changeDescription(int id, String description){
+        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Transaction tx = null;
+        try{
+            tx = session.beginTransaction();
+            Discipline discipline = (Discipline) session.get(Discipline.class, id);
+            discipline.setDescription( description);
+            session.update(discipline);
+            tx.commit();
+        }catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            };
+            e.printStackTrace();
+        }finally {
+            session.close();
+        }
     }
 }

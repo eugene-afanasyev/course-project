@@ -15,6 +15,9 @@ public class Discipline {
     @Column ( name = "name" )
     private String name;
 
+    @Column (name="ru_name")
+    private String ruName;
+
     @Column (name = "description")
     private String description;
 
@@ -60,10 +63,11 @@ public class Discipline {
     public Discipline(){
 
     }
-    public Discipline ( String name, String description, String disciplineCode) {
+    public Discipline ( String name, String description, String disciplineCode, String ruName) {
         this.name = name;
         this.description = description;
         this.disciplineCode = disciplineCode;
+        this.ruName = ruName;
         this.championships = new ArrayList<>();
     }
 
@@ -76,5 +80,13 @@ public class Discipline {
     }
     public void addChampionships(Championship championship){
         championships.add(championship);
+    }
+
+    public String getRuName ( ) {
+        return ruName;
+    }
+
+    public void setRuName ( String ruName ) {
+        this.ruName = ruName;
     }
 }
