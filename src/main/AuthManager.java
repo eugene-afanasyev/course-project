@@ -15,8 +15,7 @@ public class AuthManager {
 
     }
 
-
-    /*
+    /**
     *
     * Проводит попытку авторизации пользователя
     * В случае успеха возвращает true, неуспеха - false;
@@ -33,6 +32,12 @@ public class AuthManager {
         this.user = user;
 
         return true;
+    }
+
+    public void unAuthorize(){
+        isAuthorized = false;
+        userRole = null;
+        user = null;
     }
 
     private boolean isAuthorized = false;

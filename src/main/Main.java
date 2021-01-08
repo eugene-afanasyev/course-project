@@ -10,6 +10,7 @@ import main.initializers.FromXLSInitializer;
 import main.initializers.Initializer;
 import main.dao.*;
 import main.models.Championship;
+import main.models.Discipline;
 import main.models.User;
 import main.services.*;
 import org.jgroups.protocols.AUTH;
@@ -41,14 +42,15 @@ public class Main extends Application {
         var trueResult = new Hasher().checkPassword("ppU$ktDw".toCharArray(), "$31$16$iL4HszwYH6hijv7w4j5FvDyCe0BMHQyPL5S1eIlxByQ");
         var falseResult = new Hasher().checkPassword("ppU$ktDW".toCharArray(), "$31$16$iL4HszwYH6hijv7w4j5FvDyCe0BMHQyPL5S1eIlxByQ");
 
+        var disci = new Discipline();
         Parent root = FXMLLoader.load(getClass().getResource("/Views/main.fxml"));
         Scene primaryScene = new Scene(root, 920, 640);
         primaryScene.getStylesheets().add(getClass().getResource("/stylesheets/style.css").toExternalForm());
         primaryStage.setTitle("WSR 2017");
         primaryStage.setScene(primaryScene);
         primaryStage.show();
-        primaryStage.setMaxWidth(920);
-        primaryStage.setMaxHeight(640);
+        primaryStage.setMinWidth(920);
+        primaryStage.setMinHeight(640);
     }
 
     public static void main(String[] args) {
