@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="main.controllers.AuthorizationMenuController">
+    <fx:include source="header.fxml"/>
+    <VBox style="-fx-padding: 15" alignment="TOP_CENTER" spacing="30">
+        <Label style="-fx-font-size: 24; -fx-text-fill: #959595">
+            Форма авторизации
+        </Label>
+        <Region prefHeight="30" minHeight="30" maxHeight="30"/>
+        <Label style="-fx-font-size: 18; -fx-text-fill: #6a6a6a; -fx-wrap-text: true;
+         -fx-text-alignment: center" maxWidth="700">
+            Пожалуйста, авторизуйтесь в системе, используя ваш адрес электронной почты
+            и пароль.
+        </Label>
+        <VBox spacing="40">
+            <HBox alignment="TOP_CENTER"
+                  style="-fx-font-size: 20; -fx-text-fill: #6a6a6a; -fx-wrap-text: true;
+                  -fx-text-alignment: center; -fx-prompt-text-fill: #a5a5a5;">
+                <Label text="IdNumber:   "/>
+                <TextField fx:id="idNumberField" promptText="Enter your IdNumber" prefWidth="300"
+                style="-fx-font-style: italic">
+
+                </TextField>
+            </HBox>
+            <HBox alignment="TOP_CENTER"
+                  style="-fx-font-size: 20; -fx-text-fill: #6a6a6a; -fx-wrap-text: true;
+                  -fx-text-alignment: center; -fx-prompt-text-fill: #a5a5a5;">
+                <Label text="Password:   "/>
+                <PasswordField fx:id="passwordField" promptText="Enter your password" prefWidth="300">
+
+                </PasswordField>
+            </HBox>
+<!--            TODO: captcha field-->
+            <HBox alignment="TOP_CENTER" spacing="5" style="-fx-font-size: 16">
+                <Button fx:id="loginButton" text="Login"/>
+                <Button fx:id="cancelButton" text="Cancel"/>
+                <CheckBox fx:id="rememberMeChBox" text="Запомнить меня" style="-fx-font-weight: bold"/>
+            </HBox>
+        </VBox>
+    </VBox>
+</VBox>

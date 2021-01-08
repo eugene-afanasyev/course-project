@@ -34,3 +34,7 @@
     -fx-border-width: 1;
     -fx-border-color: black;
 }
+
+#loginButton {
+    -fx-font-size: 20;
+}
