@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface UserDAO extends DataAccessObject<User>{
     void updateLogin(int id, String login);
+    User findByLogin(String login);
 }

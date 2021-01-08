@@ -7,7 +7,6 @@ import main.parsers.*;
 import main.services.*;
 
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellType;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -62,7 +61,7 @@ public class FromXLSInitializer implements Initializer {
             var currentRegion = regionService.find(region_id + offset - 1);
 
 
-            password = AuthHelper.HashPassword(password);
+            password = AuthHelper.hashPassword(password);
 
             return new User(firstName, isMale, lastName, birthday, null, password, email, email, currentRole, currentRegion);
         });
