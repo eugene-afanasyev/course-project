@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -14,16 +15,14 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Controller  {
-    Model model = new Model();
+    @FXML
+    public Button loginButton;
 
     @FXML
     public BorderPane contentBorder;
 
     @FXML
     public ImageView logo = new ImageView();
-
-    @FXML
-    Group content;
 
     @FXML
     public void aboutWorldSkills() {
@@ -57,5 +56,9 @@ public class Controller  {
 
         Image logoImg = new Image(getClass().getResource("/logo.png").toExternalForm());
         logo.setImage(logoImg);
+    }
+
+    public void moveToLoginScene(MouseEvent event) {
+        moveToScene("/Views/AuthorizationMenu.fxml");
     }
 }

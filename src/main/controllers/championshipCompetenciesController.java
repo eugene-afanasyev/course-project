@@ -42,6 +42,6 @@ public class championshipCompetenciesController {
                 informationAndCommunicationTechnologies, creativityAndDesign, serviceSector);
 
         competences.setRoot(rootTreeNode);
-
+        HeaderController.viewPath = "/Views/AboutWorldSkills.fxml";
     }
 }

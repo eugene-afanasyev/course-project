@@ -6,6 +6,7 @@
 
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.AnchorPane?>
 <VBox fx:controller="main.Controller"
       xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml">
@@ -44,5 +45,13 @@
                                 <Button styleClass="jump-button" prefWidth="420" prefHeight="100" text="О Краснодарском Крае" onMouseClicked="#aboutKrasnodarRegion"/>
                         </VBox>
                 </center>
+                <bottom>
+                        <BorderPane>
+                                <right>
+                                        <Button prefWidth="100" prefHeight="40" fx:id="loginButton"
+                                                text="Login" onMouseClicked="#moveToLoginScene"/>
+                                </right>
+                        </BorderPane>
+                </bottom>
         </BorderPane>
 </VBox>
