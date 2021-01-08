@@ -1,6 +1,7 @@
 package main.dao;
 
 import main.models.Championship;
+import main.models.Role;
 import main.models.User;
 import main.utils.HibernateSessionFactoryUtil;
 import org.hibernate.HibernateException;
@@ -76,5 +77,11 @@ public class DBUserDAO implements UserDAO{
         }finally {
             session.close();
         }
+    }
+
+    public User findByLogin(String login){
+        var query = HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("FROM User as u WHERE u.login=:param");
+        query.setParameter("param", login);
+        return (User) query.list().get(0);
     }
 }
