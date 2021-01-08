@@ -24,14 +24,13 @@ public class AuthManager {
     public boolean authorize(String login, String password){
         var user = userService.findByLogin(login);
 
-        if(user == null || !AuthHelper.isPasswordValid(password, user.getPassword())){
+        if(user == null || !AuthHelper.isPasswordsEqual(password, user.getPassword())){
             return false;
         }
 
         this.isAuthorized = true;
         this.userRole = user.getRole();
         this.user = user;
-
 
         return true;
     }
