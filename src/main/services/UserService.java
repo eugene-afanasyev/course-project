@@ -43,4 +43,7 @@ public class UserService<T extends UserDAO> implements EntityService<User> {
     public void updateLogin(int id, String login){
         supplier.get().updateLogin(id, login);
     }
+    public User findByLogin(String login){
+        return supplier.get().findByLogin(login);
+    }
 }

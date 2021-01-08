@@ -21,7 +21,6 @@ public class Main extends Application {
         UserService<DBUserDAO> userService = new UserService<>(DBUserDAO::new);
         RoleService<DBRoleDAO> rolesService = new RoleService<>(DBRoleDAO::new);
 
-        ChampionshipService<DBChampionshipDAO> championshipService = new ChampionshipService<>(DBChampionshipDAO::new);
         Initializer initializer = new FromXLSInitializer();
 
         //initializer.initializeRoles("roles.xls");
@@ -31,6 +30,17 @@ public class Main extends Application {
         //initializer.initializeUsers("users.xls");
 
         //initializer.initializeResults("results.xls");
+
+
+        var disciplineService = new DisciplineService<>(DBDisciplineDAO::new);
+        var championshipService = new ChampionshipService<>(DBChampionshipDAO::new);
+
+        // получить компетенции на каком-то чемпионате
+        var championships = championshipService.findAll().get(0);
+        var disciplines = championships.getDisciplines();
+
+        // получить все компетенции
+        var allDisciplines = disciplineService.findAll();
 
         var trueResult = new Hasher().checkPassword("ppU$ktDw".toCharArray(), "$31$16$iL4HszwYH6hijv7w4j5FvDyCe0BMHQyPL5S1eIlxByQ");
         var falseResult = new Hasher().checkPassword("ppU$ktDW".toCharArray(), "$31$16$iL4HszwYH6hijv7w4j5FvDyCe0BMHQyPL5S1eIlxByQ");
