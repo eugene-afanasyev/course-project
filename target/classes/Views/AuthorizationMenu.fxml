@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -33,8 +30,8 @@
             <HBox alignment="TOP_CENTER"
                   style="-fx-font-size: 20; -fx-text-fill: #6a6a6a; -fx-wrap-text: true;
                   -fx-text-alignment: center; -fx-prompt-text-fill: #a5a5a5;">
-                <Label text="Password:   "/>
-                <PasswordField fx:id="passwordField" promptText="Enter your password" prefWidth="300">
+                <Label text="Password:   " />
+                <PasswordField fx:id="passwordField"  promptText="Enter your password" prefWidth="300">
 
                 </PasswordField>
             </HBox>
