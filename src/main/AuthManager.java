@@ -23,38 +23,33 @@ public class AuthManager {
     * */
     public boolean authorize(String login, String password){
         var user = userService.findByLogin(login);
-        if(AuthHelper.isPasswordValid(password, user.getPassword())){
+        // check user
 
+        if(!AuthHelper.isPasswordValid(password, user.getPassword())){
+            return false;
         }
-        
-        return false;
+
+        this.isAuthorized = true;
+        this.userRole = user.getRole();
+        this.user = user;
+
+
+        return true;
     }
 
-    private boolean isAuthorized;
-    private Role userRole;
-    private User user;
+    private boolean isAuthorized = false;
+    private Role userRole = null;
+    private User user = null;
 
     public boolean isAuthorized ( ) {
         return isAuthorized;
-    }
-
-    public void setAuthorized ( boolean authorized ) {
-        isAuthorized = authorized;
     }
 
     public Role getUserRole ( ) {
         return userRole;
     }
 
-    public void setUserRole ( Role userRole ) {
-        this.userRole = userRole;
-    }
-
     public User getUser ( ) {
         return user;
-    }
-
-    public void setUser ( User user ) {
-        this.user = user;
     }
 }

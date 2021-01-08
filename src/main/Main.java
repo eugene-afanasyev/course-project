@@ -12,6 +12,7 @@ import main.dao.*;
 import main.models.Championship;
 import main.models.User;
 import main.services.*;
+import org.jgroups.protocols.AUTH;
 
 public class Main extends Application {
 
@@ -31,16 +32,20 @@ public class Main extends Application {
 
         //initializer.initializeResults("results.xls");
 
+        // авторизацию пользователя делаем так
+        var result = AuthManager.Current.authorize("2012R2100000266C", "ppU$ktDw");
 
-        var disciplineService = new DisciplineService<>(DBDisciplineDAO::new);
-        var championshipService = new ChampionshipService<>(DBChampionshipDAO::new);
+        // проверка на то, авторизован ли пользователь
+        var isAuth = AuthManager.Current.isAuthorized();
 
-        // получить компетенции на каком-то чемпионате
-        var championships = championshipService.findAll().get(0);
-        var disciplines = championships.getDisciplines();
+        // получение роли пользователя
+        var role = AuthManager.Current.getUserRole();
 
-        // получить все компетенции
-        var allDisciplines = disciplineService.findAll();
+        // получение текущего пользователя (если авторизован)
+        var user = AuthManager.Current.getUser();
+//
+//        var userLogin = AuthManager.Current.getUser().getLogin();
+//        assert (userLogin.equals("2012R2100000266C"));
 
         var trueResult = new Hasher().checkPassword("ppU$ktDw".toCharArray(), "$31$16$iL4HszwYH6hijv7w4j5FvDyCe0BMHQyPL5S1eIlxByQ");
         var falseResult = new Hasher().checkPassword("ppU$ktDW".toCharArray(), "$31$16$iL4HszwYH6hijv7w4j5FvDyCe0BMHQyPL5S1eIlxByQ");
