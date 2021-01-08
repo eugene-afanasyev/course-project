@@ -40,10 +40,23 @@ public class DisciplineService<T extends DisciplineDAO> implements EntityService
     }
 
     public Discipline findByCode(String code){
-        return supplier.get().findByCode(code);
+        try {
+            return supplier.get().findByCode(code);
+
+        }
+        catch (Exception ex){
+            return null;
+        }
     }
 
     public Discipline findByName(String name){
         return supplier.get().findByName(name);
+    }
+
+    public void changeRuName(Discipline discipline, String ruName){
+        supplier.get().changeRuName(discipline.getId(), ruName);
+    }
+    public void changeDescription(Discipline discipline, String description){
+        supplier.get().changeDescription(discipline.getId(), description);
     }
 }

@@ -14,6 +14,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class FromXLSInitializer implements Initializer {
 
@@ -171,7 +172,7 @@ public class FromXLSInitializer implements Initializer {
             }
 
             if(discipline == null){
-                discipline = new Discipline(compName, null, compCode);
+                discipline = new Discipline(compName,null, null, compCode);
                 disciplineService.save(discipline);
             }
 
@@ -208,16 +209,53 @@ public class FromXLSInitializer implements Initializer {
     public void initializeDisciplines ( Object arg ) {
         List<Discipline> disciplines = XLSParser.<Discipline>Parse((String)arg, (row) -> {
             Iterator<Cell> cells = row.cellIterator();
-            Cell cell = cells.next();
-            var builder = new DisciplineBuilder();
 
-            return builder.withName(cell.getStringCellValue()).withDescription(cells.next().getStringCellValue()).Build();
+            try {
+                var ruName = cells.next().getStringCellValue();
+                var ruDescription = cells.next().getStringCellValue();
+                var enName = cells.next().getStringCellValue();
+                var enDescription = cells.next().getStringCellValue();
+
+                var numberPattern = Pattern.compile("[0-9]+");
+                //var icode = enName.substring(numberPattern.matcher(enName).start(), numberPattern.matcher(enName).end());
+
+                var codeLetter = enName.toCharArray()[0];
+                var code = String.format("%d" , Integer.parseInt(enName.split("\\D+")[1]));
+                if (!enName.contains("WSI")) {
+                    code = codeLetter + code;
+                }
+
+
+                var disciplineService = new DisciplineService<DBDisciplineDAO>(DBDisciplineDAO::new);
+                var discipline = disciplineService.findByCode(code);
+                var result = enName.replaceAll("[0-9]" , "");
+
+                if (result.startsWith("WSI ")) {
+                    result = result.replaceFirst("WSI " , "");
+                } else if (result.startsWith("R ")) {
+                    result = result.replaceFirst("R" , "");
+                } else if (result.startsWith("D ")) {
+                    result = result.replaceFirst("D" , "");
+                }
+
+                if (discipline == null) {
+                    disciplineService.save(new Discipline(result , ruDescription , code , ruName));
+                } else {
+                    disciplineService.changeRuName(discipline , ruName);
+                    disciplineService.changeDescription(discipline , ruDescription);
+                }
+            }
+            catch (Exception ex){
+
+            }
+
+            return null;
         });
 
         DisciplineService<DBDisciplineDAO> disciplineService = new DisciplineService<DBDisciplineDAO>(DBDisciplineDAO::new);
 
         try {
-            SaveByUsingService(disciplineService, disciplines);
+           // SaveByUsingService(disciplineService, disciplines);
         }
         catch (ExceptionInInitializerError ex){
 

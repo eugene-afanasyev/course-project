@@ -21,6 +21,7 @@ public class Main extends Application {
 
         UserService<DBUserDAO> userService = new UserService<>(DBUserDAO::new);
         RoleService<DBRoleDAO> rolesService = new RoleService<>(DBRoleDAO::new);
+        DisciplineService<DBDisciplineDAO> disciplineService = new DisciplineService<>(DBDisciplineDAO::new);
 
         Initializer initializer = new FromXLSInitializer();
 
@@ -32,26 +33,11 @@ public class Main extends Application {
 
         //initializer.initializeResults("results.xls");
 
-        // авторизацию пользователя делаем так
-        var result = AuthManager.Current.authorize("2012R2100000266C", "ppU$ktDw");
-
-        // проверка на то, авторизован ли пользователь
-        var isAuth = AuthManager.Current.isAuthorized();
-
-        // получение роли пользователя
-        var role = AuthManager.Current.getUserRole();
-
-        // получение текущего пользователя (если авторизован)
-        var user = AuthManager.Current.getUser();
-
-        for (var r : user.getResults()){
-            var userDiscipline = r.getDiscipline();
-        }
-
         //
 //        var userLogin = AuthManager.Current.getUser().getLogin();
 //        assert (userLogin.equals("2012R2100000266C"));
 
+        var disciplines = disciplineService.findAll();
         var trueResult = new Hasher().checkPassword("ppU$ktDw".toCharArray(), "$31$16$iL4HszwYH6hijv7w4j5FvDyCe0BMHQyPL5S1eIlxByQ");
         var falseResult = new Hasher().checkPassword("ppU$ktDW".toCharArray(), "$31$16$iL4HszwYH6hijv7w4j5FvDyCe0BMHQyPL5S1eIlxByQ");
 
