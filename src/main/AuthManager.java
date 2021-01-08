@@ -23,9 +23,8 @@ public class AuthManager {
     * */
     public boolean authorize(String login, String password){
         var user = userService.findByLogin(login);
-        // check user
 
-        if(!AuthHelper.isPasswordValid(password, user.getPassword())){
+        if(user == null || !AuthHelper.isPasswordValid(password, user.getPassword())){
             return false;
         }
 

@@ -44,6 +44,12 @@ public class UserService<T extends UserDAO> implements EntityService<User> {
         supplier.get().updateLogin(id, login);
     }
     public User findByLogin(String login){
-        return supplier.get().findByLogin(login);
+        try {
+            var user = supplier.get().findByLogin(login);
+            return supplier.get().findByLogin(login);
+        }
+        catch (Exception ex){
+            return null;
+        }
     }
 }
