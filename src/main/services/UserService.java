@@ -2,6 +2,7 @@ package main.services;
 
 import main.dao.DBUserDAO;
 import main.dao.UserDAO;
+import main.models.Championship;
 import main.models.User;
 
 import java.util.Enumeration;
@@ -52,4 +53,5 @@ public class UserService<T extends UserDAO> implements EntityService<User> {
             return null;
         }
     }
+
 }

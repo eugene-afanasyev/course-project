@@ -10,6 +10,7 @@ import main.initializers.FromXLSInitializer;
 import main.initializers.Initializer;
 import main.dao.*;
 import main.models.Championship;
+import main.models.Discipline;
 import main.models.User;
 import main.services.*;
 import org.jgroups.protocols.AUTH;
@@ -20,12 +21,18 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         primaryStage.setOnCloseRequest(event -> System.exit(0));
 
+        var disci = new Discipline();
         Parent root = FXMLLoader.load(getClass().getResource("/Views/main.fxml"));
         Scene primaryScene = new Scene(root, 920, 640);
         primaryScene.getStylesheets().add(getClass().getResource("/stylesheets/style.css").toExternalForm());
         primaryStage.setTitle("WSR 2017");
         primaryStage.setScene(primaryScene);
         primaryStage.show();
+<<<<<<< HEAD
+=======
+        primaryStage.setMinWidth(920);
+        primaryStage.setMinHeight(640);
+>>>>>>> extendapi
     }
 
     public static void main(String[] args) {
