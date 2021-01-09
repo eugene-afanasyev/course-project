@@ -34,7 +34,7 @@ public class AuthManager {
         return true;
     }
 
-    public void unAuthorize(){
+    public void logout(){
         isAuthorized = false;
         userRole = null;
         user = null;
@@ -54,5 +54,15 @@ public class AuthManager {
 
     public User getUser ( ) {
         return user;
+    }
+
+    public boolean changePassword(String newPassword){
+        if(!isAuthorized()) {
+           return false;
+        }
+        var token = new Hasher().hash(newPassword.toCharArray());
+        userService.updatePassword(user.getId(), token);
+
+        return true;
     }
 }
