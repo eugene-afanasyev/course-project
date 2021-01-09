@@ -9,7 +9,7 @@
 <VBox xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml" spacing="15" alignment="TOP_CENTER"
             fx:controller="main.controllers.CoordinatorMenuController">
-    <fx:include source="header.fxml"/>
+    <fx:include source="signedUserHeader.fxml"/>
     <Label text="Меню координатора"
            style="-fx-font-size: 28; -fx-font-weight: bold"/>
     <VBox alignment="TOP_CENTER" style="-fx-padding: 10">
