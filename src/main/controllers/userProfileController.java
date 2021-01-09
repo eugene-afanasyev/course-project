@@ -1,7 +1,10 @@
 package main.controllers;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import main.AuthManager;
 
 public class userProfileController {
@@ -27,6 +30,32 @@ public class userProfileController {
     private Label userMailLabel;
 
     @FXML
+    private TextField newPasswordField;
+
+    @FXML
+    private TextField repeatPasswordField;
+
+    @FXML
+    private Button passwordSaveButton;
+
+    @FXML
+    private Button canselButton;
+
+    public void showErrorAlert(String errorText) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Ошибка");
+        alert.setContentText(errorText);
+        alert.showAndWait();
+    }
+
+    public void showSuccessAlert(String errorText) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Информация");
+        alert.setContentText(errorText);
+        alert.showAndWait();
+    }
+
+    @FXML
     void initialize() {
         var user = AuthManager.Current.getUser();
 
@@ -38,6 +67,30 @@ public class userProfileController {
         userCountryLabel.setText(user.getRegion().getName());
         userIdLabel.setText(String.valueOf(user.getId()));
         userMailLabel.setText(user.getEmail());
+
+        passwordSaveButton.setOnAction(actionEvent -> {
+            var newPassword = newPasswordField.getText();
+            var repeatPassword = repeatPasswordField.getText();
+
+            if(newPassword == "") {
+                showErrorAlert("Введите новый пароль");
+            }
+
+            if(repeatPassword == "") {
+                showErrorAlert("Введите повторно пароль");
+            }
+
+            if(newPassword.equals(repeatPasswordField.getText())) {
+                if(user.getPassword().equals(newPassword)) {
+                    showErrorAlert("Этот пароль сейчас используется");
+                } else {
+                    user.setPassword(newPassword);
+                    showSuccessAlert("Пароль был успешно изменен");
+                }
+            } else {
+                showErrorAlert("Поля нового пароля и повтора пароля должны совпадать");
+            }
+        });
 
     }
 }
