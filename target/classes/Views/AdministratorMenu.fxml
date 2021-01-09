@@ -12,7 +12,7 @@
     <fx:include source="signedUserHeader.fxml"/>
     <Label text="Меню администратора"
            style="-fx-font-size: 28; -fx-font-weight: bold"/>
-    <VBox alignment="TOP_CENTER" style="-fx-padding: 10">
+    <VBox alignment="TOP_CENTER" style="-fx-padding: 10" VBox.vgrow="ALWAYS">
         <VBox style="-fx-border-color: black; -fx-border-width: 2; -fx-padding: 10"
               spacing="30" alignment="TOP_CENTER" VBox.vgrow="ALWAYS">
             <Label fx:id="welcomeTextLabel" text="Доброе утро"
