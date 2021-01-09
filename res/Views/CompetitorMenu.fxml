@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="main.controllers.CompetitorMenuController"
+      alignment="TOP_CENTER" style="-fx-padding: 10" spacing="5">
+    <fx:include source="header.fxml"/>
+    <Label text="Меню участника"
+           style="-fx-font-size: 28; -fx-font-weight: bold"/>
+    <VBox style="-fx-border-width: 2; -fx-border-color: black">
+        <HBox style="-fx-padding: 10" alignment="CENTER">
+            <VBox alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
+                <Label fx:id="welcomeTextLabel" text="Доброе утро" wrapText="true"
+                       style="-fx-font-weight: bold; -fx-font-size: 32"/>
+            </VBox>
+            <VBox alignment="CENTER" spacing="10">
+                <Button text="Мой профиль" styleClass="jump-button" onMouseClicked="#toMyProfile"
+                        prefWidth="340" prefHeight="120"/>
+                <Button text="Мои компетенции" styleClass="jump-button" onMouseClicked="#toMyCompetencies"
+                        prefWidth="340" prefHeight="120"/>
+                <Button text="Мои результаты" styleClass="jump-button" onMouseClicked="#toMyResults"
+                        prefWidth="340" prefHeight="120"/>
+            </VBox>
+        </HBox>
+    </VBox>
+</VBox>
