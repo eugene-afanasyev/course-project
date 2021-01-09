@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<BorderPane styleClass="header" minWidth="120" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="main.controllers.SignedUserHeaderController">
+    <left>
+        <HBox spacing="15">
+            <ImageView fitWidth="150.0" fitHeight="50.0">
+                <Image url="@/logo_small.jpg"/>
+            </ImageView>
+            <Button fx:id="backButton" text="Back">
+            </Button>
+        </HBox>
+    </left>
+    <center>
+        <Label style="-fx-font-size: 30; -fx-font-family: 'Open Sans';
+         -fx-font-weight: bold; -fx-text-fill: white">
+            WorldSkills Russia 2017
+        </Label>
+    </center>
+    <right>
+        <HBox>
+            <Pane prefWidth="140"/>
+            <Button text="Logout" onMouseClicked="#logout"/>
+        </HBox>
+    </right>
+    <Label>
+
+    </Label>
+</BorderPane>

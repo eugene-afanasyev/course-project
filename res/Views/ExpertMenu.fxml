@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml" spacing="15" alignment="TOP_CENTER"
+      fx:controller="main.controllers.ExpertMenuController">
+    <fx:include source="signedUserHeader.fxml"/>
+    <Label text="Меню эксперта"
+           style="-fx-font-size: 28; -fx-font-weight: bold"/>
+    <VBox alignment="TOP_CENTER" style="-fx-padding: 10">
+        <VBox style="-fx-border-color: black; -fx-border-width: 2; -fx-padding: 10"
+              spacing="10" alignment="TOP_CENTER">
+            <Label fx:id="welcomeTextLabel" text="Доброе утро"
+                   style="-fx-font-size: 22; -fx-font-weight: bold"/>
+            <Button text="Жеребьевка" styleClass="jump-button" onMouseClicked="#toDraw"
+                    prefWidth="340" prefHeight="120"/>
+            <Button text="Ввод оценок" styleClass="jump-button" onMouseClicked="#toGrades"
+                    prefWidth="340" prefHeight="120"/>
+            <Button text="Просмотр результатов" styleClass="jump-button" onMouseClicked="#toResults"
+                    prefWidth="340" prefHeight="120"/>
+        </VBox>
+    </VBox>
+</VBox>
