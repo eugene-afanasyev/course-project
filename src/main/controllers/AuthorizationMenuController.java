@@ -5,10 +5,7 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
@@ -53,14 +50,20 @@ public class AuthorizationMenuController {
 
                 if(!AuthHelper.isLoginValid(idNumberField.getText())){
                     errors.add("Логин не должен быть пустым!");
+                    showErrorAlert("Логин не должен быть пустым!");
                 }
+
                 if(!AuthHelper.isPasswordValid(passwordField.getText())){
                     errors.add("Пароль не должен быть пустым");
+                    showErrorAlert("Пароль не должен быть пустым!");
                 }
+
+                var caphat = captchaInputField.getText();
                 if(!captchaInputField.getText().equals(captchaText)){
                     errors.add("Неверный код");
-                    // судя по всему, тут стоит новую капчу поставить
+                    showErrorAlert("Каптча введена неверно");
                     setCaptcha();
+                    captchaInputField.setStyle("-fx-border-color: red");
                 }
 
                 if(errors.size() != 0){
@@ -71,10 +74,13 @@ public class AuthorizationMenuController {
 
                 if(!isSuccessful){
                     errors.add("Неверный логин или пароль");
+                    idNumberField.setStyle("-fx-border-color: red");
+                    passwordField.setStyle("-fx-border-color: red");
+                    showErrorAlert("Неверный логин или пароль");
                 }
 
                 // к этому моменту пользователь авторизован, следовательно, тут нужно перейти на предыдущую страницу
-
+                // TODO
             }
         });
     }
@@ -96,5 +102,12 @@ public class AuthorizationMenuController {
         BufferedImage captchaImg = cage.drawImage(captchaText);
         Image image = SwingFXUtils.toFXImage(captchaImg, null);
         captchaImage.setImage(image);
+    }
+
+    public void showErrorAlert(String errorText) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Ошибка");
+        alert.setContentText(errorText);
+        alert.showAndWait();
     }
 }
