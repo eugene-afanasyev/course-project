@@ -10,7 +10,7 @@
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="main.controllers.CompetitorMenuController"
       alignment="TOP_CENTER" style="-fx-padding: 10" spacing="5">
-    <fx:include source="signedUserHeader.fxml.fxml"/>
+    <fx:include source="signedUserHeader.fxml"/>
     <Label text="Меню участника"
            style="-fx-font-size: 28; -fx-font-weight: bold"/>
     <VBox style="-fx-border-width: 2; -fx-border-color: black">
