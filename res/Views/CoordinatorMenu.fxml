@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml" spacing="15" alignment="TOP_CENTER"
+            fx:controller="main.controllers.CoordinatorMenuController">
+    <fx:include source="header.fxml"/>
+    <Label text="Меню координатора"
+           style="-fx-font-size: 28; -fx-font-weight: bold"/>
+    <VBox alignment="TOP_CENTER" style="-fx-padding: 10">
+        <VBox style="-fx-border-color: black; -fx-border-width: 2; -fx-padding: 10"
+              spacing="10" alignment="TOP_CENTER">
+            <Label fx:id="welcomeTextLabel" text="Доброе утро"
+                   style="-fx-font-size: 22; -fx-font-weight: bold"/>
+            <Button text="Управление волонтерами" styleClass="jump-button" onMouseClicked="#toManageVolunteers"
+                    prefWidth="340" prefHeight="120"/>
+            <Button text="Управление спонсорами" styleClass="jump-button" onMouseClicked="#toManageSponsors"
+                    prefWidth="340" prefHeight="120"/>
+            <Button text="Мои результаты" styleClass="jump-button" onMouseClicked="#toMyResults"
+                    prefWidth="340" prefHeight="120"/>
+        </VBox>
+    </VBox>
+</VBox>
