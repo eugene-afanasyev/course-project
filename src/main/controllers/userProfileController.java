@@ -1,13 +1,19 @@
 package main.controllers;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import main.AuthManager;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 public class userProfileController {
+
+    @FXML
+    private ImageView userImage;
+
     @FXML
     private Label userNameLabel;
 
@@ -30,16 +36,20 @@ public class userProfileController {
     private Label userMailLabel;
 
     @FXML
-    private TextField newPasswordField;
+    private PasswordField newPasswordField;
 
     @FXML
-    private TextField repeatPasswordField;
+    private PasswordField repeatPasswordField;
 
     @FXML
     private Button passwordSaveButton;
 
     @FXML
     private Button canselButton;
+
+    @FXML
+    private CheckBox changePasswordCheckBox;
+
 
     public void showErrorAlert(String errorText) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -56,9 +66,29 @@ public class userProfileController {
     }
 
     @FXML
-    void initialize() {
+    void initialize() throws FileNotFoundException {
         var user = AuthManager.Current.getUser();
 
+        newPasswordField.setEditable(false);
+        repeatPasswordField.setEditable(false);
+
+        changePasswordCheckBox.setOnAction(actionEvent -> {
+            if(changePasswordCheckBox.isSelected()) {
+                newPasswordField.setStyle("-fx-opacity : 1;");
+                repeatPasswordField.setStyle("-fx-opacity : 1;");
+
+                newPasswordField.setEditable(true);
+                repeatPasswordField.setEditable(true);
+            } else {
+                newPasswordField.setStyle("-fx-opacity : 0.3;");
+                repeatPasswordField.setStyle("-fx-opacity : 0.3;");
+
+                newPasswordField.setEditable(false);
+                repeatPasswordField.setEditable(false);
+            }
+        });
+
+        userImage.setImage(new Image(new FileInputStream("res/ws6195763a-6ba0-49c9-aa9e-028d630977d0_portrait.jpg")));
         userNameLabel.setText(user.getFirstName() + " " + user.getLastName());
 
         String sex = user.isMale() ? "Male" : "Female";
@@ -90,6 +120,11 @@ public class userProfileController {
             } else {
                 showErrorAlert("Поля нового пароля и повтора пароля должны совпадать");
             }
+        });
+
+        canselButton.setOnAction(actionEvent -> {
+            newPasswordField.clear();
+            repeatPasswordField.clear();
         });
 
     }
