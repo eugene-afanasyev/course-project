@@ -71,7 +71,6 @@ public class championshipCompetenciesController {
                 competenceNameLabel.setText(competence.getRuName());
                 competenceInformationArea.setText(competence.getDescription());
             }
-
         });
 
         HeaderController.viewPath = "/Views/AboutWorldSkills.fxml";
