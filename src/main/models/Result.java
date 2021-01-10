@@ -3,6 +3,7 @@ package main.models;
 import jdk.jfr.Enabled;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "results")
@@ -88,5 +89,8 @@ public class Result {
 
     public void setModules ( String modules ) {
         this.modules = modules;
+    }
+    public List<Double> getModulesScores(){
+        return null;
     }
 }

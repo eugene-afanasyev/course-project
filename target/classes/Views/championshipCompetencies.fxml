@@ -4,6 +4,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -27,6 +28,15 @@
                <TextArea fx:id="competenceInformationArea" layoutX="27.0" layoutY="103.0" prefHeight="304.0" prefWidth="342.0" style="-fx-border-width: 1; -fx-border-color: white;" />
             </children>
          </AnchorPane>
+         <Pane layoutX="176.0" fx:id="loadingArea" layoutY="30.0" prefHeight="456.0" prefWidth="620.0">
+            <children>
+               <Label layoutX="188.0" layoutY="154.0" prefHeight="154.0" prefWidth="190.0" text="Loading..." textAlignment="CENTER" textFill="#cd0909" textOverrun="WORD_ELLIPSIS">
+                  <font>
+                     <Font size="39.0" />
+                  </font>
+               </Label>
+            </children>
+         </Pane>
         </children>
     </AnchorPane>
 </VBox>
