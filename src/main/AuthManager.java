@@ -58,6 +58,7 @@ public class AuthManager {
 
     public boolean changePassword(String newPassword){
         if(!isAuthorized()) {
+            AuthManager.Current.changePassword("newpass");
            return false;
         }
         var token = new Hasher().hash(newPassword.toCharArray());

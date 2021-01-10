@@ -1,6 +1,7 @@
 package main.controllers;
 
 import com.github.cage.YCage;
+import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -21,6 +22,8 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class AuthorizationMenuController {
     @FXML
@@ -44,6 +47,12 @@ public class AuthorizationMenuController {
 
     private final List<String> errors = new LinkedList<>();
 
+    Executor exec = Executors.newCachedThreadPool(runnable -> {
+        Thread t = new Thread(runnable);
+        t.setDaemon(true);
+        return t ;
+    });
+
     public void initialize() {
         HeaderController.viewPath = "/Views/main.fxml";
         setCaptcha();
@@ -63,7 +72,6 @@ public class AuthorizationMenuController {
                     showErrorAlert("Пароль не должен быть пустым!");
                 }
 
-                var caphat = captchaInputField.getText();
                 if(!captchaInputField.getText().equals(captchaText)){
                     errors.add("Неверный код");
                     showErrorAlert("Каптча введена неверно");
@@ -75,42 +83,98 @@ public class AuthorizationMenuController {
                     return;
                 }
 
-                var isSuccessful = AuthManager.Current.authorize(idNumberField.getText(), passwordField.getText());
-
-                if(!isSuccessful){
-                    errors.add("Неверный логин или пароль");
-                    idNumberField.setStyle("-fx-border-color: red");
-                    passwordField.setStyle("-fx-border-color: red");
-                    showErrorAlert("Неверный логин или пароль");
-                }
-
-                // к этому моменту пользователь авторизован, следовательно, тут нужно перейти на предыдущую страницу
-                if (AuthManager.Current.isAuthorized()) {
-                    var role = AuthManager.Current.getUserRole();
-
-                    switch (role.getName()) {
-                        case "Expert":
-                            // TODO
-                            break;
-                        case "Press":
-                            // TODO
-                            break;
-                        case "Competitor":
-                            moveToScene("/Views/CompetitorMenu.fxml");
-                            break;
-                        case "Volunteer":
-                            // TODO
-                            break;
-                        case "Administrator":
-                            // TODO
-                            break;
-                        case "Coordinator":
-                            // TODO
-                            break;
-                        default:
-                            break;
+                var authRequest = new Task<Boolean>(){
+                    @Override
+                    protected Boolean call ( ) throws Exception {
+                        return AuthManager.Current.authorize(idNumberField.getText(), passwordField.getText());
                     }
+                };
+
+                authRequest.setOnFailed(e -> {
+                    errors.add("Ошибка приложения. Попоробуйте позже.");
+                    loginButton.setText("Login");
+                });
+
+                authRequest.setOnSucceeded(e -> {
+                    var isSuccessful = authRequest.getValue();
+                    loginButton.setText("Login");
+                    if(!isSuccessful){
+                        errors.add("Неверный логин или пароль");
+                        idNumberField.setStyle("-fx-border-color: #ff0000");
+                        passwordField.setStyle("-fx-border-color: red");
+                        showErrorAlert("Неверный логин или пароль");
+                    }
+
+                    // к этому моменту пользователь авторизован, следовательно, тут нужно перейти на предыдущую страницу
+                    if (AuthManager.Current.isAuthorized()) {
+                        var role = AuthManager.Current.getUserRole();
+
+                        switch (role.getName()) {
+                            case "Expert":
+                                // TODO
+                                break;
+                            case "Press":
+                                // TODO
+                                break;
+                            case "Competitor":
+                                moveToScene("/Views/CompetitorMenu.fxml");
+                                break;
+                            case "Volunteer":
+                                // TODO
+                                break;
+                            case "Administrator":
+                                // TODO
+                                break;
+                            case "Coordinator":
+                                // TODO
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                });
+                try {
+                    loginButton.setText("Loading...");
+                    exec.execute(authRequest);
+                } catch (Exception ex){
+                    ex.fillInStackTrace();
                 }
+         //       var isSuccessful = AuthManager.Current.authorize(idNumberField.getText(), passwordField.getText());
+
+//                if(!isSuccessful){
+//                    errors.add("Неверный логин или пароль");
+//                    idNumberField.setStyle("-fx-border-color: red");
+//                    passwordField.setStyle("-fx-border-color: red");
+//                    showErrorAlert("Неверный логин или пароль");
+//                }
+//
+//                // к этому моменту пользователь авторизован, следовательно, тут нужно перейти на предыдущую страницу
+//                if (AuthManager.Current.isAuthorized()) {
+//                    var role = AuthManager.Current.getUserRole();
+//
+//                    switch (role.getName()) {
+//                        case "Expert":
+//                            // TODO
+//                            break;
+//                        case "Press":
+//                            // TODO
+//                            break;
+//                        case "Competitor":
+//                            moveToScene("/Views/CompetitorMenu.fxml");
+//                            break;
+//                        case "Volunteer":
+//                            // TODO
+//                            break;
+//                        case "Administrator":
+//                            // TODO
+//                            break;
+//                        case "Coordinator":
+//                            // TODO
+//                            break;
+//                        default:
+//                            break;
+//                    }
+//                }
             }
         });
     }
