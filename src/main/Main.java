@@ -13,7 +13,6 @@ import main.models.Championship;
 import main.models.Discipline;
 import main.models.User;
 import main.services.*;
-import org.jgroups.protocols.AUTH;
 
 public class Main extends Application {
 
