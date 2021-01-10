@@ -32,8 +32,10 @@ public class CompetitorMenuController {
     }
 
     public void toMyCompetencies(MouseEvent event) {
+
     }
 
     public void toMyResults(MouseEvent event) {
+        moveToScene("/Views/MyResultView.fxml");
     }
 }
