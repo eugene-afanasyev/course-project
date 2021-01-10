@@ -103,4 +103,11 @@ public class DBUserDAO implements UserDAO{
             session.close();
         }
     }
+
+    public List<User> findByName(String firstName, String lastName){
+        var query = HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("FROM User as u WHERE u.firstName=:first and u.lastName=:last");
+        query.setParameter("first", firstName);
+        query.setParameter("last", lastName);
+        return (List<User>) query.list();
+    }
 }

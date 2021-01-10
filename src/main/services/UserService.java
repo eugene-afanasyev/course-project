@@ -56,5 +56,8 @@ public class UserService<T extends UserDAO> implements EntityService<User> {
             return null;
         }
     }
+    public List<User> findByName(String firstName, String lastName){
+        return supplier.get().findByName(firstName, lastName);
+    }
 
 }
