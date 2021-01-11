@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import main.AuthManager;
 
 import java.io.IOException;
 
@@ -36,5 +37,16 @@ public class SignedUserHeaderController {
     }
 
     public void logout(MouseEvent event) {
+        AuthManager.Current.logout();
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/Views/main.fxml"));
+            Scene scene = new Scene(root, 920, 640);
+            Stage stage = (Stage) backButton.getScene().getWindow();
+            scene.getStylesheets().add(getClass().getResource("/stylesheets/style.css").toExternalForm());
+            stage.setScene(scene);
+            stage.setResizable(false);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
