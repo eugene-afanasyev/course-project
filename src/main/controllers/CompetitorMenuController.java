@@ -32,7 +32,7 @@ public class CompetitorMenuController {
     }
 
     public void toMyCompetencies(MouseEvent event) {
-
+        moveToScene("/Views/MyDisciplineView.fxml");
     }
 
     public void toMyResults(MouseEvent event) {
