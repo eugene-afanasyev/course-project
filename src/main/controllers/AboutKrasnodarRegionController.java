@@ -103,5 +103,6 @@ public class AboutKrasnodarRegionController {
         secondHotelImage.setImage(new Image(new FileInputStream("res/tourism/Е©б™_ГДК.jpg")));
         thirdHotelImage.setImage(new Image(new FileInputStream("res/tourism/1200px-Sunset_Black_sea.jpg")));
 
+        HeaderController.viewPath = "/Views/main.fxml";
     }
 }
