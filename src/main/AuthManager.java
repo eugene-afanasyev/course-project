@@ -15,8 +15,7 @@ public class AuthManager {
 
     }
 
-
-    /*
+    /**
     *
     * Проводит попытку авторизации пользователя
     * В случае успеха возвращает true, неуспеха - false;
@@ -35,6 +34,12 @@ public class AuthManager {
         return true;
     }
 
+    public void logout(){
+        isAuthorized = false;
+        userRole = null;
+        user = null;
+    }
+
     private boolean isAuthorized = false;
     private Role userRole = null;
     private User user = null;
@@ -49,5 +54,16 @@ public class AuthManager {
 
     public User getUser ( ) {
         return user;
+    }
+
+    public boolean changePassword(String newPassword){
+        if(!isAuthorized()) {
+            AuthManager.Current.changePassword("newpass");
+           return false;
+        }
+        var token = new Hasher().hash(newPassword.toCharArray());
+        userService.updatePassword(user.getId(), token);
+
+        return true;
     }
 }

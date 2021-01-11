@@ -84,4 +84,30 @@ public class DBUserDAO implements UserDAO{
         query.setParameter("param", login);
         return (User) query.list().get(0);
     }
+
+    public void updatePassword(int id, String password){
+        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Transaction tx = null;
+        try{
+            tx = session.beginTransaction();
+            User user = (User) session.get(User.class, id);
+            user.setPassword( password );
+            session.update(user);
+            tx.commit();
+        }catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            };
+            e.printStackTrace();
+        }finally {
+            session.close();
+        }
+    }
+
+    public List<User> findByName(String firstName, String lastName){
+        var query = HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("FROM User as u WHERE u.firstName=:first and u.lastName=:last");
+        query.setParameter("first", firstName);
+        query.setParameter("last", lastName);
+        return (List<User>) query.list();
+    }
 }

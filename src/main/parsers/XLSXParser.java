@@ -4,7 +4,6 @@ import main.models.Event;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -43,8 +42,6 @@ public class XLSXParser {
 //                Cell cell = cellIterator.next();
 //                System.out.print(cell.toString() + ";");
 //            }
-//
-//            System.out.println();
         }
 
         workbook.close();

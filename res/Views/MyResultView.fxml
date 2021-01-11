@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="TOP_CENTER" spacing="5" style="-fx-padding: 10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.UserResultController">
+    <fx:include source="signedUserHeader.fxml" />
+    <Label style="-fx-font-size: 28; -fx-font-weight: bold" text="Мой результат" />
+   <HBox prefHeight="338.0" prefWidth="735.0">
+      <children>
+         <VBox prefHeight="338.0" prefWidth="333.0">
+            <children>
+               <HBox prefHeight="57.0" prefWidth="376.0">
+                  <children>
+                     <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="57.0" prefWidth="136.0" text="Имя:" textAlignment="CENTER" wrapText="true">
+                        <font>
+                           <Font name="Arial Rounded MT Bold" size="17.0" />
+                        </font>
+                     </Label>
+                     <Label fx:id="userName" alignment="CENTER" prefHeight="57.0" prefWidth="262.0" />
+                  </children>
+               </HBox>
+               <HBox prefHeight="57.0" prefWidth="376.0">
+                  <children>
+                     <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="57.0" prefWidth="158.0" text="Пол:" textAlignment="CENTER" wrapText="true">
+                        <font>
+                           <Font name="Arial Rounded MT Bold" size="17.0" />
+                        </font>
+                     </Label>
+                     <Label fx:id="userGender" alignment="CENTER" prefHeight="62.0" prefWidth="258.0" />
+                  </children>
+               </HBox>
+               <HBox prefHeight="57.0" prefWidth="376.0">
+                  <children>
+                     <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="57.0" prefWidth="119.0" text="IDNumber:" textAlignment="CENTER" wrapText="true">
+                        <font>
+                           <Font name="Arial" size="17.0" />
+                        </font>
+                     </Label>
+                     <Label fx:id="userIdNumber" alignment="CENTER" prefHeight="62.0" prefWidth="252.0" />
+                  </children>
+               </HBox>
+               <HBox prefHeight="57.0" prefWidth="376.0">
+                  <children>
+                     <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="57.0" prefWidth="119.0" text="Регион:" textAlignment="CENTER" wrapText="true">
+                        <font>
+                           <Font name="Arial Rounded MT Bold" size="17.0" />
+                        </font>
+                     </Label>
+                     <Label fx:id="userRegion" alignment="CENTER" prefHeight="62.0" prefWidth="252.0" />
+                  </children>
+               </HBox>
+               <HBox prefHeight="57.0" prefWidth="376.0">
+                  <children>
+                     <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="57.0" prefWidth="119.0" text="Баллов:" textAlignment="CENTER" wrapText="true">
+                        <font>
+                           <Font name="Arial Rounded MT Bold" size="17.0" />
+                        </font>
+                     </Label>
+                     <Label fx:id="userScore" alignment="CENTER" prefHeight="62.0" prefWidth="252.0" />
+                  </children>
+               </HBox>
+            </children>
+         </VBox>
+         <VBox prefHeight="338.0" prefWidth="417.0">
+            <children>
+               <HBox prefHeight="57.0" prefWidth="376.0">
+                  <children>
+                     <Label prefHeight="58.0" prefWidth="119.0" text="Чемпионат:">
+                        <font>
+                           <Font size="18.0" />
+                        </font>
+                     </Label>
+                     <Label fx:id="userChampionship" prefHeight="58.0" prefWidth="291.0" />
+                  </children>
+               </HBox>
+               <HBox prefHeight="57.0" prefWidth="376.0">
+                  <children>
+                     <Label prefHeight="58.0" prefWidth="120.0" text="Компетенция:">
+                        <font>
+                           <Font size="18.0" />
+                        </font>
+                     </Label>
+                     <Label fx:id="discipline" prefHeight="58.0" prefWidth="279.0" />
+                  </children>
+               </HBox>
+               <TableView fx:id="modulesTable" prefHeight="200.0" prefWidth="200.0">
+                 <columns>
+                   <TableColumn fx:id="idColumn" prefWidth="75.0" text="Модуль" />
+                   <TableColumn fx:id="scoreColumn" prefWidth="75.0" text="Результат" />
+                 </columns>
+               </TableView>
+            </children>
+         </VBox>
+      </children>
+   </HBox>
+</VBox>

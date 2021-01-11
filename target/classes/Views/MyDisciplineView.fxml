@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.MyDisciplineController">
+    <fx:include source="signedUserHeader.fxml" />
+  <children>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+      <children>
+            <Label layoutX="208.0" layoutY="42.0" fx:id="title" text="Моя компетенция">
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </Label>
+            <TabPane layoutX="55.0" layoutY="100.0" prefHeight="252.0" prefWidth="540.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="Эксперты">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TableView fx:id="expertsTable" layoutX="34.0" layoutY="11.0" prefHeight="200.0" prefWidth="476.0">
+                                <columns>
+                                  <TableColumn fx:id="expertsNameColumn" prefWidth="75.0" text="Имя" />
+                                  <TableColumn fx:id="expertsFamilyColumn" prefWidth="75.0" text="Фамилия" />
+                                  <TableColumn fx:id="expertsBirthdayColumn" prefWidth="75.0" text="Возраст" />
+                                </columns>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="Участники">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TableView fx:id="competitorsTable" layoutX="47.0" layoutY="11.0" prefHeight="200.0" prefWidth="461.0">
+                                <columns>
+                                  <TableColumn fx:id="competitorsNameColumn" prefWidth="75.0" text="Имя" />
+                                  <TableColumn fx:id="competitorsFamilyColumn" prefWidth="75.0" text="Фамилия" />
+                                    <TableColumn fx:id="competitorsBirthdayDateColumn" prefWidth="103.20001220703125" text="Дата рождения" />
+                                </columns>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+              </tabs>
+            </TabPane>
+      </children>
+    </AnchorPane>
+  </children>
+</VBox>

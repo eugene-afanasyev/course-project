@@ -2,6 +2,7 @@ package main.services;
 
 import main.dao.DBUserDAO;
 import main.dao.UserDAO;
+import main.models.Championship;
 import main.models.User;
 
 import java.util.Enumeration;
@@ -43,6 +44,9 @@ public class UserService<T extends UserDAO> implements EntityService<User> {
     public void updateLogin(int id, String login){
         supplier.get().updateLogin(id, login);
     }
+    public void updatePassword(int id, String password){
+        supplier.get().updatePassword(id, password);
+    }
     public User findByLogin(String login){
         try {
             var user = supplier.get().findByLogin(login);
@@ -52,4 +56,8 @@ public class UserService<T extends UserDAO> implements EntityService<User> {
             return null;
         }
     }
+    public List<User> findByName(String firstName, String lastName){
+        return supplier.get().findByName(firstName, lastName);
+    }
+
 }
