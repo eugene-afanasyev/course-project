@@ -18,8 +18,6 @@ public class SignedUserHeaderController {
     public static String viewPath;
 
     public void initialize() {
-
-
         backButton.setOnMouseClicked(new EventHandler<>() {
             @Override
             public void handle(MouseEvent event) {

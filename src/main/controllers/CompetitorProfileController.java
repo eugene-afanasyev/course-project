@@ -9,7 +9,7 @@ import main.AuthManager;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class userProfileController {
+public class CompetitorProfileController {
 
     @FXML
     private ImageView userImage;
@@ -127,5 +127,6 @@ public class userProfileController {
             repeatPasswordField.clear();
         });
 
+        SignedUserHeaderController.viewPath = "/Views/CompetitorMenu.fxml";
     }
 }

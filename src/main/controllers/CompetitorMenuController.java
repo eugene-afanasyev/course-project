@@ -28,7 +28,7 @@ public class CompetitorMenuController {
     }
 
     public void toMyProfile() {
-        moveToScene("/Views/UserProfile.fxml");
+        moveToScene("/Views/CompetitorProfile.fxml");
     }
 
     public void toMyCompetencies(MouseEvent event) {

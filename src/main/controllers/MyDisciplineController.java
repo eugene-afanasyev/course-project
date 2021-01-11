@@ -106,6 +106,8 @@ public class MyDisciplineController {
         expertsFamilyColumn.setCellValueFactory(new PropertyValueFactory<UserViewModel, String>("secondName"));
 
         exec.execute(usersRequest);
+
+        SignedUserHeaderController.viewPath = "/Views/CompetitorMenu.fxml";
     }
 
     private ObservableList<UserViewModel> getUsersView(List<User> users){

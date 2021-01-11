@@ -60,6 +60,8 @@ public class UserResultController {
         scoreColumn.setCellValueFactory(new PropertyValueFactory<Module, String>("score"));
 
         modulesTable.getItems().addAll(scores);
+
+        SignedUserHeaderController.viewPath = "/Views/CompetitorMenu.fxml";
     }
 
     private ObservableList<Module> parseModules( String modules){

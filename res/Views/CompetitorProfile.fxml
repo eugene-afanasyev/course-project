@@ -12,8 +12,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="640.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.userProfileController">
-    <fx:include source="header.fxml" />
+<VBox prefHeight="640.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.CompetitorProfileController">
+    <fx:include source="signedUserHeader.fxml" />
     <AnchorPane prefHeight="584.0" prefWidth="920.0">
         <children>
             <Label layoutX="360.0" layoutY="31.0" prefHeight="57.0" prefWidth="201.0" text="Мой профиль">
