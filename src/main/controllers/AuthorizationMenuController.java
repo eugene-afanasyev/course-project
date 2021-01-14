@@ -126,6 +126,7 @@ public class AuthorizationMenuController {
                                 // TODO
                                 break;
                             case "Coordinator":
+                                moveToScene("/Views/CoordinatorMenu.fxml");
                                 // TODO
                                 break;
                             default:

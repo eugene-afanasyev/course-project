@@ -13,7 +13,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-import main.AuthManager;
 import main.dao.DBChampionshipDAO;
 import main.models.Champ;
 import main.models.Championship;

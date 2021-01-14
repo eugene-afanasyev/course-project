@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="640.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.VolunteerManagementController">
+    <fx:include source="signedUserHeader.fxml" />
+    <AnchorPane prefHeight="584.0" prefWidth="920.0">
+        <children>
+            <Label layoutX="252.0" layoutY="25.0" prefHeight="57.0" prefWidth="416.0" text="Управление волонтерами">
+                <font>
+                    <Font name="SansSerif Regular" size="30.0" />
+                </font>
+            </Label>
+         <Button layoutX="551.0" layoutY="116.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="235.0" text="Загрузка волонтеров">
+            <font>
+               <Font name="SansSerif Regular" size="15.0" />
+            </font>
+         </Button>
+         <Button layoutX="551.0" layoutY="150.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="235.0" text="Распределение волонтеров&#10;по компетенциям">
+            <font>
+               <Font name="SansSerif Regular" size="15.0" />
+            </font>
+         </Button>
+         <Label layoutX="54.0" layoutY="121.0" prefHeight="23.0" prefWidth="124.0" style="-fx-opacity: 0.7;" text="Компетенция:">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Label>
+         <Label layoutX="54.0" layoutY="165.0" prefHeight="17.0" prefWidth="114.0" style="-fx-opacity: 0.7;" text="Сортировать:">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Label>
+         <Button fx:id="searchButton" layoutX="178.0" layoutY="196.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="72.0" text="Поиск">
+            <font>
+               <Font size="15.0" />
+            </font>
+         </Button>
+         <ComboBox fx:id="competenciesComboBox" layoutX="177.0" layoutY="119.0" prefWidth="150.0" />
+         <ComboBox layoutX="177.0" layoutY="163.0" prefWidth="150.0" />
+         <TableView fx:id="volunteerTableView" layoutX="68.0" layoutY="264.0" prefHeight="267.0" prefWidth="764.0">
+           <columns>
+             <TableColumn fx:id="idColumn" prefWidth="62.0" text="Id" />
+             <TableColumn fx:id="nameColumn" prefWidth="132.0" text="Имя" />
+               <TableColumn fx:id="sexColumn" prefWidth="108.0" text="Пол" />
+               <TableColumn fx:id="regionColumn" prefWidth="195.0" text="Регион" />
+               <TableColumn fx:id="competenceColumn" prefWidth="265.0" text="Компетенция" />
+           </columns>
+         </TableView>
+        </children>
+    </AnchorPane>
+</VBox>
