@@ -18,6 +18,11 @@ import java.util.regex.Pattern;
 
 public class FromXLSInitializer implements Initializer {
 
+    private final UserService<DBUserDAO> userService = new UserService<>(DBUserDAO::new);
+    public void initializeVolunteers(){
+
+    }
+
     @Override
     public void initializeUsers ( Object arg ) {
 

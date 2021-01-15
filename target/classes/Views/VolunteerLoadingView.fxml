@@ -9,6 +9,7 @@
 <?import javafx.scene.text.Font?>
 
 
+<?import javafx.scene.control.TextArea?>
 <AnchorPane maxHeight="-Infinity"
             maxWidth="-Infinity"
             minHeight="-Infinity"
@@ -28,13 +29,13 @@
       <HBox alignment="BASELINE_CENTER" layoutX="157.0" layoutY="221.0" prefHeight="39.0" prefWidth="575.0">
          <children>
             <Label prefHeight="35.0" prefWidth="167.0" text="Загрузка волонтеров:" />
-            <TextField editable="false" prefHeight="39.0" prefWidth="158.0" />
+            <TextArea fx:id="fileName" prefHeight="39.0" prefWidth="158.0" />
             <Button fx:id="fileOpenButton" mnemonicParsing="false" prefHeight="38.0" prefWidth="120.0" text="Просмотр" textAlignment="RIGHT" />
          </children>
       </HBox>
       <Button fx:id="loadButton" layoutX="326.0" layoutY="274.0" mnemonicParsing="false" text="Загрузка" />
       <Button fx:id="cancelButton" layoutX="486.0" layoutY="274.0" mnemonicParsing="false" text="Отмена" />
-      <VBox fx:id="afterLoadingInfoArea" layoutX="82.0" layoutY="415.0" prefHeight="90.0" prefWidth="783.0">
+      <VBox fx:id="afterLoadingInfoArea" visible="false" layoutX="82.0" layoutY="415.0" prefHeight="90.0" prefWidth="783.0">
          <children>
             <Label alignment="CENTER" prefHeight="26.0" prefWidth="840.0" text="Загрузка успешно завершена!" textAlignment="CENTER">
                <font>
