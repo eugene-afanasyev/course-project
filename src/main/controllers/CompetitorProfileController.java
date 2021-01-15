@@ -114,7 +114,7 @@ public class CompetitorProfileController {
                 if(user.getPassword().equals(newPassword)) {
                     showErrorAlert("Этот пароль сейчас используется");
                 } else {
-                    user.setPassword(newPassword);
+                    AuthManager.Current.changePassword(newPassword);
                     showSuccessAlert("Пароль был успешно изменен");
                 }
             } else {
