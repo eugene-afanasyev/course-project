@@ -20,6 +20,9 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         primaryStage.setOnCloseRequest(event -> System.exit(0));
 
+        var initializer = new FromXLSInitializer();
+
+        initializer.initializeVolunteers();
 
         var champService = new ChampionshipService<>(DBChampionshipDAO::new);
         var champ = champService.find(79);

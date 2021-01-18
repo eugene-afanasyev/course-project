@@ -19,7 +19,22 @@ import java.util.regex.Pattern;
 public class FromXLSInitializer implements Initializer {
 
     private final UserService<DBUserDAO> userService = new UserService<>(DBUserDAO::new);
+    private final ResultService<DBResultDAO> resultService = new ResultService<>(DBResultDAO::new);
+    private final RoleService<DBRoleDAO> roleService = new RoleService<>(DBRoleDAO::new);
+    private final ChampionshipService<DBChampionshipDAO> championshipService = new ChampionshipService<>(DBChampionshipDAO::new);
+    private final DisciplineService<DBDisciplineDAO> disciplineService = new DisciplineService<>(DBDisciplineDAO::new);
+    private final RegionService<DBRegionDAO> regionService = new RegionService<>(DBRegionDAO::new);
+
     public void initializeVolunteers(){
+        var volunteers = userService.findAllVolunteers();
+
+        var disciplineCount = disciplineService.findAll().size();
+        var firstDisciplineId = disciplineService.findAll().get(0).getId();
+
+        var regionsCount = regionService.findAll().size();
+        var regionFirstId = regionService.findAll().get(0).getId();
+
+
 
     }
 
