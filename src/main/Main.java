@@ -24,9 +24,19 @@ public class Main extends Application {
 
         initializer.initializeVolunteers();
 
-        var champService = new ChampionshipService<>(DBChampionshipDAO::new);
-        var champ = champService.find(79);
-        var experts = champService.getExperts(champ);
+        var initializer = new FromXLSInitializer();
+   //     initializer.initializeRegions("regions.xls");
+      /*  initializer.initializeRoles("roles.xls");
+        initializer.initializeChampionships("wsi.xls");
+        initializer.initializeDisciplines("skills.xls");*/
+       // initializer.initializeUsers("users.xls");
+//       initializer.initializeResults("results.xls");
+
+        //initializer.initializeExperts();
+       // initializer.distributeByDisciplines("Expert");
+       // initializer.distributeByDisciplines("Volunteer");
+       // initializer.distributeByDisciplines("Coordinator");
+
         Parent root = FXMLLoader.load(getClass().getResource("/Views/main.fxml"));
         Scene primaryScene = new Scene(root, 920, 640);
         primaryScene.getStylesheets().add(getClass().getResource("/stylesheets/style.css").toExternalForm());

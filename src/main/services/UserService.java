@@ -2,10 +2,14 @@ package main.services;
 
 import main.dao.DBUserDAO;
 import main.dao.UserDAO;
+<<<<<<< HEAD
 import main.models.Champ;
 import main.models.Championship;
 import main.models.Discipline;
 import main.models.User;
+=======
+import main.models.*;
+>>>>>>> dbrefactoring
 
 import java.util.Enumeration;
 import java.util.List;
@@ -63,6 +67,7 @@ public class UserService<T extends UserDAO> implements EntityService<User> {
         return supplier.get().findByName(firstName, lastName);
     }
 
+<<<<<<< HEAD
     public List<User> findAllVolunteers(){
         List<User> users = findAll();
         return users.stream().filter((user) ->
@@ -84,5 +89,21 @@ public class UserService<T extends UserDAO> implements EntityService<User> {
                         user.getResults().get(0).getChampionship().id == championship.id &&
                         user.getResults().get(0).getDiscipline().getId() == discipline.getId()
         ).collect(Collectors.toList());
+=======
+    public void updateChampionship(User user, Championship championship){
+       supplier.get().updateChampionship(user.getId(), championship);
+    }
+
+    public void updateDiscipline(User user, Discipline discipline){
+        supplier.get().updateDiscipline(user.getId(), discipline);
+    }
+
+    public void updateRegion(User user, Region region){
+        supplier.get().updateRegion(user.getId(), region);
+    }
+
+    public void updateRole( User user, Role role ){
+        supplier.get().updateRole(user.getId(), role);
+>>>>>>> dbrefactoring
     }
 }

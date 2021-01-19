@@ -10,15 +10,13 @@ import org.apache.poi.ss.usermodel.Cell;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Pattern;
 
 public class FromXLSInitializer implements Initializer {
 
     private final UserService<DBUserDAO> userService = new UserService<>(DBUserDAO::new);
+<<<<<<< HEAD
     private final ResultService<DBResultDAO> resultService = new ResultService<>(DBResultDAO::new);
     private final RoleService<DBRoleDAO> roleService = new RoleService<>(DBRoleDAO::new);
     private final ChampionshipService<DBChampionshipDAO> championshipService = new ChampionshipService<>(DBChampionshipDAO::new);
@@ -36,6 +34,41 @@ public class FromXLSInitializer implements Initializer {
 
 
 
+=======
+    private final ChampionshipService<DBChampionshipDAO> championshipService = new ChampionshipService<>(DBChampionshipDAO::new);
+    private final DisciplineService<DBDisciplineDAO> disciplineService = new DisciplineService<>(DBDisciplineDAO::new);
+
+
+    /***
+     * Распределяет случайным образом пользователей, заявленных на чемпионате, по компетенциям
+     * (сделано так, поскольку недостаточно данных для распределения экспертов и волонтеров)
+     * @param roleName - роль пользователей, которых нужно распределить
+     */
+    public void distributeByDisciplines(String roleName){
+        var championships = championshipService.findAll();
+
+        for (var championship : championships) {
+            var users = championshipService.findAllByRole(roleName, championship);
+            var disciplines = championship.getDisciplines();
+            for (var user : users) {
+                var generator = new Random();
+                var bound = disciplines.size();
+                var disciplineIndex = generator.nextInt(bound);
+
+                var group = roleName.substring(0,1);
+                if(roleName.equals("Coordinator")){
+                    group = "O";
+                }
+
+                var discipline = disciplines.get(disciplineIndex);
+                var login = String.format("%tY%3s%08d%1s", user.getBirthdayDate(), discipline.getDisciplineCode(),
+                        user.getId(), group).replace(" ", "0");
+
+                userService.updateDiscipline(user, discipline);
+                userService.updateLogin(user.getId(), login);
+            }
+        }
+>>>>>>> dbrefactoring
     }
 
     @Override
@@ -43,7 +76,11 @@ public class FromXLSInitializer implements Initializer {
 
         List<User> users = XLSParser.Parse((String)arg, (row) -> {
             Iterator<Cell> cells = row.cellIterator();
-            cells.next();
+            try{
+                var index = cells.next().getNumericCellValue();
+            }catch (Exception ex){
+                return null;
+            }
             Cell cell = cells.next();
 
                 var email = cell.getStringCellValue();
@@ -82,17 +119,34 @@ public class FromXLSInitializer implements Initializer {
             var currentRegion = regionService.find(region_id + offset - 1);
 
 
-            password = AuthHelper.hashPassword(password);
+            var minChampionshipId = championshipService.findAll().get(0).id;
+            var championshipsCount = championshipService.findAll().size();
 
-            return new User(firstName, isMale, lastName, birthday, null, password, email, email, currentRole, currentRegion);
+            var generator = new Random();
+
+            var currentChampId = generator.nextInt(championshipsCount) + minChampionshipId;
+            var champ = championshipService.find(currentChampId);
+
+
+            password = AuthHelper.hashPassword(password);
+            var user = new User(firstName, isMale, lastName, birthday, null, password, email, email, null, null, null, null);
+            try {
+                userService.save(user);
+            }catch(Exception ex){
+                var msg = ex.getMessage();
+            }
+            userService.updateChampionship(user, champ);
+            userService.updateRegion(user,currentRegion);
+            userService.updateRole(user, currentRole);
+
+            return null;
         });
 
+        users.remove(0);
         var userService = new UserService<DBUserDAO>(DBUserDAO::new);
 
-        users.remove(0);
-
         try{
-            SaveByUsingService(userService, users);
+           // SaveByUsingService(userService, users);
         }catch (ExceptionInInitializerError ex){
 
         }
@@ -135,10 +189,6 @@ public class FromXLSInitializer implements Initializer {
         List<Result> results = XLSParser.Parse((String)arg, (row) -> {
             Iterator<Cell> cells = row.cellIterator();
 
-            var disciplineService = new DisciplineService<DBDisciplineDAO>(DBDisciplineDAO::new);
-            var championshipService = new ChampionshipService<DBChampionshipDAO>(DBChampionshipDAO::new);
-            var userService = new UserService<DBUserDAO>(DBUserDAO::new);
-
             var cell = cells.next();
             if(cell.getCellType() == Cell.CELL_TYPE_STRING){
                 return null;
@@ -148,7 +198,7 @@ public class FromXLSInitializer implements Initializer {
 
             // так как пользователи в таблице идут не с 1 id, то необходимо вычислить смещение для того, чтобы правильно найти пользователя
 
-            var userOffset = 266;
+            var userOffset = 1;
             //var userOffset = userService.findAll().get(0).getId();
             User user = null;
             try {
@@ -156,6 +206,7 @@ public class FromXLSInitializer implements Initializer {
             }
             catch (Exception e){
                 var msg = e.getMessage();
+                return null;
             }
             var nextCell = cells.next();
             String compCode;
@@ -167,13 +218,8 @@ public class FromXLSInitializer implements Initializer {
             }
             var compName = cells.next().getStringCellValue();
 
-            // так как у нас нет достаточных данных для связи чемпионата, пользователя и результата, то просто рандомно выбираем id чемпионата
             var champCode = (int)cells.next().getNumericCellValue();
-            var champCount = championshipService.findAll().size();
-            var minChampId = championshipService.findAll().get(0).id;
 
-            var champ_id = (int)(Math.random() * champCount) + minChampId;
-            var champ = championshipService.find(champ_id);
 
             var userMark = cells.next().getNumericCellValue();
             nextCell = cells.next();
@@ -186,6 +232,9 @@ public class FromXLSInitializer implements Initializer {
 
             var discipline = disciplineService.findByName(compName);
 
+            if(user == null){
+                return null;
+            }
             var clientGroupCode = user.getRole().getName().substring(0,1);
             if(user.getRole().getName().equals("Coordinator")){
                 clientGroupCode = "O";
@@ -195,20 +244,21 @@ public class FromXLSInitializer implements Initializer {
                 discipline = new Discipline(compName,null, null, compCode);
                 disciplineService.save(discipline);
             }
-
-            championshipService.addUser(champ, user);
+            userService.updateDiscipline(user, discipline);
 
             // в остальные иницилизаторах нет достаточных данных для установка логина пользователя, поэтому делаем это тут
             var login = String.format("%tY%3s%08d%1s", user.getBirthdayDate(),compCode, user.getId(), clientGroupCode).replace(" ", "0");
 
             userService.updateLogin(user.getId(), login);
-            championshipService.addDiscipline(champ, discipline);
+
+            championshipService.addDiscipline(user.getChampionship(), discipline);
 
             System.out.printf("\n code = %s || login = %s || modules %s || \r\n", compCode, login, userModules);
 
 
             var resultService = new ResultService<>(DBResultDAO::new);
-            var result = new Result(user, champ, discipline, userMark, userModules);
+            var result = new Result(user, userMark, userModules);
+
             resultService.save(result);
 
             return result;

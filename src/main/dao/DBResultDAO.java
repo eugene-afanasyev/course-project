@@ -23,17 +23,12 @@ public class DBResultDAO implements ResultDAO {
         Transaction tx = null;
         try{
             tx = session.beginTransaction();
-            var id = (int)session.save(new Result(null, null, null, arg.getScore(), arg.getModules()));
+            var id = (int)session.save(new Result(null, arg.getScore(), arg.getModules()));
             var result = session.get(Result.class, id);
 
             var user = session.get(User.class, arg.getUser().getId());
-            var championship = session.get(Championship.class, arg.getChampionship().id);
-            var discipline = session.get(Discipline.class, arg.getDiscipline().getId());
 
-            result.setChampionship(championship);
-            result.setDiscipline(discipline);
             result.setUser(user);
-
             session.update(result);
 
             tx.commit();

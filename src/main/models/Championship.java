@@ -43,10 +43,7 @@ public class Championship {
                 inverseJoinColumns = @JoinColumn(name = "discipline_id"))
     private List<Discipline> disciplines;
 
-    @ManyToMany ( cascade = {CascadeType.ALL})
-    @JoinTable(name = "users_championships",
-            joinColumns = @JoinColumn(name = "champ_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @OneToMany ( mappedBy = "championship", fetch = FetchType.EAGER)
     private List<User> users = new LinkedList<>();
 
     public Championship(){

@@ -9,10 +9,8 @@ import java.util.List;
 @Table(name = "results")
 public class Result {
 
-    public Result ( User user , Championship championship , Discipline discipline, double score, String modules ) {
+    public Result ( User user , double score, String modules ) {
         this.user         = user;
-        this.championship = championship;
-        this.discipline   = discipline;
         this.score        = score;
         this.modules = modules;
     }
@@ -25,17 +23,9 @@ public class Result {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToOne ( cascade = CascadeType.ALL )
+    @OneToOne (cascade = CascadeType.ALL )
     @JoinColumn ( name = "user_id" )
     private User user;
-
-    @OneToOne ( cascade = CascadeType.ALL )
-    @JoinColumn ( name = "championship_id" )
-    private Championship championship;
-
-    @OneToOne ( cascade = CascadeType.ALL )
-    @JoinColumn ( name = "discipline_id" )
-    private Discipline discipline;
 
     @Column(name = "score")
     private double score;
@@ -57,22 +47,6 @@ public class Result {
 
     public void setUser ( User user ) {
         this.user = user;
-    }
-
-    public Championship getChampionship ( ) {
-        return championship;
-    }
-
-    public void setChampionship ( Championship championship ) {
-        this.championship = championship;
-    }
-
-    public Discipline getDiscipline ( ) {
-        return discipline;
-    }
-
-    public void setDiscipline ( Discipline discipline ) {
-        this.discipline = discipline;
     }
 
     public double getScore ( ) {
