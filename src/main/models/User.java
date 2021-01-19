@@ -8,13 +8,15 @@ import java.util.*;
 @Entity
 @Table ( name = "users" )
 public class User {
-    public User ( String firstName , boolean isMale, String lastName , Date birthdayDate , String phoneNumber , String password , String login , String email , Role role , Region region ) {
+    public User ( String firstName , boolean isMale, String lastName , Date birthdayDate , String phoneNumber , String password , String login , String email , Championship championship, Discipline discipline, Role role , Region region ) {
         this.firstName    = firstName;
         this.isMale = isMale;
         this.lastName     = lastName;
         this.birthdayDate = birthdayDate;
         this.phoneNumber  = phoneNumber;
         this.password     = password;
+        this.championship = championship;
+        this.discipline   = discipline;
         this.login        = login;
         this.email        = email;
         this.role         = role;
@@ -61,16 +63,16 @@ public class User {
     @Column(name = "is_male")
     private boolean isMale;
 
-    // @ManyToMany(mappedBy = "users", cascade = CascadeType.ALL)
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "users_championships",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "champ_id"))
-    private List<Championship> championships = new LinkedList<>();
+    @OneToOne (mappedBy = "user")
+    private Result result;
 
-    @OneToMany (cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "user_id")
-    private List<Result> results;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "championship_id")
+    private Championship championship;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "discipline_id")
+    private Discipline discipline;
 
     public int getId ( ) {
         return id;
@@ -78,6 +80,30 @@ public class User {
 
     public void setId ( int id ) {
         this.id = id;
+    }
+
+    public Result getResult ( ) {
+        return result;
+    }
+
+    public void setResult ( Result result ) {
+        this.result = result;
+    }
+
+    public Championship getChampionship ( ) {
+        return championship;
+    }
+
+    public void setChampionship ( Championship championship ) {
+        this.championship = championship;
+    }
+
+    public Discipline getDiscipline ( ) {
+        return discipline;
+    }
+
+    public void setDiscipline ( Discipline discipline ) {
+        this.discipline = discipline;
     }
 
     public String getFirstName ( ) {
@@ -152,32 +178,11 @@ public class User {
         this.region = region;
     }
 
-    public List<Championship> getChampionships ( ) {
-        return championships;
-    }
-
-    public void setChampionships ( List<Championship> championships ) {
-        this.championships = championships;
-    }
-
-    public List<Result> getResults ( ) {
-        return results;
-    }
-
-    public void setResults ( List<Result> results ) {
-        this.results = results;
-    }
-
     public boolean isMale ( ) {
         return isMale;
     }
 
     public void setMale ( boolean male ) {
         isMale = male;
-    }
-
-    public void addChampionship(Championship championship){
-        championships.add(championship);
-        championship.getUsers().add(this);
     }
 }

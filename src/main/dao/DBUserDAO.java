@@ -1,8 +1,6 @@
 package main.dao;
 
-import main.models.Championship;
-import main.models.Role;
-import main.models.User;
+import main.models.*;
 import main.utils.HibernateSessionFactoryUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -104,10 +102,96 @@ public class DBUserDAO implements UserDAO{
         }
     }
 
+    @Override
     public List<User> findByName(String firstName, String lastName){
         var query = HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("FROM User as u WHERE u.firstName=:first and u.lastName=:last");
         query.setParameter("first", firstName);
         query.setParameter("last", lastName);
         return (List<User>) query.list();
+    }
+
+    @Override
+    public void updateDiscipline( int id, Discipline discipline ){
+        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Transaction tx = null;
+        try{
+            tx = session.beginTransaction();
+            User user = (User) session.get(User.class, id);
+            var disc = session.get(Discipline.class, discipline.getId());
+            user.setDiscipline(disc);
+            session.update(user);
+            tx.commit();
+        }catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            };
+            e.printStackTrace();
+        }finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public void updateChampionship ( int id , Championship championship ) {
+        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Transaction tx = null;
+        try{
+            tx = session.beginTransaction();
+            User user = (User) session.get(User.class, id);
+            var champ = session.get(Championship.class, championship.id);
+            user.setChampionship(champ);
+            session.update(user);
+            tx.commit();
+        }catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            };
+            e.printStackTrace();
+        }finally {
+            session.close();
+        }
+    }
+
+
+    @Override
+    public void updateRegion ( int id , Region region ) {
+        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Transaction tx = null;
+        try{
+            tx = session.beginTransaction();
+            User user = (User) session.get(User.class, id);
+            var reg = session.get(Region.class, region.getId());
+            user.setRegion(reg);
+            session.update(user);
+            tx.commit();
+        }catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            };
+            e.printStackTrace();
+        }finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public void updateRole ( int id , Role role ) {
+        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Transaction tx = null;
+        try{
+            tx = session.beginTransaction();
+            User user = (User) session.get(User.class, id);
+            var rl = session.get(Role.class, role.getId());
+            user.setRole(rl);
+            session.update(user);
+            tx.commit();
+        }catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            };
+            e.printStackTrace();
+        }finally {
+            session.close();
+        }
     }
 }

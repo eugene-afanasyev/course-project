@@ -49,10 +49,10 @@ public class UserResultController {
         userGender.setText(user.isMale() ? "Мужской" : "Женский");
         userIdNumber.setText(user.getLogin());
         userRegion.setText(user.getRegion().getName());
-        var userResult = user.getResults().get(0);
+        var userResult = user.getResult();
         userScore.setText(String.format("%.2f", userResult.getScore()));
-        userChampionship.setText(userResult.getChampionship().getName());
-        discipline.setText(userResult.getDiscipline().getRuName());
+        userChampionship.setText(user.getChampionship().getName());
+        discipline.setText(user.getDiscipline().getRuName());
 
         var scores = parseModules(userResult.getModules());
 

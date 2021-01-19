@@ -54,6 +54,7 @@ public class VolunteerManagementController {
         }
         competenciesComboBox.setValue(allDisciplines.get(0).getRuName());
 
+        
 
         idColumn.setCellValueFactory(new PropertyValueFactory<Voluunter, Integer>("id"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<Voluunter, String>("name"));
