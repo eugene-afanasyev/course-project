@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="640.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.VolunteerManagementController">
+<VBox prefHeight="640.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/11.0.1" fx:id="mainView" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.VolunteerManagementController">
     <fx:include source="signedUserHeader.fxml" />
     <AnchorPane prefHeight="584.0" prefWidth="920.0">
         <children>
@@ -18,7 +18,7 @@
                     <Font name="SansSerif Regular" size="30.0" />
                 </font>
             </Label>
-         <Button layoutX="551.0" layoutY="116.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="235.0" text="Загрузка волонтеров">
+         <Button layoutX="551.0" layoutY="116.0" onMouseClicked="#ToVolunteerLoadingPage" mnemonicParsing="false" prefHeight="27.0" prefWidth="235.0" text="Загрузка волонтеров">
             <font>
                <Font name="SansSerif Regular" size="15.0" />
             </font>
@@ -33,7 +33,7 @@
                <Font size="18.0" />
             </font>
          </Label>
-         <Label layoutX="54.0" layoutY="165.0" prefHeight="17.0" prefWidth="114.0" style="-fx-opacity: 0.7;" text="Сортировать:">
+         <Label layoutX="54.0" fx:id="sort" layoutY="165.0" prefHeight="17.0" prefWidth="114.0" style="-fx-opacity: 0.7;" text="Сортировать:">
             <font>
                <Font size="18.0" />
             </font>

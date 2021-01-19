@@ -2,15 +2,12 @@ package main.controllers;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import main.AuthManager;
 import main.dao.DBDisciplineDAO;
 import main.models.Discipline;
 import main.services.DisciplineService;
@@ -31,6 +28,11 @@ public class championshipCompetenciesController {
 
     @FXML
     private Pane loadingArea;
+
+    @FXML
+    private ProgressIndicator spinner;
+    @FXML
+    private AnchorPane content;
 
     private final  DisciplineService<DBDisciplineDAO> disciplineService = new DisciplineService<>(DBDisciplineDAO::new);
 
@@ -58,17 +60,29 @@ public class championshipCompetenciesController {
         return null;
     }
 
+    public class ServiceExample extends Service<List<Discipline>> {
+        @Override
+        protected Task<List<Discipline>> createTask() {
+            return new Task<List<Discipline>>() {
+                @Override
+                protected List<Discipline> call() throws Exception {
+                    return disciplineService.findAll();
+                }
+            };
+        }
+    }
+
+    ServiceExample loadRequest = new ServiceExample();
     @FXML
     void initialize() {
-        var loadRequest = new Task<List<Discipline>>(){
-            @Override
-            protected List<Discipline> call ( ) throws Exception {
-                loadingArea.setVisible(true);
-                return disciplineService.findAll();
-            }
-        };
+
+        content.setVisible(false);
+        spinner.progressProperty().unbind();
+        spinner.progressProperty().bind(loadRequest.progressProperty());
+
 
         loadRequest.setOnSucceeded(e -> {
+            content.setVisible(true);
             TreeItem<Label> rootTreeNode = new TreeItem<Label>(buildLabel("Все компетенции", 150,20));
 
             for(var competence : loadRequest.getValue()) {
@@ -105,7 +119,8 @@ public class championshipCompetenciesController {
         var allDisciplines = disciplineService.findAll();
         System.out.println(allDisciplines);*/
 
-        exec.execute(loadRequest);
+        //exec.execute(loadRequest);
+        loadRequest.restart();
 
         HeaderController.viewPath = "/Views/AboutWorldSkills.fxml";
     }

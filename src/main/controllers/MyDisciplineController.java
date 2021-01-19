@@ -63,8 +63,8 @@ public class MyDisciplineController {
     @FXML
     public void initialize(){
         var user = AuthManager.Current.getUser();
-        var currentChampionship = user.getChampionships().get(0);
-        var currentDiscipline = user.getResults().get(0).getDiscipline();
+        var currentChampionship = user.getChampionship();
+        var currentDiscipline = user.getDiscipline();
 
         var usersRequest = new Task<List<User>>(){
             @Override
@@ -81,8 +81,12 @@ public class MyDisciplineController {
             var expertsCollection = FXCollections.<UserViewModel>observableArrayList();
             var competitorsCollection = FXCollections.<UserViewModel>observableArrayList();
 
+
             for(var item : usersRequest.getValue()){
-                if(item.getResults().get(0).getDiscipline().getId() == currentDiscipline.getId()){
+                if(item.getDiscipline() == null){
+                    continue;
+                }
+                if(item.getDiscipline().getId() == currentDiscipline.getId()){
                     if(item.getRole().getName().equals("Expert")){
                         expertsCollection.add(new UserViewModel(item.getFirstName(), item.getLastName(), item.getBirthdayDate().toString()));
                     }else if(item.getRole().getName().equals("Competitor")){

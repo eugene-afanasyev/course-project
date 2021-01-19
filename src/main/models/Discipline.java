@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "disсiplines")
+@Table(name = "disciplines")
 public class Discipline {
 
     @Id
@@ -28,6 +28,8 @@ public class Discipline {
             joinColumns = @JoinColumn(name = "discipline_id"),
             inverseJoinColumns = @JoinColumn(name = "championship_id"))
     private List<Championship> championships;
+
+
     public void setId(int id) {
         this.id = id;
     }
