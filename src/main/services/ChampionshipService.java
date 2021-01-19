@@ -1,10 +1,8 @@
 package main.services;
 
 import main.dao.ChampionshipDAO;
-import main.models.Championship;
-import main.models.Discipline;
-import main.models.Region;
-import main.models.User;
+import main.dao.DBUserDAO;
+import main.models.*;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -12,6 +10,7 @@ import java.util.stream.Collectors;
 
 public class ChampionshipService<T extends ChampionshipDAO> implements EntityService<Championship> {
     private final Supplier<T> supplier;
+    private final UserService<DBUserDAO> userService = new UserService<>(DBUserDAO::new);
 
     public ChampionshipService(Supplier<T> supplier) {
         this.supplier = supplier;
@@ -56,50 +55,39 @@ public class ChampionshipService<T extends ChampionshipDAO> implements EntitySer
     }
 
     /***
-     * Используется для поиска экспертов на определенном чемпионате
-     * @param championship - чемпионат, экспертов которого необходимо найти
-     * @return - список экспертов
+     * Используется для поиска пользователей по какой-либо роли
+     * @param roleName - название роли, пользователей с которой нужно найти
+     * @return - список пользователей с соответствующей ролью
      */
-    public List<User> getExperts(Championship championship){
-        List<User> users = championship.getUsers();
-        return users.stream().filter((user) -> user.getRole().getName().equals("Expert")).collect(Collectors.toList());
+    public List<User> findAllByRole(String roleName){
+       return userService.findAll().stream().filter((user) -> user.getRole().getName().equals(roleName)).collect(Collectors.toList());
     }
 
     /***
-     * Используется для поиска экспертов на чемпионате по определенной дисциплине
-     * @param championship - чемпионат, на котором производим поиск
-     * @param discipline - дисциплина, на которой производится поиск
-     * @return - список экспертов на данном чемпионате по данной дисциплине
+     * Поиск пользователей, участвующих на чемпионате и имеющих соответствующую роль
+     * @param roleName - роль искомых пользователей
+     * @param championship - чемпионат, на котором производится поиск
+     * @return - список пользователей
      */
-    public List<User> getExperts(Championship championship, Discipline discipline){
-        List<User> users = championship.getUsers();
-        return users.stream().filter((user) ->
-            user.getRole().getName().equals("Expert")
-                    && user.getResults().get(0).getDiscipline().getDisciplineCode().equals(discipline.getDisciplineCode())
+    public List<User> findAllByRole( String roleName, Championship championship ){
+        return userService.findAll().stream().filter((user) ->
+                user.getRole().getName().equals(roleName) &&
+                        user.getChampionship().id == championship.id
         ).collect(Collectors.toList());
     }
 
     /***
-     * Используется для поиска участников на определенном чемпионате
-     * @param championship - чемпионат, экспертов которого необходимо найти
-     * @return - список участников
-     */
-    public List<User> getParticipants( Championship championship){
-        List<User> users = championship.getUsers();
-        return users.stream().filter((user) -> user.getRole().getName().equals("Competitor")).collect(Collectors.toList());
-    }
-
-    /***
-     * Используется для поиска участников на чемпионате по определенной дисциплине
-     * @param championship - чемпионат, на котором производим поиск
+     * Поиск пользователей, участвующих на чемпионате в определенной компетенции и имеющих соответствующую роль
+     * @param roleName - роль искомых пользователей
+     * @param championship - чемпионат, на котором производится поиск
      * @param discipline - дисциплина, на которой производится поиск
-     * @return - список участников на данном чемпионате по данной дисциплине
+     * @return
      */
-    public List<User> getParticipants( Championship championship, Discipline discipline){
-        List<User> users = championship.getUsers();
-        return users.stream().filter((user) ->
-                user.getRole().getName().equals("Competitor")
-                        && user.getResults().get(0).getDiscipline().getDisciplineCode().equals(discipline.getDisciplineCode())
+    public List<User> findAllByRole( String roleName, Championship championship, Discipline discipline){
+        return userService.findAll().stream().filter((user) ->
+                user.getRole().getName().equals(roleName) &&
+                        user.getChampionship().id == championship.id &&
+                        user.getDiscipline().getId() == discipline.getId()
         ).collect(Collectors.toList());
     }
 }

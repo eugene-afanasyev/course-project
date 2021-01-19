@@ -140,42 +140,6 @@ public class AuthorizationMenuController {
                 } catch (Exception ex){
                     ex.fillInStackTrace();
                 }
-         //       var isSuccessful = AuthManager.Current.authorize(idNumberField.getText(), passwordField.getText());
-
-//                if(!isSuccessful){
-//                    errors.add("Неверный логин или пароль");
-//                    idNumberField.setStyle("-fx-border-color: red");
-//                    passwordField.setStyle("-fx-border-color: red");
-//                    showErrorAlert("Неверный логин или пароль");
-//                }
-//
-//                // к этому моменту пользователь авторизован, следовательно, тут нужно перейти на предыдущую страницу
-//                if (AuthManager.Current.isAuthorized()) {
-//                    var role = AuthManager.Current.getUserRole();
-//
-//                    switch (role.getName()) {
-//                        case "Expert":
-//                            // TODO
-//                            break;
-//                        case "Press":
-//                            // TODO
-//                            break;
-//                        case "Competitor":
-//                            moveToScene("/Views/CompetitorMenu.fxml");
-//                            break;
-//                        case "Volunteer":
-//                            // TODO
-//                            break;
-//                        case "Administrator":
-//                            // TODO
-//                            break;
-//                        case "Coordinator":
-//                            // TODO
-//                            break;
-//                        default:
-//                            break;
-//                    }
-//                }
             }
         });
     }

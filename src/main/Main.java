@@ -19,11 +19,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         primaryStage.setOnCloseRequest(event -> System.exit(0));
-
-
-        var champService = new ChampionshipService<>(DBChampionshipDAO::new);
-        var champ = champService.find(79);
-        var experts = champService.getExperts(champ);
+        var resource = getClass().getResource("/Views/main.fxml");
         Parent root = FXMLLoader.load(getClass().getResource("/Views/main.fxml"));
         Scene primaryScene = new Scene(root, 920, 640);
         primaryScene.getStylesheets().add(getClass().getResource("/stylesheets/style.css").toExternalForm());
