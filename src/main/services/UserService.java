@@ -2,17 +2,12 @@ package main.services;
 
 import main.dao.DBUserDAO;
 import main.dao.UserDAO;
-<<<<<<< HEAD
-import main.models.Champ;
-import main.models.Championship;
-import main.models.Discipline;
-import main.models.User;
-=======
+
 import main.models.*;
->>>>>>> dbrefactoring
 
 import java.util.Enumeration;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -67,29 +62,6 @@ public class UserService<T extends UserDAO> implements EntityService<User> {
         return supplier.get().findByName(firstName, lastName);
     }
 
-<<<<<<< HEAD
-    public List<User> findAllVolunteers(){
-        List<User> users = findAll();
-        return users.stream().filter((user) ->
-                user.getRole().getName().equals("Volunteer")
-        ).collect(Collectors.toList());
-    }
-
-    public List<User> findAllVolunteers(Championship championship){
-        var users = championship.getUsers();
-        return users.stream().filter((user) ->
-                user.getRole().getName().equals("Volunteer") && user.getResults().get(0).getChampionship().id == championship.id
-        ).collect(Collectors.toList());
-    }
-
-    public List<User> findAllVolunteers( Championship championship, Discipline discipline ){
-        var users = championship.getUsers();
-        return users.stream().filter((user) ->
-                user.getRole().getName().equals("Volunteer") &&
-                        user.getResults().get(0).getChampionship().id == championship.id &&
-                        user.getResults().get(0).getDiscipline().getId() == discipline.getId()
-        ).collect(Collectors.toList());
-=======
     public void updateChampionship(User user, Championship championship){
        supplier.get().updateChampionship(user.getId(), championship);
     }
@@ -104,6 +76,15 @@ public class UserService<T extends UserDAO> implements EntityService<User> {
 
     public void updateRole( User user, Role role ){
         supplier.get().updateRole(user.getId(), role);
->>>>>>> dbrefactoring
+    }
+
+    public User find( Predicate<User> func ){
+        var users = findAll();
+        for (var user: users) {
+            if(func.test(user)){
+                return user;
+            }
+        }
+        return null;
     }
 }

@@ -117,7 +117,12 @@ public class DBUserDAO implements UserDAO{
         try{
             tx = session.beginTransaction();
             User user = (User) session.get(User.class, id);
-            var disc = session.get(Discipline.class, discipline.getId());
+            Discipline disc = null;
+            try{
+                disc = session.get(Discipline.class, discipline.getId());
+            } catch (Exception ex){
+
+            }
             user.setDiscipline(disc);
             session.update(user);
             tx.commit();
