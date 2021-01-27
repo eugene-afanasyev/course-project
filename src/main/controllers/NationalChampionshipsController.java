@@ -2,16 +2,15 @@ package main.controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import main.dao.DBChampionshipDAO;
 import main.models.Champ;
@@ -19,8 +18,6 @@ import main.models.Championship;
 import main.services.ChampionshipService;
 
 import java.util.List;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 public class NationalChampionshipsController {
     @FXML
@@ -45,15 +42,21 @@ public class NationalChampionshipsController {
     private TableColumn<Champ, Integer> countParticipantColumn;
 
     @FXML
+    private AnchorPane content;
+
+    @FXML
     private Pane loadingArea;
+
+    @FXML
+    private ProgressIndicator spinner;
 
     private ChampionshipService<DBChampionshipDAO> champService = new ChampionshipService<>(DBChampionshipDAO::new);
 
-    private Executor exec = Executors.newCachedThreadPool(runnable -> {
-        Thread t = new Thread(runnable);
-        t.setDaemon(true);
-        return t ;
-    });
+//    private Executor exec = Executors.newCachedThreadPool(runnable -> {
+//        Thread t = new Thread(runnable);
+//        t.setDaemon(true);
+//        return t ;
+//    });
 
     Champ SearchByNumber(ObservableList<Champ> list, Integer number) {
         for(var el : list) {
@@ -72,22 +75,42 @@ public class NationalChampionshipsController {
         return null;
     }
 
+    public class ChampionshipExample extends Service<List<Championship>> {
+        @Override
+        protected Task<List<Championship>> createTask() {
+            return new Task<List<Championship>>() {
+                @Override
+                protected List<Championship> call() throws Exception {
+                    loadingArea.setVisible(true);
+                    return champService.findAll();
+                }
+            };
+        }
+    }
+
+    ChampionshipExample championshipsRequest = new ChampionshipExample();
     @FXML
     void initialize() {
 
-        var championshipsRequest = new Task<List<Championship>>(){
-            @Override
-            protected List<Championship> call ( ) throws Exception {
-                loadingArea.setVisible(true);
-                return champService.findAll();
-            }
-        };
+        content.setVisible(false);
+
+//        var championshipsRequest = new Task<List<Championship>>(){
+//            @Override
+//            protected List<Championship> call ( ) throws Exception {
+//                loadingArea.setVisible(true);
+//                return champService.findAll();
+//            }
+//        };
+
+        spinner.progressProperty().unbind();
+        spinner.progressProperty().bind(championshipsRequest.progressProperty());
 
         championshipsRequest.setOnFailed(event -> {
             loadingArea.setVisible(false);
         });
         championshipsRequest.setOnSucceeded(e -> {
             loadingArea.setVisible(false);
+            content.setVisible(true);
             ObservableList<Champ> champs = FXCollections.observableArrayList();
             for(var championship : championshipsRequest.getValue()) {
                 champs.add(new Champ(championship.getOrderNumber(), championship.getName(),
@@ -155,7 +178,9 @@ public class NationalChampionshipsController {
         fieldColumn.setCellValueFactory(new PropertyValueFactory<Champ, String>("field"));
         countParticipantColumn.setCellValueFactory(new PropertyValueFactory<Champ, Integer>("countParticipant"));
 
-        exec.execute(championshipsRequest);
+        //exec.execute(championshipsRequest);
+
+        championshipsRequest.restart();
 
 
 

@@ -13,8 +13,6 @@ import main.models.Discipline;
 import main.services.DisciplineService;
 
 import java.util.List;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 public class championshipCompetenciesController {
     @FXML
@@ -36,11 +34,11 @@ public class championshipCompetenciesController {
 
     private final  DisciplineService<DBDisciplineDAO> disciplineService = new DisciplineService<>(DBDisciplineDAO::new);
 
-    Executor exec = Executors.newCachedThreadPool(runnable -> {
-        Thread t = new Thread(runnable);
-        t.setDaemon(true);
-        return t ;
-    });
+//    Executor exec = Executors.newCachedThreadPool(runnable -> {
+//        Thread t = new Thread(runnable);
+//        t.setDaemon(true);
+//        return t ;
+//    });
 
     Label buildLabel(String text,double prefWidth, double prefHeight) {
         Label label = new Label(text);
@@ -60,7 +58,7 @@ public class championshipCompetenciesController {
         return null;
     }
 
-    public class ServiceExample extends Service<List<Discipline>> {
+    public class ChampionshipCompetenciesExample extends Service<List<Discipline>> {
         @Override
         protected Task<List<Discipline>> createTask() {
             return new Task<List<Discipline>>() {
@@ -72,7 +70,7 @@ public class championshipCompetenciesController {
         }
     }
 
-    ServiceExample loadRequest = new ServiceExample();
+    ChampionshipCompetenciesExample loadRequest = new ChampionshipCompetenciesExample();
     @FXML
     void initialize() {
 
