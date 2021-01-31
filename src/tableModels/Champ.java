@@ -1,4 +1,4 @@
-package main.models;
+package tableModels;
 
 public class Champ {
     public Integer number;

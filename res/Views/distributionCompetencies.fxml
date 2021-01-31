@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="640.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="640.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.DistributionCompetenciesController">
     <fx:include source="header.fxml" />
       <AnchorPane fx:id="content" prefHeight="584.0" prefWidth="920.0">
           <children>
@@ -25,16 +25,19 @@
                      <Font size="18.0" />
                   </font>
                </Label>
-               <ComboBox layoutX="14.0" layoutY="49.0" prefWidth="150.0" />
-               <Button layoutX="266.0" layoutY="48.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="82.0" text="Поиск">
+               <ComboBox fx:id="competenciesComboBox" layoutX="14.0" layoutY="49.0" prefWidth="150.0" />
+               <Button fx:id="searchButton" layoutX="266.0" layoutY="48.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="82.0" text="Поиск">
                   <font>
                      <Font size="15.0" />
                   </font>
                </Button>
-               <TableView layoutX="14.0" layoutY="104.0" prefHeight="297.0" prefWidth="360.0">
+               <TableView fx:id="voluunterTable" layoutX="14.0" layoutY="104.0" prefHeight="297.0" prefWidth="360.0">
                  <columns>
-                   <TableColumn prefWidth="75.0" text="C1" />
-                   <TableColumn prefWidth="75.0" text="C2" />
+                   <TableColumn fx:id="checkColumn" prefWidth="28.0" />
+                   <TableColumn fx:id="nameColumn" prefWidth="91.0" text="Имя" />
+                     <TableColumn fx:id="sexColumn" prefWidth="45.0" text="Пол" />
+                     <TableColumn fx:id="ageColumn" prefWidth="56.0" text="Возраст" />
+                     <TableColumn fx:id="regionColumn" prefWidth="155.0" text="Регион" />
                  </columns>
                </TableView>
             </children>

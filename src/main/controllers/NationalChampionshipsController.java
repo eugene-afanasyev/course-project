@@ -13,7 +13,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import main.dao.DBChampionshipDAO;
-import main.models.Champ;
+import tableModels.Champ;
 import main.models.Championship;
 import main.services.ChampionshipService;
 
