@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class AboutWSController {
+public class  AboutWSController {
     @FXML
     private BorderPane contentBorder;
 
@@ -24,7 +24,6 @@ public class AboutWSController {
             Stage stage = (Stage) contentBorder.getScene().getWindow();
             scene.getStylesheets().add(getClass().getResource("/stylesheets/style.css").toExternalForm());
             stage.setScene(scene);
-            stage.setResizable(false);
         } catch (IOException e) {
             e.printStackTrace();
         }

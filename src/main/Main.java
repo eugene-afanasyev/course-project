@@ -26,6 +26,9 @@ public class Main extends Application {
         primaryStage.setTitle("WSR 2017");
         primaryStage.setScene(primaryScene);
         primaryStage.show();
+
+        //Логин: 2012R2100000266C
+        //Пароль: ppU$ktDe
     }
 
     public static void main(String[] args) {
