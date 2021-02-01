@@ -6,17 +6,21 @@ import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import main.dao.DBChampionshipDAO;
-import tableModels.Champ;
 import main.models.Championship;
 import main.services.ChampionshipService;
+import tableModels.Champ;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NationalChampionshipsController {
@@ -66,13 +70,16 @@ public class NationalChampionshipsController {
         return null;
     }
 
-    Champ SearchByCountryOrCity(ObservableList<Champ> list, String field) {
+    List<Champ> SearchByCountryOrCity(ObservableList<Champ> list, String field) {
+        List<Champ> champs = new ArrayList<>();
         for(var el : list) {
-            System.out.println(el.country);
-            if(el.city.substring(2, el.city.length()).equals(field) || el.country.equals(field))
-                return el;
+            if(el.getCity().toLowerCase().contains(field.toLowerCase()) || el.getCountry().toLowerCase().contains(field.toLowerCase())) {
+                champs.add(el);
+            }
+//            if(el.city.substring(2, el.city.length()).equals(field) || el.country.equals(field))
+//                return el;
         }
-        return null;
+        return champs;
     }
 
     public class ChampionshipExample extends Service<List<Championship>> {
@@ -124,16 +131,12 @@ public class NationalChampionshipsController {
                 @Override
                 public void handle(KeyEvent t)  {
                     if (t.getCode() == KeyCode.ENTER) {
+                        if(searchByNumberField.getText() == "")
+                            return;
                         var champ = SearchByNumber(champs, Integer.valueOf(searchByNumberField.getText()));
-                        Alert info = new Alert(Alert.AlertType.INFORMATION);
-                        if(champ == null) {
-                            info.setHeaderText("Такого чемпионата нет");
-                        } else {
-                            info = new Alert(Alert.AlertType.INFORMATION);
-                            info.setHeaderText(champ.getName());
-                            info.setContentText(champ.getDescription());
-                        }
-                        info.show();
+
+                        championshipsTable.getItems().clear();
+                        championshipsTable.getItems().add(champ);
                     }
                 }
             });
@@ -143,16 +146,11 @@ public class NationalChampionshipsController {
                 @Override
                 public void handle(KeyEvent t)  {
                     if (t.getCode() == KeyCode.ENTER) {
-                        var champ = SearchByCountryOrCity(champs, searchByCountryOrSityField.getText());
-                        Alert info = new Alert(Alert.AlertType.INFORMATION);
-                        if(champ == null) {
-                            info.setHeaderText("Такого чемпионата нет");
-                        } else {
-                            info = new Alert(Alert.AlertType.INFORMATION);
-                            info.setHeaderText(champ.getName());
-                            info.setContentText(champ.getDescription());
+                        var selectedChamps = SearchByCountryOrCity(champs, searchByCountryOrSityField.getText());
+                        championshipsTable.getItems().clear();
+                        for(var selectedChamp : selectedChamps) {
+                            championshipsTable.getItems().add(selectedChamp);
                         }
-                        info.show();
                     }
                 }
             });
