@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import main.dao.DBDisciplineDAO;
 import main.models.Discipline;
 import main.services.DisciplineService;
@@ -30,7 +31,7 @@ public class championshipCompetenciesController {
     @FXML
     private ProgressIndicator spinner;
     @FXML
-    private AnchorPane content;
+    private VBox content;
 
     private final  DisciplineService<DBDisciplineDAO> disciplineService = new DisciplineService<>(DBDisciplineDAO::new);
 
@@ -44,8 +45,6 @@ public class championshipCompetenciesController {
         Label label = new Label(text);
         label.setStyle("-fx-font-size: 18; -fx-font-weight: bold");
         label.setWrapText(true);
-        label.setPrefHeight(prefHeight);
-        label.setPrefWidth(prefWidth);
 
         return label;
     }
@@ -99,6 +98,7 @@ public class championshipCompetenciesController {
                     System.out.println("Selected Text : " + selectedItem.getValue());
                     var competence = findDiscipline(loadRequest.getValue(), selectedItem.getValue().getText());
                     competenceNameLabel.setText(competence.getRuName());
+                    competenceNameLabel.setStyle("-fx-wrap-text: true; -fx-font-size: 26");
                     competenceInformationArea.setText(competence.getDescription());
                 }
             });
@@ -111,7 +111,7 @@ public class championshipCompetenciesController {
         });
 
         competenceInformationArea.setWrapText(true);
-        competenceInformationArea.setStyle("");
+        competenceInformationArea.setStyle("-fx-font-size: 22");
         competenceInformationArea.setEditable(false);
  /*       var disciplineService = new DisciplineService<>(DBDisciplineDAO::new);
         var allDisciplines = disciplineService.findAll();
