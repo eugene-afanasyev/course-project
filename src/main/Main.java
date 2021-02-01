@@ -18,6 +18,15 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+
+        var userService = new UserService<DBUserDAO>(DBUserDAO::new);
+        var champService = new ChampionshipService<DBChampionshipDAO>(DBChampionshipDAO::new);
+
+
+        var testVolunteer = userService.find(1382);
+
+        var testVolunteers = champService.findAllByRole("Volunteer" , testVolunteer.getChampionship() , testVolunteer.getDiscipline());
+
         primaryStage.setOnCloseRequest(event -> System.exit(0));
         var resource = getClass().getResource("/Views/main.fxml");
         Parent root = FXMLLoader.load(getClass().getResource("/Views/main.fxml"));

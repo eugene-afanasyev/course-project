@@ -4,6 +4,7 @@ import main.dao.ChampionshipDAO;
 import main.dao.DBUserDAO;
 import main.models.*;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -84,10 +85,16 @@ public class ChampionshipService<T extends ChampionshipDAO> implements EntitySer
      * @return
      */
     public List<User> findAllByRole( String roleName, Championship championship, Discipline discipline){
-        return userService.findAll().stream().filter((user) ->
-                user.getRole().getName().equals(roleName) &&
+        if(discipline == null){
+            return new LinkedList<User>();
+        }
+        return userService.findAll().stream().filter((user) ->{
+            if(user.getDiscipline() == null){
+                return false;
+            }
+            return user.getRole().getName().equals(roleName) &&
                         user.getChampionship().id == championship.id &&
-                        user.getDiscipline().getId() == discipline.getId()
-        ).collect(Collectors.toList());
+                        user.getDiscipline().getId() == discipline.getId();
+        }).collect(Collectors.toList());
     }
 }
