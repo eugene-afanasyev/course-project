@@ -71,6 +71,9 @@ public class VolunteerManagementController {
     public void ToVolunteerLoadingPage(){
         moveToScene("/Views/VolunteerLoadingView.fxml");
     }
+    public void ToVolunteerDistributivePage(){
+        moveToScene("/Views/distributionCompetencies.fxml");
+    }
 
     public void moveToScene(String path) {
         try {
