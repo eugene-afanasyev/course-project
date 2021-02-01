@@ -49,16 +49,19 @@
                      <Font size="18.0" />
                   </font>
                </Label>
-               <ComboBox layoutX="14.0" layoutY="49.0" prefWidth="150.0" />
-               <Button layoutX="269.0" layoutY="49.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="82.0" text="Поиск">
+               <ComboBox fx:id="secondCompetenciesComboBox" layoutX="14.0" layoutY="49.0" prefWidth="150.0" />
+               <Button fx:id="secondSearchButton" layoutX="269.0" layoutY="49.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="82.0" text="Поиск">
                   <font>
                      <Font size="15.0" />
                   </font>
                </Button>
-               <TableView layoutX="14.0" layoutY="104.0" prefHeight="297.0" prefWidth="360.0">
+               <TableView fx:id="secondVoluunterTable" layoutX="14.0" layoutY="104.0" prefHeight="297.0" prefWidth="360.0">
                  <columns>
-                   <TableColumn prefWidth="75.0" text="C1" />
-                   <TableColumn prefWidth="75.0" text="C2" />
+                   <TableColumn fx:id="secondCheckColumn" prefWidth="29.0" />
+                   <TableColumn fx:id="secondNameColumn" prefWidth="102.0" text="Имя" />
+                     <TableColumn fx:id="secondSexColumn" prefWidth="45.0" text="Пол" />
+                     <TableColumn fx:id="secondAgeColumn" prefWidth="67.0" text="Возраст" />
+                     <TableColumn fx:id="secondRegionColumn" prefWidth="132.0" text="Регион" />
                  </columns>
                </TableView>
             </children>
