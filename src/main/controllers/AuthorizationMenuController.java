@@ -42,6 +42,12 @@ public class AuthorizationMenuController {
     public ImageView captchaImage;
     @FXML
     public TextField captchaInputField;
+    @FXML
+    private Label loginErrorLabel;
+    @FXML
+    private Label passwordErrorLabel;
+    @FXML
+    private Label captchaErrorLabel;
 
     private String captchaText;
 
@@ -62,19 +68,26 @@ public class AuthorizationMenuController {
             public void handle( ActionEvent event) {
                 errors.clear();
 
+                captchaErrorLabel.setText("");
+                loginErrorLabel.setText("");
+                passwordErrorLabel.setText("");
+
                 if(!AuthHelper.isLoginValid(idNumberField.getText())){
                     errors.add("Логин не должен быть пустым!");
-                    showErrorAlert("Логин не должен быть пустым!");
+                    //showErrorAlert("Логин не должен быть пустым!");
+                    loginErrorLabel.setText("Логин не должен быть пустым!");
                 }
 
                 if(!AuthHelper.isPasswordValid(passwordField.getText())){
                     errors.add("Пароль не должен быть пустым");
-                    showErrorAlert("Пароль не должен быть пустым!");
+                    //showErrorAlert("Пароль не должен быть пустым!");
+                    passwordErrorLabel.setText("Пароль не должен быть пустым");
                 }
 
                 if(!captchaInputField.getText().equals(captchaText)){
                     errors.add("Неверный код");
-                    showErrorAlert("Каптча введена неверно");
+                    //showErrorAlert("Каптча введена неверно");
+                    captchaErrorLabel.setText("Каптча введена неверно");
                     setCaptcha();
                     captchaInputField.setStyle("-fx-border-color: red");
                 }
@@ -102,7 +115,9 @@ public class AuthorizationMenuController {
                         errors.add("Неверный логин или пароль");
                         idNumberField.setStyle("-fx-border-color: #ff0000");
                         passwordField.setStyle("-fx-border-color: red");
-                        showErrorAlert("Неверный логин или пароль");
+                        //showErrorAlert("Неверный логин или пароль");
+                        loginErrorLabel.setText("Неверный логин или пароль");
+                        passwordErrorLabel.setText("Неверный логин или пароль");
                     }
 
                     // к этому моменту пользователь авторизован, следовательно, тут нужно перейти на предыдущую страницу
