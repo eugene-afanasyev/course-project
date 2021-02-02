@@ -78,7 +78,7 @@ public class VolunteerManagementController {
     public void moveToScene(String path) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(path));
-            Scene scene = new Scene(root, 1020, 740);
+            Scene scene = new Scene(root, 920, 640);
             Stage stage = (Stage) mainView.getScene().getWindow();
             scene.getStylesheets().add(getClass().getResource("/stylesheets/style.css").toExternalForm());
             stage.setScene(scene);
