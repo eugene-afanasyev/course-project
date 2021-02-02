@@ -50,6 +50,12 @@ public class CompetitorProfileController {
     @FXML
     private CheckBox changePasswordCheckBox;
 
+    @FXML
+    private Label newPasswordErrorLabel;
+
+    @FXML
+    private Label repeatPasswordErrorLabel;
+
 
     public void showErrorAlert(String errorText) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -63,6 +69,52 @@ public class CompetitorProfileController {
         alert.setTitle("Информация");
         alert.setContentText(errorText);
         alert.showAndWait();
+    }
+
+    Thread SuccessPasswordThread = new Thread(() -> {
+        try {
+            repeatPasswordErrorLabel.setStyle("-fx-text-fill: green");
+            repeatPasswordErrorLabel.setText("Пароль успешно сохранен");
+            Thread.sleep(7000);
+            repeatPasswordErrorLabel.setStyle("-fx-text-fill: red");
+            repeatPasswordErrorLabel.setText("");
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    });
+
+    boolean checkCorrectPassword(String password, String newPassword, String repeatPassword) {
+        if(newPassword == "") {
+            newPasswordErrorLabel.setText("Введите новый пароль");
+            return false;
+        }
+
+        if(repeatPassword == "") {
+            repeatPasswordErrorLabel.setText("Введите новый пароль");
+            return false;
+        }
+
+        if(newPassword.contains(" ")) {
+            newPasswordErrorLabel.setText("Некорректный новый пароль");
+            return false;
+        }
+
+        if(password.equals(newPassword)) {
+            newPasswordErrorLabel.setText("Этот пароль уже используется");
+            return false;
+        }
+
+        if(!newPassword.equals(repeatPassword)) {
+            repeatPasswordErrorLabel.setText("Повторный пароль не совпадает");
+            return false;
+        }
+
+        if(newPassword.length() < 8) {
+            newPasswordErrorLabel.setText("Пароль должен содержать минимум 8 символов");
+            return false;
+        }
+        return true;
     }
 
     @FXML
@@ -99,26 +151,16 @@ public class CompetitorProfileController {
         userMailLabel.setText(user.getEmail());
 
         passwordSaveButton.setOnAction(actionEvent -> {
+
             var newPassword = newPasswordField.getText();
             var repeatPassword = repeatPasswordField.getText();
-
-            if(newPassword == "") {
-                showErrorAlert("Введите новый пароль");
-            }
-
-            if(repeatPassword == "") {
-                showErrorAlert("Введите повторно пароль");
-            }
-
-            if(newPassword.equals(repeatPasswordField.getText())) {
-                if(user.getPassword().equals(newPassword)) {
-                    showErrorAlert("Этот пароль сейчас используется");
-                } else {
-                    AuthManager.Current.changePassword(newPassword);
-                    showSuccessAlert("Пароль был успешно изменен");
-                }
-            } else {
-                showErrorAlert("Поля нового пароля и повтора пароля должны совпадать");
+            newPasswordErrorLabel.setText("");
+            repeatPasswordErrorLabel.setText("");
+            if(checkCorrectPassword(user.getPassword(), newPassword, repeatPassword)) {
+                AuthManager.Current.changePassword(newPassword);
+                newPasswordField.clear();
+                repeatPasswordField.clear();
+                new Thread(SuccessPasswordThread).start();
             }
         });
 
@@ -129,4 +171,5 @@ public class CompetitorProfileController {
 
         SignedUserHeaderController.viewPath = "/Views/CompetitorMenu.fxml";
     }
+
 }
