@@ -9,52 +9,55 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.layout.StackPane?>
 <VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.AuthorizationMenuController">
     <fx:include source="header.fxml" />
-    <VBox alignment="TOP_CENTER" spacing="20" style="-fx-padding: 15;">
-        <Label style="-fx-font-size: 30; -fx-text-fill: #959595">
-            Форма авторизации
-        </Label>
-        <Label maxWidth="700" style="-fx-font-size: 24; -fx-text-fill: #6a6a6a; -fx-wrap-text: true;          -fx-text-alignment: center">
-            Пожалуйста, авторизуйтесь в системе, используя ваш адрес электронной почты
-            и пароль.
-        </Label>
-        <VBox spacing="40">
-         <VBox prefHeight="0.0" prefWidth="700.0" alignment="TOP_CENTER">
-            <children>
-                  <HBox alignment="TOP_CENTER" style="-fx-font-size: 20; -fx-text-fill: #6a6a6a; -fx-wrap-text: true;
-                  -fx-text-alignment: center; -fx-prompt-text-fill: #a5a5a5;">
-                      <Label text="IdNumber:   " />
-                      <TextField fx:id="idNumberField" prefWidth="300" promptText="Enter your IdNumber" style="-fx-font-style: italic">
-                </TextField>
-                  </HBox>
-               <Label fx:id="loginErrorLabel" wrapText="true" style="-fx-text-fill: red; -fx-font-size: 20"/>
-            </children>
-         </VBox>
-         <VBox prefHeight="0.0" prefWidth="700.0"  alignment="TOP_CENTER">
-            <children>
-                  <HBox alignment="TOP_CENTER" style="-fx-font-size: 20; -fx-text-fill: #6a6a6a; -fx-wrap-text: true;                   -fx-text-alignment: center; -fx-prompt-text-fill: #a5a5a5;">
-                      <Label text="Password:   " />
-                      <PasswordField fx:id="passwordField" prefWidth="300" promptText="Enter your password">
-                </PasswordField>
-                  </HBox>
-               <Label fx:id="passwordErrorLabel"  wrapText="true" style="-fx-text-fill: red; -fx-font-size: 20"/>
-            </children>
-         </VBox>
-            <VBox fx:id="captchaField" alignment="CENTER" style="-fx-padding: 5">
-                <HBox maxWidth="450" spacing="5" style="-fx-border-width: 2; -fx-border-color: black; -fx-background-color: #9e9e9e">
-                    <ImageView fx:id="captchaImage" onMouseClicked="#setCaptcha"/>
-                    <VBox alignment="CENTER" style="-fx-text-fill: #000000; -fx-prompt-text-fill: #848484; -fx-font-size: 18">
-                        <TextField fx:id="captchaInputField" minWidth="100" promptText="Inter captcha" />
-                    </VBox>
+    <StackPane fx:id="stackPane" alignment="CENTER">
+        <VBox alignment="TOP_CENTER" spacing="20" style="-fx-padding: 15;">
+            <Label style="-fx-font-size: 30; -fx-text-fill: #959595">
+                Форма авторизации
+            </Label>
+            <Label maxWidth="700" style="-fx-font-size: 24; -fx-text-fill: #6a6a6a; -fx-wrap-text: true;          -fx-text-alignment: center">
+                Пожалуйста, авторизуйтесь в системе, используя ваш адрес электронной почты
+                и пароль.
+            </Label>
+            <VBox spacing="40">
+             <VBox prefHeight="0.0" prefWidth="700.0" alignment="TOP_CENTER">
+                <children>
+                      <HBox alignment="TOP_CENTER" style="-fx-font-size: 20; -fx-text-fill: #6a6a6a; -fx-wrap-text: true;
+                      -fx-text-alignment: center; -fx-prompt-text-fill: #a5a5a5;">
+                          <Label text="IdNumber:   " />
+                          <TextField fx:id="idNumberField" prefWidth="300" promptText="Enter your IdNumber" style="-fx-font-style: italic">
+                    </TextField>
+                      </HBox>
+                   <Label fx:id="loginErrorLabel" wrapText="true" style="-fx-text-fill: red; -fx-font-size: 20"/>
+                </children>
+             </VBox>
+             <VBox prefHeight="0.0" prefWidth="700.0"  alignment="TOP_CENTER">
+                <children>
+                      <HBox alignment="TOP_CENTER" style="-fx-font-size: 20; -fx-text-fill: #6a6a6a; -fx-wrap-text: true;                   -fx-text-alignment: center; -fx-prompt-text-fill: #a5a5a5;">
+                          <Label text="Password:   " />
+                          <PasswordField fx:id="passwordField" prefWidth="300" promptText="Enter your password">
+                    </PasswordField>
+                      </HBox>
+                   <Label fx:id="passwordErrorLabel"  wrapText="true" style="-fx-text-fill: red; -fx-font-size: 20"/>
+                </children>
+             </VBox>
+                <VBox fx:id="captchaField" alignment="CENTER" style="-fx-padding: 5">
+                    <HBox maxWidth="450" spacing="5" style="-fx-border-width: 2; -fx-border-color: black; -fx-background-color: #9e9e9e">
+                        <ImageView fx:id="captchaImage" onMouseClicked="#setCaptcha"/>
+                        <VBox alignment="CENTER" style="-fx-text-fill: #000000; -fx-prompt-text-fill: #848484; -fx-font-size: 18">
+                            <TextField fx:id="captchaInputField" minWidth="100" promptText="Inter captcha" />
+                        </VBox>
+                    </HBox>
+                <Label fx:id="captchaErrorLabel" prefHeight="17.0" prefWidth="251.0" style="-fx-text-fill: red;" />
+                </VBox>
+                <HBox alignment="TOP_CENTER" spacing="5" style="-fx-font-size: 16">
+                    <Button fx:id="loginButton" text="Login" />
+                    <Button fx:id="cancelButton" text="Cancel" />
+                    <CheckBox fx:id="rememberMeChBox" style="-fx-font-weight: bold" text="Запомнить меня" />
                 </HBox>
-            <Label fx:id="captchaErrorLabel" prefHeight="17.0" prefWidth="251.0" style="-fx-text-fill: red;" />
             </VBox>
-            <HBox alignment="TOP_CENTER" spacing="5" style="-fx-font-size: 16">
-                <Button fx:id="loginButton" text="Login" />
-                <Button fx:id="cancelButton" text="Cancel" />
-                <CheckBox fx:id="rememberMeChBox" style="-fx-font-weight: bold" text="Запомнить меня" />
-            </HBox>
         </VBox>
-    </VBox>
+    </StackPane>
 </VBox>

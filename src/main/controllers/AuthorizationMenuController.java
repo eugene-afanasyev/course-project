@@ -7,12 +7,16 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import main.AuthHelper;
 import main.AuthManager;
@@ -42,6 +46,8 @@ public class AuthorizationMenuController {
     public ImageView captchaImage;
     @FXML
     public TextField captchaInputField;
+    @FXML
+    public StackPane stackPane;
     @FXML
     private Label loginErrorLabel;
     @FXML
@@ -157,6 +163,56 @@ public class AuthorizationMenuController {
                 }
             }
         });
+
+        BorderPane bp = new BorderPane();
+        VBox vBox = new VBox();
+        vBox.setSpacing(10);
+        vBox.setAlignment(Pos.CENTER);
+
+        vBox.setStyle("-fx-background-color: #e8e8e8");
+
+        var participantButton = createRoleButton("Участник");
+        participantButton.setOnMouseClicked(event -> {
+            stackPane.getChildren().remove(bp);
+        });
+        var adminButton = createRoleButton("Администратор");
+        adminButton.setOnMouseClicked(event -> {
+            stackPane.getChildren().remove(bp);
+        });
+        var vltButton = createRoleButton("Волонтер");
+        vltButton.setOnMouseClicked(event -> {
+            stackPane.getChildren().remove(bp);
+        });
+        var crdButton = createRoleButton("Координатор");
+        crdButton.setOnMouseClicked(event -> {
+            stackPane.getChildren().remove(bp);
+        });
+
+        Label warningLabel = new Label("Только для тестирования");
+        warningLabel.setTextFill(new Color(1,0.7,0.4, 1));
+        warningLabel.setStyle("-fx-font-size: 32; -fx-wrap-text: true; -fx-font-weight: bold");
+
+        Label deskLabel = new Label("Под каким пользователем вы хотите войти в систему?");
+        deskLabel.setTextFill(new Color(0,0,0,0.7));
+        deskLabel.setStyle("-fx-font-size: 20;-fx-wrap-text: true");
+
+        vBox.getChildren().addAll(deskLabel, participantButton, adminButton, vltButton, crdButton);
+
+        bp.setMaxHeight(550);
+        bp.setMaxWidth(500);
+        bp.setStyle("-fx-border-width: 1; -fx-border-color: black; -fx-border-radius: 4;" +
+                " -fx-background-color: #e5e5e5; -fx-font-size: 26; -fx-padding: 10");
+
+        bp.setCenter(vBox);
+        bp.setTop(warningLabel);
+        stackPane.getChildren().add(bp);
+    }
+
+    private Button createRoleButton(String text) {
+        Button b = new Button(text);
+        b.setStyle("-fx-border-width: 1; -fx-border-color: black; -fx-border-radius: 4; -fx-background-color: #bfbfbf;" +
+                "-fx-font-size: 26; -fx-pref-width: 300");
+        return b;
     }
 
     public void setCaptcha() {
