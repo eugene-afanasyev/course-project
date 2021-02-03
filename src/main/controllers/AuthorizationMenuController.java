@@ -59,6 +59,8 @@ public class AuthorizationMenuController {
 
     private final List<String> errors = new LinkedList<>();
 
+    private int loginAttempt;
+
     Executor exec = Executors.newCachedThreadPool(runnable -> {
         Thread t = new Thread(runnable);
         t.setDaemon(true);
@@ -66,6 +68,7 @@ public class AuthorizationMenuController {
     });
 
     public void initialize() {
+        loginAttempt = 0;
         HeaderController.viewPath = "/Views/main.fxml";
         setCaptcha();
         loginButton.setOnAction(new EventHandler<javafx.event.ActionEvent>() {
@@ -124,6 +127,7 @@ public class AuthorizationMenuController {
                         //showErrorAlert("Неверный логин или пароль");
                         loginErrorLabel.setText("Неверный логин или пароль");
                         passwordErrorLabel.setText("Неверный логин или пароль");
+                        setCaptcha();
                     }
 
                     // к этому моменту пользователь авторизован, следовательно, тут нужно перейти на предыдущую страницу
@@ -160,6 +164,28 @@ public class AuthorizationMenuController {
                     exec.execute(authRequest);
                 } catch (Exception ex){
                     ex.fillInStackTrace();
+                }
+
+                if (!AuthManager.Current.isAuthorized())
+                    loginAttempt++;
+                else
+                    loginAttempt = 0;
+
+                if (loginAttempt == 3) {
+                    captchaInputField.setText("Заблокированно");
+                    idNumberField.setText("Заблокированно");
+                    passwordField.setText("Заблокированно");
+                    passwordField.setVisible(true);
+                    captchaInputField.setDisable(true);
+                    idNumberField.setDisable(true);
+                    passwordField.setDisable(true);
+
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setWidth(300);
+                    alert.setHeight(200);
+                    alert.setHeaderText("Ошибка авторизации");
+                    alert.setContentText("Пожалуйста, перезапустите приложение.");
+                    alert.showAndWait();
                 }
             }
         });
