@@ -31,7 +31,6 @@
             </VBox>
             <VBox alignment="TOP_CENTER" HBox.hgrow="ALWAYS" minWidth="400" VBox.vgrow="ALWAYS"
                   style="-fx-border-width: 3; -fx-border-color: black; -fx-padding: 8; -fx-spacing: 10">
-                <!--                TODO-->
                 <Label style="-fx-font-weight: bold; -fx-font-size: 20">
                     Названия файлов
                 </Label>

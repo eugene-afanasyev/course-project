@@ -2,7 +2,9 @@ package main.controllers;
 
 import com.mchange.io.FileUtils;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
@@ -64,30 +66,38 @@ public class AboutKrasnodarRegionController {
         XLSXParser parser = new XLSXParser();
         var events = parser.Parse();
         for(var event  : events) {
-            BorderPane pane = new BorderPane();
+            VBox vbox = new VBox();
+            vbox.setAlignment(Pos.TOP_CENTER);
+            vbox.setMaxWidth(600);
+            vbox.setStyle("-fx-spacing: 10");
 
             Label nameLabel = new Label(event.getName());
-            nameLabel.setStyle("-fx-font-size:22; -fx-font-weight: bold");
-            pane.setTop(nameLabel);
+            nameLabel.setStyle("-fx-font-size:28; -fx-font-weight: bold");
+            vbox.getChildren().add(nameLabel);
 
             Label txt = new Label(event.getDescription());
-            txt.setStyle("-fx-font-size:18;");
+            txt.setStyle("-fx-font-size:24;");
             txt.setWrapText(true);
-            pane.setCenter(txt);
+            vbox.getChildren().add(txt);
 
             Label dateLabel = new Label("Дата проведения:");
-            dateLabel.setStyle("-fx-opacity: 0.6");
+            dateLabel.setStyle("-fx-opacity: 0.6; -fx-font-size: 20");
 
             Label webLabel = new Label("website:");
-            webLabel.setStyle("-fx-opacity: 0.6");
+            webLabel.setStyle("-fx-opacity: 0.6; -fx-font-size: 20");
 
-            HBox hBox = new HBox(dateLabel, new Label(event.getDate()),
-                    webLabel, new Label(event.getWebSite()));
 
-            hBox.setSpacing(5);
-            pane.setBottom(hBox);
-            pane.getCenter().prefHeight(700);
-            eventsBox.getChildren().add(pane);
+            HBox hBox1 = new HBox(dateLabel, new Label(event.getDate()));
+            hBox1.setSpacing(5);
+            hBox1.setStyle("-fx-font-size: 20");
+
+            HBox hBox2 = new HBox(webLabel, new Label(event.getWebSite()));
+            hBox2.setSpacing(5);
+            hBox2.setStyle("-fx-font-size: 20");
+
+            vbox.getChildren().addAll(hBox1, hBox2);
+            vbox.getChildren().add(new Separator());
+            eventsBox.getChildren().add(vbox);
 
         }
 
