@@ -15,6 +15,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import main.dao.DBChampionshipDAO;
 import main.models.Championship;
 import main.services.ChampionshipService;
@@ -46,7 +47,7 @@ public class NationalChampionshipsController {
     private TableColumn<Champ, Integer> countParticipantColumn;
 
     @FXML
-    private AnchorPane content;
+    private VBox content;
 
     @FXML
     private Pane loadingArea;
