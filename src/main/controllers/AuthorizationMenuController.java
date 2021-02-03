@@ -59,7 +59,7 @@ public class AuthorizationMenuController {
 
     private final List<String> errors = new LinkedList<>();
 
-    private int loginAttempt;
+    private static int loginAttempt;
 
     Executor exec = Executors.newCachedThreadPool(runnable -> {
         Thread t = new Thread(runnable);
