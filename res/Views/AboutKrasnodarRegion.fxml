@@ -28,7 +28,7 @@
                                   style="-fx-font-size: 26" />
                     </content>
                 </Tab>
-                <Tab text="события" style="-fx-font-size: 20">
+                <Tab text="События" style="-fx-font-size: 20">
                     <content>
                         <ScrollPane VBox.vgrow="ALWAYS" hbarPolicy="NEVER">
                             <content>
@@ -38,7 +38,7 @@
                         </ScrollPane>
                     </content>
                 </Tab>
-                <Tab text="туризм" style="-fx-font-size: 20">
+                <Tab text="Туризм" style="-fx-font-size: 20">
                     <content>
                         <ScrollPane VBox.vgrow="ALWAYS" >
                             <content>
