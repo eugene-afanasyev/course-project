@@ -28,7 +28,6 @@ public class SignedUserHeaderController {
                     Stage stage = (Stage) backButton.getScene().getWindow();
                     scene.getStylesheets().add(getClass().getResource("/stylesheets/style.css").toExternalForm());
                     stage.setScene(scene);
-                    stage.setResizable(false);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -44,7 +43,6 @@ public class SignedUserHeaderController {
             Stage stage = (Stage) backButton.getScene().getWindow();
             scene.getStylesheets().add(getClass().getResource("/stylesheets/style.css").toExternalForm());
             stage.setScene(scene);
-            stage.setResizable(false);
         } catch (IOException e) {
             e.printStackTrace();
         }

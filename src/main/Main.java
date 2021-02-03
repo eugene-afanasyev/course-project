@@ -29,8 +29,8 @@ public class Main extends Application {
         primaryStage.setScene(primaryScene);
         primaryStage.show();
 
-        //Логин: 2012R2100000266C
-        //Пароль: ppU$ktDe
+        //Логин: 2012R2100000001C
+        //Пароль: ppU$ktDw
     }
 
     public static void main(String[] args) {
