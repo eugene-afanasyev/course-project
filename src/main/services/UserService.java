@@ -70,6 +70,11 @@ public class UserService<T extends UserDAO> implements EntityService<User> {
         supplier.get().updateDiscipline(user.getId(), discipline);
     }
 
+    public void updateDiscipline(int id, Discipline discipline){
+        supplier.get().updateDiscipline(id, discipline);
+    }
+
+
     public void updateRegion(User user, Region region){
         supplier.get().updateRegion(user.getId(), region);
     }
