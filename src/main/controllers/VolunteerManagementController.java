@@ -1,5 +1,7 @@
 package main.controllers;
 
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,12 +14,14 @@ import main.AuthManager;
 import main.dao.DBChampionshipDAO;
 import main.dao.DBDisciplineDAO;
 import main.dao.DBUserDAO;
+import main.models.User;
 import main.models.Voluunter;
 import main.services.ChampionshipService;
 import main.services.DisciplineService;
 import main.services.UserService;
 
 import java.io.IOException;
+import java.util.List;
 
 public class VolunteerManagementController {
     @FXML
@@ -48,15 +52,37 @@ public class VolunteerManagementController {
     private VBox mainView;
 
     @FXML
-    private Label sort;
+    private Label loadingLabel;
+
+    @FXML
+    private ProgressIndicator spinner;
+
+    public class ChampionshipCompetenciesExample extends Service<List<User>> {
+        @Override
+        protected Task<List<User>> createTask() {
+            return new Task<List<User>>() {
+                @Override
+                protected List<User> call() throws Exception {
+                    var disciplineName = competenciesComboBox.getValue();
+                    var selectedDiscipline = disciplineService.findAll()
+                            .stream().filter(item -> item.getRuName().equals(disciplineName)).findFirst().get();
+                    return  championshipService.findAllByRole("Volunteer", AuthManager.Current.getUser().getChampionship(), selectedDiscipline);
+                }
+            };
+        }
+    }
 
 
     private final DisciplineService<DBDisciplineDAO> disciplineService = new DisciplineService<>(DBDisciplineDAO::new);
     private final UserService<DBUserDAO> userService = new UserService<DBUserDAO>(DBUserDAO::new);
     private final ChampionshipService<DBChampionshipDAO> championshipService = new ChampionshipService<>(DBChampionshipDAO::new);
 
+    ChampionshipCompetenciesExample loadRequest;
     @FXML
     void initialize(){
+        loadingLabel.setVisible(false);
+        spinner.setVisible(false);
+
         var disciplineService = new DisciplineService<>(DBDisciplineDAO::new);
         var allDisciplines = disciplineService.findAll();
 
@@ -75,21 +101,38 @@ public class VolunteerManagementController {
 
 
         searchButton.setOnAction(actionEvent -> {
-            volunteerTableView.getItems().clear();
-
-            var disciplineName = competenciesComboBox.getValue();
-
-            var selectedDiscipline = disciplineService.findAll()
-                    .stream().filter(item -> item.getRuName().equals(disciplineName)).findFirst().get();
-
-            var volunteers = championshipService.findAllByRole("Volunteer", AuthManager.Current.getUser().getChampionship(), selectedDiscipline);
-
-            volunteers.forEach(item -> volunteerTableView.getItems()
-                    .add(new Voluunter( item.getId(),
-                                        String.format("%s %s", item.getFirstName(), item.getLastName()),
-                                        item.isMale() ? "МУЖ" : "ЖЕН",
-                                        item.getRegion().getName(),
-                                        item.getDiscipline().getName())));
+            loadingLabel.setVisible(true);
+            spinner.setVisible(true);
+            loadRequest = new ChampionshipCompetenciesExample();
+            spinner.progressProperty().unbind();
+            spinner.progressProperty().bind(loadRequest.progressProperty());
+            loadRequest.setOnSucceeded(e -> {
+                loadingLabel.setVisible(false);
+                spinner.setVisible(false);
+                var volunteers = loadRequest.getValue();
+                volunteers.forEach(item -> volunteerTableView.getItems()
+                        .add(new Voluunter( item.getId(),
+                                String.format("%s %s", item.getFirstName(), item.getLastName()),
+                                item.isMale() ? "МУЖ" : "ЖЕН",
+                                item.getRegion().getName(),
+                                item.getDiscipline().getName())));
+            });
+//            volunteerTableView.getItems().clear();
+//
+//            var disciplineName = competenciesComboBox.getValue();
+//
+//            var selectedDiscipline = disciplineService.findAll()
+//                    .stream().filter(item -> item.getRuName().equals(disciplineName)).findFirst().get();
+//
+//            var volunteers = championshipService.findAllByRole("Volunteer", AuthManager.Current.getUser().getChampionship(), selectedDiscipline);
+//
+//            volunteers.forEach(item -> volunteerTableView.getItems()
+//                    .add(new Voluunter( item.getId(),
+//                            String.format("%s %s", item.getFirstName(), item.getLastName()),
+//                            item.isMale() ? "МУЖ" : "ЖЕН",
+//                            item.getRegion().getName(),
+//                            item.getDiscipline().getName())));
+            loadRequest.restart();
         });
     }
 

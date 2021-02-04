@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -40,6 +41,7 @@
                      <TableColumn fx:id="regionColumn" prefWidth="155.0" text="Регион" />
                  </columns>
                </TableView>
+               <ProgressIndicator fx:id="spinner" layoutX="192.0" layoutY="48.0" progress="0.0" />
             </children>
          </AnchorPane>
          <AnchorPane layoutX="506.0" layoutY="89.0" prefHeight="407.0" prefWidth="383.0" style="-fx-background-color: #D3D3D3#D3D3D3;">
@@ -64,14 +66,15 @@
                      <TableColumn fx:id="secondRegionColumn" prefWidth="132.0" text="Регион" />
                  </columns>
                </TableView>
+               <ProgressIndicator fx:id="secondSpinner" layoutX="194.0" layoutY="54.0" progress="0.0" />
             </children>
          </AnchorPane>
-         <Button layoutX="408.0" fx:id="toRightButton" layoutY="213.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="82.0" text="-&gt;">
+         <Button fx:id="toRightButton" layoutX="408.0" layoutY="213.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="82.0" text="-&gt;">
             <font>
                <Font size="18.0" />
             </font>
          </Button>
-         <Button layoutX="408.0" fx:id="toLeftButton" layoutY="292.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="82.0" text="&lt;-">
+         <Button fx:id="toLeftButton" layoutX="408.0" layoutY="292.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="82.0" text="&lt;-">
             <font>
                <Font size="18.0" />
             </font>

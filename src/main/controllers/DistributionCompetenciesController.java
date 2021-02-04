@@ -1,5 +1,6 @@
 package main.controllers;
 
+import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -17,7 +18,6 @@ import tableModels.VoluunterCompetence;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.*;
 
 
 public class DistributionCompetenciesController {
@@ -78,6 +78,11 @@ public class DistributionCompetenciesController {
     @FXML
     private Button toRightButton;
 
+    @FXML
+    private ProgressIndicator spinner;
+    @FXML
+    private ProgressIndicator secondSpinner;
+
 
     void fillComboBox(ComboBox<String> comboBox, List<Discipline> disciplines) {
         disciplines.add(new Discipline("Нераспределенные", null, null, null));
@@ -98,9 +103,86 @@ public class DistributionCompetenciesController {
         }
     }
 
+    DisciplineService disciplineService = new DisciplineService<>(DBDisciplineDAO::new);
+    ChampionshipService<DBChampionshipDAO> service = new ChampionshipService<DBChampionshipDAO>(DBChampionshipDAO::new);
 
+    List<Discipline> allDisciplines = disciplineService.findAll();
+
+    public class ChampionshipCompetenciesExample extends Service<List<User>> {
+        @Override
+        protected Task<List<User>> createTask() {
+            return new Task<List<User>>() {
+                @Override
+                protected List<User> call() throws Exception {
+                    Discipline currentDiscipline = null;
+                    var selected = competenciesComboBox.getValue();
+                    if(!selected.equals("Нераспределенные")){
+                        currentDiscipline = disciplineService.findByName(competenciesComboBox.getValue());
+                    }
+
+                    var currentUser = AuthManager.Current.getUser();
+                    var volunteers = service.findAllByRole("Volunteer",
+                            currentUser.getChampionship());
+
+                    var result = new LinkedList<User>();
+
+                    for(var volunteer : volunteers){
+                        if(currentDiscipline != null && volunteer.getDiscipline() != null){
+                            if(volunteer.getDiscipline().getId() == currentDiscipline.getId()){
+                                result.add(volunteer);
+                            }
+                        }
+                        else if(volunteer.getDiscipline() == currentDiscipline){
+                            result.add(volunteer);
+                        }
+                    }
+                    return result;
+                }
+            };
+        }
+    }
+
+    public class SecondChampionshipCompetenciesExample extends Service<List<User>> {
+        @Override
+        protected Task<List<User>> createTask() {
+            return new Task<List<User>>() {
+                @Override
+                protected List<User> call() throws Exception {
+                    Discipline currentDiscipline = null;
+                    var selected = secondCompetenciesComboBox.getValue();
+                    if(!selected.equals("Нераспределенные")){
+                        currentDiscipline = disciplineService.findByName(secondCompetenciesComboBox.getValue());
+                    }
+
+                    var currentUser = AuthManager.Current.getUser();
+                    var volunteers = service.findAllByRole("Volunteer",
+                            currentUser.getChampionship());
+
+                    var result = new LinkedList<User>();
+
+                    for(var volunteer : volunteers){
+                        if(currentDiscipline != null  && volunteer.getDiscipline() != null){
+                            if(volunteer.getDiscipline().getId() == currentDiscipline.getId()){
+                                result.add(volunteer);
+                            }
+                        }
+                        else if(volunteer.getDiscipline() == currentDiscipline){
+                            result.add(volunteer);
+                        }
+                    }
+                    return result;
+                }
+            };
+        }
+    }
+
+    ChampionshipCompetenciesExample loadRequest;
+    SecondChampionshipCompetenciesExample secondLoadRequest;
     @FXML
     public void initialize() {
+        spinner.setVisible(false);
+        secondSpinner.setVisible(false);
+
         checkColumn.setCellValueFactory(new PropertyValueFactory<VoluunterCompetence, CheckBox>("check"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<VoluunterCompetence, String>("name"));
         ageColumn.setCellValueFactory(new PropertyValueFactory<VoluunterCompetence, String>("age"));
@@ -114,42 +196,46 @@ public class DistributionCompetenciesController {
         secondCheckColumn.setCellValueFactory(new PropertyValueFactory<VoluunterCompetence, CheckBox>("check"));
 
 
-        var disciplineService = new DisciplineService<>(DBDisciplineDAO::new);
-        var service = new ChampionshipService<DBChampionshipDAO>(DBChampionshipDAO::new);
 
-        var allDisciplines = disciplineService.findAll();
 
         fillComboBox(competenciesComboBox, allDisciplines);
         fillComboBox(secondCompetenciesComboBox, allDisciplines);
 
         searchButton.setOnAction(actionEvent -> {
-
+            spinner.setVisible(true);
             voluunterTable.getItems().clear();
 
-            Discipline currentDiscipline = null;
-            var selected = competenciesComboBox.getValue();
-            if(!selected.equals("Нераспределенные")){
-                currentDiscipline = disciplineService.findByName(competenciesComboBox.getValue());
-            }
+//            Discipline currentDiscipline = null;
+//            var selected = competenciesComboBox.getValue();
+//            if(!selected.equals("Нераспределенные")){
+//                currentDiscipline = disciplineService.findByName(competenciesComboBox.getValue());
+//            }
+//
+//            var currentUser = AuthManager.Current.getUser();
+//            var volunteers = service.findAllByRole("Volunteer",
+//                    currentUser.getChampionship());
+//
+//            var result = new LinkedList<User>();
+//
+//            for(var volunteer : volunteers){
+//                if(currentDiscipline != null && volunteer.getDiscipline() != null){
+//                    if(volunteer.getDiscipline().getId() == currentDiscipline.getId()){
+//                        result.add(volunteer);
+//                    }
+//                }
+//                else if(volunteer.getDiscipline() == currentDiscipline){
+//                    result.add(volunteer);
+//                }
+//            }
 
-            var currentUser = AuthManager.Current.getUser();
-            var volunteers = service.findAllByRole("Volunteer",
-                    currentUser.getChampionship());
+            loadRequest = new ChampionshipCompetenciesExample();
+            spinner.progressProperty().unbind();
+            spinner.progressProperty().bind(loadRequest.progressProperty());
+            loadRequest.setOnSucceeded(e -> {
+                spinner.setVisible(false);
+                fillTable(voluunterTable , loadRequest.getValue());
+            });
 
-            var result = new LinkedList<User>();
-
-            for(var volunteer : volunteers){
-                if(currentDiscipline != null && volunteer.getDiscipline() != null){
-                    if(volunteer.getDiscipline().getId() == currentDiscipline.getId()){
-                        result.add(volunteer);
-                    }
-                }
-                else if(volunteer.getDiscipline() == currentDiscipline){
-                    result.add(volunteer);
-                }
-            }
-
-            fillTable(voluunterTable , result);
 
 
 //            for(var voluunter : volunteers) {
@@ -157,36 +243,46 @@ public class DistributionCompetenciesController {
 //                voluunterTable.getItems().add(new VoluunterCompetence(
 //                        voluunter.getFirstName(), voluunter.getBirthdayDate().toString(), sex, voluunter.getRegion().getName()));
 //            }
+            loadRequest.restart();
         });
 
         secondSearchButton.setOnAction(actionEvent -> {
 
             secondVoluunterTable.getItems().clear();
+            secondLoadRequest = new SecondChampionshipCompetenciesExample();
+            secondSpinner.setVisible(true);
+            secondSpinner.progressProperty().unbind();
+            secondSpinner.progressProperty().bind(secondLoadRequest.progressProperty());
 
-            Discipline currentDiscipline = null;
-            var selected = secondCompetenciesComboBox.getValue();
-            if(!selected.equals("Нераспределенные")){
-                currentDiscipline = disciplineService.findByName(secondCompetenciesComboBox.getValue());
-            }
+//            Discipline currentDiscipline = null;
+//            var selected = secondCompetenciesComboBox.getValue();
+//            if(!selected.equals("Нераспределенные")){
+//                currentDiscipline = disciplineService.findByName(secondCompetenciesComboBox.getValue());
+//            }
+//
+//            var currentUser = AuthManager.Current.getUser();
+//            var volunteers = service.findAllByRole("Volunteer",
+//                    currentUser.getChampionship());
+//
+//            var result = new LinkedList<User>();
+//
+//            for(var volunteer : volunteers){
+//                if(currentDiscipline != null  && volunteer.getDiscipline() != null){
+//                    if(volunteer.getDiscipline().getId() == currentDiscipline.getId()){
+//                        result.add(volunteer);
+//                    }
+//                }
+//                else if(volunteer.getDiscipline() == currentDiscipline){
+//                    result.add(volunteer);
+//                }
+//            }
 
-            var currentUser = AuthManager.Current.getUser();
-            var volunteers = service.findAllByRole("Volunteer",
-                    currentUser.getChampionship());
+            secondLoadRequest.setOnSucceeded(e -> {
+                secondSpinner.setVisible(false);
+                fillTable(secondVoluunterTable , secondLoadRequest.getValue());
+            });
 
-            var result = new LinkedList<User>();
-
-            for(var volunteer : volunteers){
-                if(currentDiscipline != null  && volunteer.getDiscipline() != null){
-                    if(volunteer.getDiscipline().getId() == currentDiscipline.getId()){
-                        result.add(volunteer);
-                    }
-                }
-                else if(volunteer.getDiscipline() == currentDiscipline){
-                    result.add(volunteer);
-                }
-            }
-
-            fillTable(secondVoluunterTable , result);
+            secondLoadRequest.restart();
         });
 
         toLeftButton.setOnMouseClicked(e -> {
