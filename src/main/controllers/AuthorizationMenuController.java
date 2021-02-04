@@ -22,15 +22,15 @@ import javafx.stage.Stage;
 import main.AuthHelper;
 import main.AuthManager;
 import main.misc.UserData;
+import org.infinispan.util.KeyValuePair;
+import org.jgroups.protocols.AUTH;
 
 import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -64,6 +64,12 @@ public class AuthorizationMenuController {
 
     private final List<String> errors = new LinkedList<>();
 
+
+    // хранит логины и пароли для тестовых пользователей
+    // по ключу получается данные в формате: key - логин, value - пароль.
+    private final Dictionary<String, KeyValuePair<String, String>> userAuthData = new Hashtable<>();
+
+
     private static int loginAttempt;
 
     Executor exec = Executors.newCachedThreadPool(runnable -> {
@@ -73,6 +79,11 @@ public class AuthorizationMenuController {
     });
 
     public void initialize() {
+
+        userAuthData.put("Competitor", new KeyValuePair<>("2012R2100000001C", "ppU$ktDw"));
+        userAuthData.put("Coordinator", new KeyValuePair<>("1983null00001373O", "BG4SaT!$"));
+        userAuthData.put("Volunteer", new KeyValuePair<>("1986null00001372V", " VGus69MK"));
+
         loginAttempt = 0;
         HeaderController.viewPath = "/Views/main.fxml";
         setCaptcha();
@@ -239,19 +250,37 @@ public class AuthorizationMenuController {
 
         var participantButton = createRoleButton("Участник");
         participantButton.setOnMouseClicked(event -> {
-            stackPane.getChildren().remove(bp);
+            var userData = userAuthData.get("Competitor");
+            AuthManager.Current.authorize(userData.getKey(), userData.getValue());
+
+            moveToScene("/Views/CompetitorMenu.fxml");
+
+            // stackPane.getChildren().remove(bp);
         });
         var adminButton = createRoleButton("Администратор");
         adminButton.setOnMouseClicked(event -> {
-            stackPane.getChildren().remove(bp);
+            var userData = userAuthData.get("Competitor");
+            AuthManager.Current.authorize(userData.getKey(), userData.getValue());
+
+            moveToScene("/Views/CompetitorMenu.fxml");
+
+            ///stackPane.getChildren().remove(bp);
         });
-        var vltButton = createRoleButton("Волонтер");
+        var vltButton = createRoleButton("Эксперт");
         vltButton.setOnMouseClicked(event -> {
-            stackPane.getChildren().remove(bp);
+            var userData = userAuthData.get("Competitor");
+            AuthManager.Current.authorize(userData.getKey(), userData.getValue());
+
+            moveToScene("/Views/CompetitorMenu.fxml");
+     //       stackPane.getChildren().remove(bp);
         });
         var crdButton = createRoleButton("Координатор");
         crdButton.setOnMouseClicked(event -> {
-            stackPane.getChildren().remove(bp);
+            var userData = userAuthData.get("Coordinator");
+            AuthManager.Current.authorize(userData.getKey(), userData.getValue());
+
+            moveToScene("/Views/CoordinatorMenu.fxml");
+         //   stackPane.getChildren().remove(bp);
         });
 
         Label warningLabel = new Label("Только для тестирования");

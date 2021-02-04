@@ -9,9 +9,24 @@ public class VoluunterCompetence {
     private String age;
     private String region;
 
-    public VoluunterCompetence(String name, String sex, String age, String region) {
+    private int id;
+
+    public void setCheck ( CheckBox check ) {
+        this.check = check;
+    }
+
+    public int getId ( ) {
+        return id;
+    }
+
+    public void setId ( int id ) {
+        this.id = id;
+    }
+
+    public VoluunterCompetence( String name, String sex, String age, String region, int userId) {
         check = new CheckBox();
         this.name = name;
+        this.id = userId;
         this.sex = sex;
         this.age = age;
         this.region = region;
