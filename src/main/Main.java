@@ -53,6 +53,7 @@ public class Main extends Application {
             }
         }
 
+        assert root != null;
         Scene primaryScene = new Scene(root, 920, 640);
         primaryScene.getStylesheets().add(getClass().getResource("/stylesheets/style.css").toExternalForm());
         primaryStage.setTitle("WSR 2017");
