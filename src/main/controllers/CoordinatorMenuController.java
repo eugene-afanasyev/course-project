@@ -19,7 +19,6 @@ public class CoordinatorMenuController {
             Stage stage = (Stage) welcomeTextLabel.getScene().getWindow();
             scene.getStylesheets().add(getClass().getResource("/stylesheets/style.css").toExternalForm());
             stage.setScene(scene);
-            stage.setResizable(false);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -30,8 +29,10 @@ public class CoordinatorMenuController {
     }
 
     public void toManageSponsors(MouseEvent event) {
+        moveToScene("/Views/InProgress.fxml");
     }
 
     public void toMyResults(MouseEvent event) {
+        moveToScene("/Views/InProgress.fxml");
     }
 }

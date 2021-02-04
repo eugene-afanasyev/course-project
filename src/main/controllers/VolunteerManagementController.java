@@ -80,6 +80,7 @@ public class VolunteerManagementController {
     ChampionshipCompetenciesExample loadRequest;
     @FXML
     void initialize(){
+        SignedUserHeaderController.viewPath = "/Views/CoordinatorMenu.fxml";
         loadingLabel.setVisible(false);
         spinner.setVisible(false);
 
