@@ -180,6 +180,7 @@ public class DistributionCompetenciesController {
     SecondChampionshipCompetenciesExample secondLoadRequest;
     @FXML
     public void initialize() {
+        SignedUserHeaderController.viewPath = "volunteerManagement.fxml";
         spinner.setVisible(false);
         secondSpinner.setVisible(false);
 

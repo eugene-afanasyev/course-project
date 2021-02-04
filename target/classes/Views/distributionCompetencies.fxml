@@ -14,14 +14,14 @@
     <fx:include source="header.fxml" />
       <AnchorPane fx:id="content" prefHeight="584.0" prefWidth="920.0">
           <children>
-              <Label layoutX="277.0" layoutY="25.0" prefHeight="57.0" prefWidth="405.0" text="Распределение волонтеров">
+              <Label layoutX="277.0" layoutY="25.0" wrapText="true" text="Распределение волонтеров">
                   <font>
                       <Font name="SansSerif Regular" size="30.0" />
                   </font>
               </Label>
          <AnchorPane layoutX="14.0" layoutY="89.0" prefHeight="407.0" prefWidth="383.0" style="-fx-background-color: #D3D3D3#D3D3D3;">
             <children>
-               <Label layoutX="14.0" layoutY="14.0" prefHeight="35.0" prefWidth="131.0" text="Компетенция:">
+               <Label layoutX="14.0" layoutY="14.0" wrapText="true" text="Компетенция:">
                   <font>
                      <Font size="18.0" />
                   </font>
@@ -46,7 +46,7 @@
          </AnchorPane>
          <AnchorPane layoutX="506.0" layoutY="89.0" prefHeight="407.0" prefWidth="383.0" style="-fx-background-color: #D3D3D3#D3D3D3;">
             <children>
-               <Label layoutX="14.0" layoutY="14.0" prefHeight="35.0" prefWidth="131.0" text="Компетенция:">
+               <Label layoutX="14.0" layoutY="14.0" wrapText="true" text="Компетенция:">
                   <font>
                      <Font size="18.0" />
                   </font>
