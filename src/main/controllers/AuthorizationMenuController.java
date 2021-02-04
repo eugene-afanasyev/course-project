@@ -187,7 +187,7 @@ public class AuthorizationMenuController {
                                     .setPrettyPrinting()
                                     .create();
                             JsonObject jsonObject = new JsonObject();
-                            jsonObject.addProperty("remembered", true);
+                            jsonObject.addProperty("remembered", false);
 
                             try {
                                 BufferedWriter writer = new BufferedWriter(new FileWriter("user-data.json"));
