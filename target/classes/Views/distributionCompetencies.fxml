@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 
 <VBox prefHeight="640.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.DistributionCompetenciesController">
-    <fx:include source="header.fxml" />
+    <fx:include source="signedUserHeader.fxml" />
       <AnchorPane fx:id="content" prefHeight="584.0" prefWidth="920.0">
           <children>
               <Label layoutX="277.0" layoutY="25.0" wrapText="true" text="Распределение волонтеров">

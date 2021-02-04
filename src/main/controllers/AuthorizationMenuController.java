@@ -250,37 +250,37 @@ public class AuthorizationMenuController {
 
         var participantButton = createRoleButton("Участник");
         participantButton.setOnMouseClicked(event -> {
-            var userData = userAuthData.get("Competitor");
-            AuthManager.Current.authorize(userData.getKey(), userData.getValue());
+//            var userData = userAuthData.get("Competitor");
+//            AuthManager.Current.authorize(userData.getKey(), userData.getValue());
+//
+//            moveToScene("/Views/CompetitorMenu.fxml");
 
-            moveToScene("/Views/CompetitorMenu.fxml");
-
-            // stackPane.getChildren().remove(bp);
+             stackPane.getChildren().remove(bp);
         });
         var adminButton = createRoleButton("Администратор");
         adminButton.setOnMouseClicked(event -> {
-            var userData = userAuthData.get("Competitor");
-            AuthManager.Current.authorize(userData.getKey(), userData.getValue());
-
-            moveToScene("/Views/CompetitorMenu.fxml");
+//            var userData = userAuthData.get("Competitor");
+//            AuthManager.Current.authorize(userData.getKey(), userData.getValue());
+//
+//            moveToScene("/Views/CompetitorMenu.fxml");
 
             ///stackPane.getChildren().remove(bp);
         });
         var vltButton = createRoleButton("Эксперт");
         vltButton.setOnMouseClicked(event -> {
-            var userData = userAuthData.get("Competitor");
-            AuthManager.Current.authorize(userData.getKey(), userData.getValue());
+//            var userData = userAuthData.get("Competitor");
+//            AuthManager.Current.authorize(userData.getKey(), userData.getValue());
 
-            moveToScene("/Views/CompetitorMenu.fxml");
-     //       stackPane.getChildren().remove(bp);
+//            moveToScene("/Views/CompetitorMenu.fxml");
+            stackPane.getChildren().remove(bp);
         });
         var crdButton = createRoleButton("Координатор");
         crdButton.setOnMouseClicked(event -> {
-            var userData = userAuthData.get("Coordinator");
-            AuthManager.Current.authorize(userData.getKey(), userData.getValue());
-
-            moveToScene("/Views/CoordinatorMenu.fxml");
-         //   stackPane.getChildren().remove(bp);
+//            var userData = userAuthData.get("Coordinator");
+//            AuthManager.Current.authorize(userData.getKey(), userData.getValue());
+//
+//            moveToScene("/Views/CoordinatorMenu.fxml");
+            stackPane.getChildren().remove(bp);
         });
 
         Label warningLabel = new Label("Только для тестирования");

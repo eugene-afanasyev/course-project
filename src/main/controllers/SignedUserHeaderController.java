@@ -1,5 +1,8 @@
 package main.controllers;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +13,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import main.AuthManager;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class SignedUserHeaderController {
@@ -45,6 +50,20 @@ public class SignedUserHeaderController {
             stage.setScene(scene);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .create();
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("remembered", false);
+
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter("user-data.json"));
+            writer.write(gson.toJson(jsonObject));
+            writer.close();
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
         }
     }
 }

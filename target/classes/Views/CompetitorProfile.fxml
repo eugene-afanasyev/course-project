@@ -139,6 +139,7 @@
                </PasswordField>
                <Label fx:id="repeatPasswordErrorLabel"
                       style="-fx-text-fill: red;"/>
+               <CheckBox fx:id="passVisibleCB" mnemonicParsing="false" text="Видимый пароль" />
                <HBox spacing="10">
                    <Button fx:id="passwordSaveButton" mnemonicParsing="false" text="Save">
                        <font>

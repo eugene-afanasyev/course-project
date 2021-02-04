@@ -49,8 +49,19 @@ public class Main extends Application {
         primaryStage.setScene(primaryScene);
         primaryStage.show();
 
-        //Логин: 2012R2100000001C
-        //Пароль: ppU$ktDw
+        /*
+        Участник
+        Логин: 2012R2100000001C
+        Пароль:ppU$ktDw
+
+                Волонтер
+        Логин: 1986null00001372V
+        Пароль: VGus69MK
+
+                Координатор
+        Логин: 1983null00001373O
+        Пароль: BG4SaT!$
+        */
     }
 
     public static void main(String[] args) {
