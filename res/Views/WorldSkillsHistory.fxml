@@ -27,10 +27,6 @@
             <ScrollPane minHeight="420" vbarPolicy="ALWAYS" hbarPolicy="NEVER">
                 <VBox alignment="TOP_CENTER" minWidth="400" prefWidth="400" minHeight="300"
                       style="-fx-border-width: 3; -fx-border-color: black;">
-                    <ImageView fx:id="logoImage" fitHeight="250" pickOnBounds="true"
-                               preserveRatio="true">
-                        <Image url="@/logo.png"/>
-                    </ImageView>
                     <ImageView fx:id="AbidalImage" fitHeight="250" pickOnBounds="true"
                                preserveRatio="true">
                         <Image url="@/Albert_Vidal.jpg"/>

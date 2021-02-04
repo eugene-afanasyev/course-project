@@ -75,7 +75,7 @@ public class VolunteerLoadingController {
     private int newCount = 0;
     @FXML
     public void initialize(){
-
+        SignedUserHeaderController.viewPath = "/Views/volunteerManagement.fxml";
 
         fileOpenButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override

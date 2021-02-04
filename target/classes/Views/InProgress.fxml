@@ -11,7 +11,7 @@
             fx:controller="main.controllers.InProgressController"
             minWidth="920" minHeight="640">
     <fx:include source="signedUserHeader.fxml"/>
-    <VBox alignment="CENTER">
+    <VBox alignment="CENTER" VBox.vgrow="ALWAYS">
         <Label text="В разработке..." style="-fx-font-size: 50; -fx-wrap-text: true; -fx-text-fill: #ffb740; -fx-font-weight: bold"/>
     </VBox>
 </VBox>
