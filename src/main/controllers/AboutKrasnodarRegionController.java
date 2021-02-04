@@ -3,17 +3,25 @@ package main.controllers;
 import com.mchange.io.FileUtils;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import main.parsers.XLSXParser;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -114,5 +122,48 @@ public class AboutKrasnodarRegionController {
         thirdHotelImage.setImage(new Image(new FileInputStream("res/tourism/1200px-Sunset_Black_sea.jpg")));
 
         HeaderController.viewPath = "/Views/main.fxml";
+    }
+
+    public void onMouseImageClicked(MouseEvent event) {
+        ImageView src = (ImageView) event.getSource();
+        Image img = src.getImage();
+        ImageView dst = new ImageView(img);
+        dst.setPreserveRatio(true);
+        dst.setFitHeight(img.getHeight());
+
+        Label l = new Label("Нажмите в любом месте, чтобы скрыть изображение");
+        l.setStyle("-fx-wrap-text: true; -fx-font-size: 32; -fx-text-fill: white; -fx-font-family: SansSerif");
+
+        Label l1 = new Label("Используйте тачпад или колесико мыши, чтобы приблизить или отдалить изображение");
+        l1.setStyle("-fx-wrap-text: true; -fx-font-size: 24; -fx-text-fill: white; -fx-font-family: SansSerif");
+
+        VBox rootNode = new VBox();
+        rootNode.getChildren().addAll(l, l1, dst);
+        rootNode.setAlignment(Pos.CENTER);
+        rootNode.setStyle("-fx-background-color: rgba(0,0,0,0.7); -fx-spacing: 40");
+
+
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
+        Scene scene = new Scene(rootNode);
+        scene.setFill(Color.TRANSPARENT);
+
+        Stage stage = new Stage();
+        stage.setWidth(screenSize.width);
+        stage.setHeight(screenSize.height);
+        stage.setScene(scene);
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.show();
+
+        dst.setOnMouseClicked((event1 -> {
+            stage.close();
+        }));
+        dst.setOnScroll(scrollEvent -> {
+            dst.setFitHeight(dst.getFitHeight() + scrollEvent.getDeltaY() / 3.0);
+        });
+
+        rootNode.setOnMouseClicked(event1 -> {
+            stage.close();
+        });
     }
 }
