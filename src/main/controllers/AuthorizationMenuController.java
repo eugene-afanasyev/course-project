@@ -1,6 +1,7 @@
 package main.controllers;
 
 import com.github.cage.YCage;
+import com.google.gson.*;
 import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
@@ -20,8 +21,12 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import main.AuthHelper;
 import main.AuthManager;
+import main.misc.UserData;
 
 import java.awt.image.BufferedImage;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -156,6 +161,41 @@ public class AuthorizationMenuController {
                                 break;
                             default:
                                 break;
+                        }
+
+                        if (rememberMeChBox.isSelected()) {
+                            Gson gson = new GsonBuilder()
+                                    .setPrettyPrinting()
+                                    .create();
+
+                            UserData userData = new UserData(idNumberField.getText(), passwordField.getText());
+                            JsonObject jsonObject = new JsonObject();
+                            jsonObject.addProperty("remembered", true);
+                            JsonObject userJson = (JsonObject) JsonParser.parseString(gson.toJson(userData));
+                            jsonObject.add("user", userJson);
+
+                            try {
+                                BufferedWriter writer = new BufferedWriter(new FileWriter("user-data.json"));
+                                writer.write(gson.toJson(jsonObject));
+                                writer.close();
+                            } catch (IOException ioException) {
+                                ioException.printStackTrace();
+                            }
+
+                        } else {
+                            Gson gson = new GsonBuilder()
+                                    .setPrettyPrinting()
+                                    .create();
+                            JsonObject jsonObject = new JsonObject();
+                            jsonObject.addProperty("remembered", true);
+
+                            try {
+                                BufferedWriter writer = new BufferedWriter(new FileWriter("user-data.json"));
+                                writer.write(gson.toJson(jsonObject));
+                                writer.close();
+                            } catch (IOException ioException) {
+                                ioException.printStackTrace();
+                            }
                         }
                     }
                 });
