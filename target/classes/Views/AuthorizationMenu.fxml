@@ -50,7 +50,7 @@
                             <TextField fx:id="captchaInputField" minWidth="100" promptText="Inter captcha" />
                         </VBox>
                     </HBox>
-                <Label fx:id="captchaErrorLabel" prefHeight="17.0" prefWidth="251.0" style="-fx-text-fill: red;" />
+                <Label fx:id="captchaErrorLabel" wrapText="true" style="-fx-text-fill: red; -fx-font-size: 20;" />
                 </VBox>
                 <HBox alignment="TOP_CENTER" spacing="5" style="-fx-font-size: 16">
                     <Button fx:id="loginButton" text="Login" />

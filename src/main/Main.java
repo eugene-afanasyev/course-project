@@ -6,25 +6,14 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mchange.io.FileUtils;
 import javafx.application.Application;
-import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import main.initializers.FromXLSInitializer;
-import main.initializers.Initializer;
-import main.dao.*;
 import main.misc.UserData;
-import main.models.Championship;
-import main.models.Discipline;
-import main.models.User;
-import main.services.*;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
 
 public class Main extends Application {
 
