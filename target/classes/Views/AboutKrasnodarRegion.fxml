@@ -45,21 +45,30 @@
                                 <VBox minHeight="500.0" minWidth="900.0" spacing="30">
                                     <HBox spacing="12" alignment="CENTER_LEFT">
                                         <Label wrapText="true" text="Food:" style="-fx-font-size: 26; -fx-font-weight: bold"/>
-                                        <ImageView fx:id="firstFoodImage" fitHeight="200.0"  pickOnBounds="true" preserveRatio="true"/>
-                                        <ImageView fx:id="secondFoodImage" fitHeight="200.0" pickOnBounds="true" preserveRatio="true"/>
-                                        <ImageView fx:id="thirdFoodImage" fitHeight="200.0"  pickOnBounds="true" preserveRatio="true"/>
+                                        <ImageView fx:id="firstFoodImage" fitHeight="200.0"  pickOnBounds="true" preserveRatio="true"
+                                        onMouseClicked="#onMouseImageClicked"/>
+                                        <ImageView fx:id="secondFoodImage" fitHeight="200.0" pickOnBounds="true" preserveRatio="true"
+                                        onMouseClicked="#onMouseImageClicked"/>
+                                        <ImageView fx:id="thirdFoodImage" fitHeight="200.0"  pickOnBounds="true" preserveRatio="true"
+                                        onMouseClicked="#onMouseImageClicked"/>
                                     </HBox>
                                     <HBox spacing="12" alignment="CENTER_LEFT">
                                         <Label wrapText="true" text="Travel:" style="-fx-font-size: 26; -fx-font-weight: bold"/>
-                                        <ImageView fx:id="firstTravelImage" fitHeight="200.0" pickOnBounds="true" preserveRatio="true"/>
-                                        <ImageView fx:id="secondTravelImage" fitHeight="200.0" pickOnBounds="true" preserveRatio="true"/>
-                                        <ImageView fx:id="thirdTravelImage" fitHeight="200.0" pickOnBounds="true" preserveRatio="true"/>
+                                        <ImageView fx:id="firstTravelImage" fitHeight="200.0" pickOnBounds="true" preserveRatio="true"
+                                        onMouseClicked="#onMouseImageClicked"/>
+                                        <ImageView fx:id="secondTravelImage" fitHeight="200.0" pickOnBounds="true" preserveRatio="true"
+                                        onMouseClicked="#onMouseImageClicked"/>
+                                        <ImageView fx:id="thirdTravelImage" fitHeight="200.0" pickOnBounds="true" preserveRatio="true"
+                                        onMouseClicked="#onMouseImageClicked"/>
                                     </HBox>
                                     <HBox spacing="12" alignment="CENTER_LEFT">
                                         <Label wrapText="true" text="Hotel:" style="-fx-font-size: 26; -fx-font-weight: bold"/>
-                                        <ImageView fx:id="firstHotelImage" fitHeight="200.0"  pickOnBounds="true" preserveRatio="true"/>
-                                        <ImageView fx:id="secondHotelImage" fitHeight="200.0" pickOnBounds="true" preserveRatio="true"/>
-                                        <ImageView fx:id="thirdHotelImage" fitHeight="200.0" pickOnBounds="true" preserveRatio="true"/>
+                                        <ImageView fx:id="firstHotelImage" fitHeight="200.0"  pickOnBounds="true" preserveRatio="true"
+                                        onMouseClicked="#onMouseImageClicked"/>
+                                        <ImageView fx:id="secondHotelImage" fitHeight="200.0" pickOnBounds="true" preserveRatio="true"
+                                        onMouseClicked="#onMouseImageClicked"/>
+                                        <ImageView fx:id="thirdHotelImage" fitHeight="200.0" pickOnBounds="true" preserveRatio="true"
+                                        onMouseClicked="#onMouseImageClicked"/>
                                     </HBox>
                                 </VBox>
                             </content>
