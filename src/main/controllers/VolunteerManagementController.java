@@ -8,9 +8,14 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import main.AuthManager;
+import main.dao.DBChampionshipDAO;
 import main.dao.DBDisciplineDAO;
+import main.dao.DBUserDAO;
 import main.models.Voluunter;
+import main.services.ChampionshipService;
 import main.services.DisciplineService;
+import main.services.UserService;
 
 import java.io.IOException;
 
@@ -44,6 +49,12 @@ public class VolunteerManagementController {
 
     @FXML
     private Label sort;
+
+
+    private final DisciplineService<DBDisciplineDAO> disciplineService = new DisciplineService<>(DBDisciplineDAO::new);
+    private final UserService<DBUserDAO> userService = new UserService<DBUserDAO>(DBUserDAO::new);
+    private final ChampionshipService<DBChampionshipDAO> championshipService = new ChampionshipService<>(DBChampionshipDAO::new);
+
     @FXML
     void initialize(){
         var disciplineService = new DisciplineService<>(DBDisciplineDAO::new);
@@ -54,7 +65,7 @@ public class VolunteerManagementController {
         }
         competenciesComboBox.setValue(allDisciplines.get(0).getRuName());
 
-        
+
 
         idColumn.setCellValueFactory(new PropertyValueFactory<Voluunter, Integer>("id"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<Voluunter, String>("name"));
@@ -64,7 +75,21 @@ public class VolunteerManagementController {
 
 
         searchButton.setOnAction(actionEvent -> {
+            volunteerTableView.getItems().clear();
 
+            var disciplineName = competenciesComboBox.getValue();
+
+            var selectedDiscipline = disciplineService.findAll()
+                    .stream().filter(item -> item.getRuName().equals(disciplineName)).findFirst().get();
+
+            var volunteers = championshipService.findAllByRole("Volunteer", AuthManager.Current.getUser().getChampionship(), selectedDiscipline);
+
+            volunteers.forEach(item -> volunteerTableView.getItems()
+                    .add(new Voluunter( item.getId(),
+                                        String.format("%s %s", item.getFirstName(), item.getLastName()),
+                                        item.isMale() ? "МУЖ" : "ЖЕН",
+                                        item.getRegion().getName(),
+                                        item.getDiscipline().getName())));
         });
     }
 
