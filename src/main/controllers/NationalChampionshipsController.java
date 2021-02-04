@@ -13,7 +13,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import main.dao.DBChampionshipDAO;
@@ -176,6 +175,13 @@ public class NationalChampionshipsController {
         yearColumn.setCellValueFactory(new PropertyValueFactory<Champ, String>("year"));
         fieldColumn.setCellValueFactory(new PropertyValueFactory<Champ, String>("field"));
         countParticipantColumn.setCellValueFactory(new PropertyValueFactory<Champ, Integer>("countParticipant"));
+        countParticipantColumn.prefWidthProperty().bind(
+                championshipsTable.widthProperty()
+                        .subtract(numberColumn.widthProperty())
+                        .subtract(yearColumn.widthProperty())
+                        .subtract(fieldColumn.widthProperty())
+                        .subtract(2)
+        );
 
         //exec.execute(championshipsRequest);
 

@@ -110,7 +110,7 @@
                 </children>
             </GridPane>
            <VBox VBox.vgrow="ALWAYS" spacing="5" minWidth="200">
-               <ImageView fx:id="userImage" fitHeight="250.0"  pickOnBounds="true" preserveRatio="true"/>
+               <ImageView fx:id="userImage" fitHeight="230.0"  pickOnBounds="true" preserveRatio="true"/>
                <CheckBox fx:id="changePasswordCheckBox" mnemonicParsing="false" text="смена пароля">
                    <font>
                        <Font size="18.0"/>
@@ -145,7 +145,7 @@
                            <Font size="18.0"/>
                        </font>
                    </Button>
-                   <Button fx:id="canselButton" mnemonicParsing="false" text="Cansel">
+                   <Button fx:id="canselButton" mnemonicParsing="false" text="Cancel">
                        <font>
                            <Font size="18.0"/>
                        </font>
