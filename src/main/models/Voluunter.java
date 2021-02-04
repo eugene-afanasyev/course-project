@@ -7,7 +7,26 @@ public class Voluunter {
     private String region;
     private String competence;
 
-    public void setId(Integer id) {
+    public String getRegion ( ) {
+        return region;
+    }
+
+    public Voluunter ( String name , String sex , String region , String competence ) {
+        this.name       = name;
+        this.sex        = sex;
+        this.region     = region;
+        this.competence = competence;
+    }
+
+    public Voluunter ( Integer id , String name , String sex , String region , String competence ) {
+        this.id         = id;
+        this.name       = name;
+        this.sex        = sex;
+        this.region     = region;
+        this.competence = competence;
+    }
+
+    public void setId( Integer id) {
         this.id = id;
     }
 
